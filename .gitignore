@@ -1,0 +1,5 @@
+*.sqltite
+*.db
+*.sqltite3
+env/
+.vscode/
