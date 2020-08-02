@@ -42,18 +42,22 @@ class CategorySerializer(serializers.Serializer) :
         raise Exception('You Forgot to make Update method for Category Serializer')
 
 class CommentSerializer(serializers.ModelSerializer) :
-    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    author = serializers.PrimaryKeyRelatedField(read_only=True)
     article = serializers.PrimaryKeyRelatedField(read_only=True)
     
     class Meta :
         model = Comment
-        fields = ['id', 'user', 'article', 'content']
+        fields = ['id', 'author', 'article', 'content']
 
-    def create(self) :
-        raise Exception('You Forgot to make Create method for Comments Serializer')
+    def create(self, validated_data) :
+        comment = Comment(**validated_data)
+        comment.save()
+        return comment
 
-    def update(self) :
-        raise Exception('You Forgot to make Update method for Comments Serializer')
+    def update(self, instance, validated_data) :
+        instance.content = validated_data.get('content', instance.content)
+        instance.save()
+        return instance
 
 class ArticleSerializer(serializers.Serializer) :
     id = serializers.UUIDField()
@@ -72,8 +76,8 @@ class ArticleSerializer(serializers.Serializer) :
 
     def update(self, instance, validated_data) :
         categories_id = validated_data.pop('categories', [])
-        instance.title = validated_data.get(title, instance.title)
-        instance.content = validated_data.get(title, instance.content)
+        instance.title = validated_data.get('title', instance.title)
+        instance.content = validated_data.get('content', instance.content)
         instance.categories = Category.objects.filter(id__in=categories_id)
         instance.save()
         return instance

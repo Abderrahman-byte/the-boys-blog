@@ -1,7 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
-from django.http import HttpResponseNotFound
+from rest_framework.permissions import IsAuthenticated
+from django.http import HttpResponseNotFound, HttpResponseBadRequest
 
 from .serializers import *
 from .permissions import *
@@ -24,6 +25,7 @@ class ArticlesApi(APIView) :
 
     def post(self, request) :
         data = request.data
+        data['author'] = request.user
         article = ArticleSerializer().create(data)
         serializer = ArticleSerializer(article)
 
@@ -31,7 +33,7 @@ class ArticlesApi(APIView) :
         
 class ArticleApi(APIView) :
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAuthorOrReadOnly]
 
     def get(self, request, pk) :
         try :
@@ -40,7 +42,6 @@ class ArticleApi(APIView) :
             return HttpResponseNotFound()
 
         self.check_object_permissions(request, article)
-
         serializer = ArticleSerializer(article)
         return Response(serializer.data, content_type='application/json')
 
@@ -64,4 +65,57 @@ class ArticleApi(APIView) :
 
         self.check_object_permissions(request, article)
         article.delete()
+        return Response(status=204)
+
+class CommentsApi(APIView) :
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request) :
+        data = request.data
+        data['author'] = request.user
+
+        try :
+            data['article'] = Article.objects.get(pk=data.get('article'))
+        except Article.DoesNotExist:
+            return HttpResponseBadRequest()
+
+        comment = CommentSerializer().create(data)
+        serializer = CommentSerializer(comment)
+        return Response(serializer.data, status=201, content_type='application/json')
+
+class CommentApi(APIView) :
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthorOrReadOnly]
+
+    def get(self, request, pk) :
+        try :
+            comment = Comment.objects.get(pk=pk)
+        except Comment.DoesNotExist :
+            return HttpResponseNotFound()
+
+        self.check_object_permissions(request, comment)
+        serializer = CommentSerializer(comment)
+        return Response(serializer.data, status=201, content_type='application/json')
+
+    def put(self, request, pk) :
+        try :
+            comment = Comment.objects.get(pk=pk)
+        except Comment.DoesNotExist :
+            return HttpResponseNotFound()
+
+        self.check_object_permissions(request, comment)
+        data = request.data
+
+        comment = CommentSerializer().update(data)
+        serializer = CommentSerializer(comment)
+        return Response(serializer.data, status=201, content_type='application/json')
+
+    def delete(self, request, pk) :
+        try :
+            comment = Comment.objects.get(pk=pk)
+        except Comment.DoesNotExist :
+            return HttpResponseNotFound()
+
+        self.check_object_permissions(request, comment)
         return Response(status=204)
