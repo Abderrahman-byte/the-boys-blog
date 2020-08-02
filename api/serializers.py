@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.utils import timezone
 
 from users.models import User
-from blog.models import Comment
+from blog.models import *
 
 from datetime import datetime
 
@@ -22,7 +22,7 @@ class UserSerializer(serializers.ModelSerializer) :
 
     class Meta :
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'is_staff', 'is_admin', 'date_joined']
+        fields = ['username', 'first_name', 'last_name', 'email', 'is_staff', 'is_superuser', 'date_joined']
 
     def create(self) :
         raise Exception('You Forgot to make Create method for User Serializer')
@@ -42,8 +42,8 @@ class CategorySerializer(serializers.Serializer) :
         raise Exception('You Forgot to make Update method for Category Serializer')
 
 class CommentSerializer(serializers.ModelSerializer) :
-    user = serializers.PrimaryKeyRelatedField()
-    article = serializers.PrimaryKeyRelatedField()
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    article = serializers.PrimaryKeyRelatedField(read_only=True)
     
     class Meta :
         model = Comment
@@ -63,8 +63,17 @@ class ArticleSerializer(serializers.Serializer) :
     content = serializers.CharField()
     comment_set = CommentSerializer(many=True)
 
-    def create(self) :
-        raise Exception('You Forgot to make Create method for Article Serializer')
+    def create(self, validated_data) :
+        categories_id = validated_data.pop('categories', [])
+        article = Article(**validated_data)
+        article.categories = Category.objects.filter(id__in=categories_id)
+        article.save()
+        return article
 
-    def update(self) :
-        raise Exception('You Forgot to make Update method for Article Serializer')
+    def update(self, instance, validated_data) :
+        categories_id = validated_data.pop('categories', [])
+        instance.title = validated_data.get(title, instance.title)
+        instance.content = validated_data.get(title, instance.content)
+        instance.categories = Category.objects.filter(id__in=categories_id)
+        instance.save()
+        return instance
