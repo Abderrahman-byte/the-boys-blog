@@ -38,6 +38,6 @@ class Article(models.Model) :
 class Comment(models.Model) :
     id = models.UUIDField(primary_key=True, default=uuid4)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    User = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     posted_date = models.DateTimeField(auto_now_add=True)
