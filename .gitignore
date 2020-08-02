@@ -1,5 +1,5 @@
-*.sqltite
+*.sqlite
 *.db
-*.sqltite3
+*.sqlite3
 env/
 .vscode/
