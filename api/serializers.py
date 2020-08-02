@@ -6,7 +6,7 @@ from blog.models import *
 
 from datetime import datetime
 
-class Timestamp(serializers.Field) :
+class TimestampField(serializers.Field) :
     def to_representation(self, value) :
         if value is None :
             return None
@@ -18,7 +18,7 @@ class Timestamp(serializers.Field) :
         return timestamp
 
 class UserSerializer(serializers.ModelSerializer) :
-    date_joined = Timestamp()
+    date_joined = TimestampField()
 
     class Meta :
         model = User
@@ -44,10 +44,11 @@ class CategorySerializer(serializers.Serializer) :
 class CommentSerializer(serializers.ModelSerializer) :
     author = serializers.PrimaryKeyRelatedField(read_only=True)
     article = serializers.PrimaryKeyRelatedField(read_only=True)
-    
+    posted_date = TimestampField()
+
     class Meta :
         model = Comment
-        fields = ['id', 'author', 'article', 'content']
+        fields = ['id', 'author', 'article', 'content', 'posted_date']
 
     def create(self, validated_data) :
         comment = Comment(**validated_data)
