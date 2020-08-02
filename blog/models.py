@@ -21,6 +21,8 @@ class Article(models.Model) :
     categories = models.ManyToManyField(Category)
     title = models.CharField(max_length=500)
     content = models.TextField()
+    posted_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
 
     class Meta :
         constraints = [
@@ -38,3 +40,4 @@ class Comment(models.Model) :
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     User = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
+    posted_date = models.DateTimeField(auto_now_add=True)
