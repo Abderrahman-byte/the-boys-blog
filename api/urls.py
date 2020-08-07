@@ -9,4 +9,5 @@ urlpatterns = [
     path('comments/<uuid:pk>/', views.CommentApi, name='comment-details'),
 
     path('user/', views.UserInfoApi.as_view(), name='user-info'),
+    path('login', views.UserLoginApi.as_view(), name='user-login'),
 ]

@@ -3,6 +3,10 @@ from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponseNotFound, HttpResponseBadRequest
+from django.contrib.auth import authenticate
+
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 from .serializers import *
 from .permissions import *
@@ -147,6 +151,20 @@ class UserInfoApi(APIView) :
         return Response(serializer.data, content_type='application/json')
 
 class UserLoginApi(APIView) :
+
     def post(self, request) :
         data = request.data
-        return None
+        username = data.get('username')
+        password = data.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is None :
+            context = {'details': 'The username or password you entred is incorrect.'}
+            status = 401
+        else :
+            token = user.auth_token.key
+            serializer = UserSerializer(user)
+            context = { 'user': serializer.data, 'token': token }
+            status = 200
+
+        return Response(context, status=status, content_type='application/json')
