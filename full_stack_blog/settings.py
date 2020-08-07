@@ -143,3 +143,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # User Authentication Model
 
 AUTH_USER_MODEL = 'users.User'
+
+# Cors Headers configurations
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]

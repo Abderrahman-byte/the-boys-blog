@@ -8,6 +8,9 @@ from .serializers import *
 from .permissions import *
 from blog.models import Article
 
+# Articles Api
+# # # # # #
+
 class ArticlesApi(APIView) :
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsStaffOrReadOnly]
@@ -67,6 +70,9 @@ class ArticleApi(APIView) :
         article.delete()
         return Response(status=204)
 
+# Comments APi Views 
+# # # # # #
+
 class CommentsApi(APIView) :
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -119,3 +125,28 @@ class CommentApi(APIView) :
 
         self.check_object_permissions(request, comment)
         return Response(status=204)
+
+# Auth Views 
+# # # # # #
+
+class UserInfoApi(APIView) :
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request) :
+        user = request.user
+        serializer = UserSerializer(user)
+        context = {'user': serializer.data}
+        return Response(context, content_type='application/json')
+
+    def put(self, request) :
+        user = request.user
+        data = request.data
+        updated_user = UserSerializer().update(user, data)
+        serializer = UserSerializer(updated_user)
+        return Response(serializer.data, content_type='application/json')
+
+class UserLoginApi(APIView) :
+    def post(self, request) :
+        data = request.data
+        return None

@@ -15,20 +15,28 @@ class TimestampField(serializers.Field) :
             raise Exception('Timestamp field must be a datetime instance')
 
         timestamp = value.replace(tzinfo=timezone.utc).timestamp()
-        return timestamp
+        return round(timestamp * 1000)
 
 class UserSerializer(serializers.ModelSerializer) :
     date_joined = TimestampField()
 
     class Meta :
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'is_staff', 'is_superuser', 'date_joined']
+        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_superuser', 'date_joined']
 
-    def create(self) :
-        raise Exception('You Forgot to make Create method for User Serializer')
+    def create(self, validated_data) :
+        user = User(**validated_data)
+        user.save()
+        return user
 
-    def update(self) :
-        raise Exception('You Forgot to make Update method for User Serializer')
+    def update(self, instance, validated_data) :
+        instance.username = validated_data.get('username', instance.username)
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.email = validated_data.get('email', instance.email)
+        instance.email = validated_data.get('about', instance.email)
+        instance.save()
+        return instance
 
 class CategorySerializer(serializers.Serializer) :
     id = serializers.UUIDField()
