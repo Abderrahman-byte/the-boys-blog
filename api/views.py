@@ -170,7 +170,7 @@ class UserLoginApi(APIView) :
 
         return Response(context, status=status, content_type='application/json')
 
-class UserRegister(APIView) :
+class UserRegisterApi(APIView) :
     def post(self, request) :
         data = request.data
         try :
