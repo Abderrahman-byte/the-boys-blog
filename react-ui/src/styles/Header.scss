@@ -1,0 +1,208 @@
+@import './mixins';
+
+$nav-break: 1200px;
+
+.Header {
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    border-bottom: 1px solid #e4e7eb;
+    padding: 1.25em 4%;
+    position: relative;
+    z-index: 100;
+    justify-content: space-between;
+    align-items: center;
+
+    &.header-fixed {
+        @include mediaQuery($nav-break) {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            box-shadow: 3.716px 3.346px 40px 0px rgba(43,43,43,0.1);
+        }
+    }
+    
+    .logo-btn  {
+        text-decoration: none;
+        
+        h1.logo {
+            font-size: 1.5rem;
+            color:rgb(14, 14, 14);
+            letter-spacing: .1em;
+        }
+    }
+
+    .nav-toggle {
+        cursor: pointer;
+        padding: 0 .25em;
+
+        i {
+            font-size: 1.75rem;
+        }
+
+        @include mediaQuery($nav-break) {
+            display: none;
+        }
+    }
+
+    .navbar {
+        position: fixed;
+        z-index: 110;
+        top: 0;
+        left: 0;
+        width: 90%;
+        max-width: 300px;
+        height: 100%;
+        background-color: white;
+        border-right: 1px solid #e4e7eb;
+        transition: transform .4s ease-out;
+
+        @include mediaQuery($nav-break) {
+            position: relative;
+            max-width: 75%;
+            border: 0;
+        }
+
+        &.hide {
+            @include mediaQuery($nav-break, 0) {
+                transform: translateX(-100%);
+            }
+        }
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+
+            @include mediaQuery($nav-break) {
+                flex-direction: row;
+                justify-content: flex-end;
+            }
+
+            li > a {
+                display: block;
+                padding: 1em 0;
+                padding-left: 1.25em;
+                text-decoration: none;
+                font-size: 1rem;
+                color: rgba(0,0,0,0.87);
+
+                @include mediaQuery($nav-break) {
+                    padding: .5em 1.25em;
+                }
+
+                &.active {
+                    font-weight: 600;
+                    color: black;
+                }
+
+                &:hover {
+                    background-color: whitesmoke;
+                    @include mediaQuery($nav-break) {
+                        background-color: transparent;
+                        font-weight: 600;
+                        color: black;
+                    }
+                }
+
+                &.btn {
+                    margin-bottom: .75em;
+                    padding: .5em 1.25em;
+                    display: inline-block;
+                    margin-left: .75em;
+                    @include mediaQuery($nav-break) {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .backdrop {
+        position: fixed;
+        z-index: 109;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+    
+}
+
+.dropdown {
+    position: relative;
+
+    &>a>i {
+        margin-left: .75em;
+    }
+
+    a > .up {
+        display: none;
+    }
+
+    a > .down {
+        display: inline-block;
+    }
+
+
+    .dropdown-menu {
+        display: none !important;
+
+        @include mediaQuery($nav-break) {
+            position: absolute;
+            top: 110%;
+            background-color: white;
+            min-width: 150px;
+            border-radius: 3px;
+            border: 1px solid #e4e7eb;
+            box-shadow: 3.716px 3.346px 40px 0px rgba(43,43,43,0.1);
+        }
+
+        a {
+            padding-left: 2.5em !important;
+            @include mediaQuery($nav-break) {
+                padding: 1em .75em !important;
+                &:hover {
+                    background-color: whitesmoke !important;
+                }
+            }
+        }
+    }
+
+    &.active {
+        a > .up {
+            @include mediaQuery($nav-break, 0) {
+                display: inline-block;
+            }
+
+        }
+
+        a > .down {
+            @include mediaQuery($nav-break, 0) {
+                display: none;
+            }
+
+        }
+
+        .dropdown-menu {
+            @include mediaQuery($nav-break, 0) {
+                display: block !important;
+            }
+        }
+    }
+
+    @include mediaQuery($nav-break) {
+        &:hover a > .up, &:focus a > .up {
+            display: inline-block;
+        }
+
+        &:hover a > .down, &:focus a > .down {
+            display: none;
+        }
+
+        &:hover .dropdown-menu, &:focus .dropdown-menu {
+            display: block !important;
+        }
+    }
+}

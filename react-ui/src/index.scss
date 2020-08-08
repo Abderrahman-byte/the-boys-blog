@@ -22,3 +22,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.hidden {
+  display: none;
+}
+
+.btn {
+  border-radius: 5px;
+  letter-spacing: .15em;
+  color: whitesmoke !important;
+  font-weight: 600;
+  transition: background-color .4s;
+
+  &.btn-primary {
+    background-color: #2384D9 !important;
+    &:hover, &:focus {
+      background-color: #2E6EA6 !important;
+    }
+  }
+
+  &.btn-orange {
+    background-color: #e60000 !important;
+    &:hover, &:focus {
+      background-color: #ff4400 !important;
+    }
+  }
+} 
