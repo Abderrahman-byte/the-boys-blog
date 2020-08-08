@@ -4,6 +4,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponseNotFound, HttpResponseBadRequest
 from django.contrib.auth import authenticate
+from django.db import utils
 
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -168,3 +169,21 @@ class UserLoginApi(APIView) :
             status = 200
 
         return Response(context, status=status, content_type='application/json')
+
+class UserRegister(APIView) :
+    def post(self, request) :
+        data = request.data
+        try :
+            user = UserSerializer().create(data)
+        except utils.IntegrityError :
+            context = {'details': 'Username already exist.'}
+            status = 400
+        except Exception as ex :
+            context = {'details': 'The username or password you entred is incorrect.'}
+            status = 400
+
+        token = user.auth_token.key
+        status = 201
+        context = {'token': token, 'user': user }
+
+        return Response(context, status=status, content_type='application/json') 
