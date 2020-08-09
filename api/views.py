@@ -175,15 +175,15 @@ class UserRegisterApi(APIView) :
         data = request.data
         try :
             user = UserSerializer().create(data)
+            serializer = UserSerializer(user)
+            token = user.auth_token.key
+            status = 201
+            context = {'token': token, 'user': serializer.data }
         except utils.IntegrityError :
             context = {'details': 'Username already exist.'}
             status = 400
         except Exception as ex :
             context = {'details': ex}
             status = 400
-
-        token = user.auth_token.key
-        status = 201
-        context = {'token': token, 'user': user }
 
         return Response(context, status=status, content_type='application/json') 
