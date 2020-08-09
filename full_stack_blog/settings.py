@@ -137,7 +137,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'react-ui/build/static')
 ]
 
-MEDIA_URL = '/url/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # User Authentication Model
