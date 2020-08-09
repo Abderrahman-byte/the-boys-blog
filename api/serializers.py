@@ -25,7 +25,7 @@ class UserSerializer(serializers.ModelSerializer) :
         fields = ['id', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_superuser', 'date_joined']
 
     def create(self, validated_data) :
-        password = validated_data.pop('password1')
+        password = validated_data.pop('password')
         user = User(**validated_data)
         user.set_password(password)
         user.save()

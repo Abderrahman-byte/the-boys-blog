@@ -179,7 +179,7 @@ class UserRegisterApi(APIView) :
             context = {'details': 'Username already exist.'}
             status = 400
         except Exception as ex :
-            context = {'details': 'The username or password you entred is incorrect.'}
+            context = {'details': ex}
             status = 400
 
         token = user.auth_token.key
