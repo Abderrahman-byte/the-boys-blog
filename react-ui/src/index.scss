@@ -27,6 +27,10 @@ code {
   display: none;
 }
 
+button, input, textarea {
+  outline: none;
+}
+
 .btn {
   border-radius: 5px;
   letter-spacing: .15em;

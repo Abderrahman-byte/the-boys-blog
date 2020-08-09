@@ -1,0 +1,89 @@
+form {
+    display: flex;
+    flex-direction: column;
+
+    a {
+        color: #2384D9;
+    }
+    
+    .form-group {
+        margin-bottom: .75em;
+        label {
+            margin-bottom: .5em;
+        } 
+
+        .form-control {
+            width: 100%;
+            padding: .75em 0;
+            border: 0;
+            border-bottom: 2px solid #e4e7eb;
+            font-size: .95rem;
+            letter-spacing: .1em;
+            transition: border-color .6s;
+
+            &:focus {
+                border-bottom-color: #2384D9;
+            }
+        }
+    }
+
+    .form-header {
+        text-align: center;
+        margin-bottom: 1.5em;
+        h6 {
+            font-size: 1.5rem;
+            letter-spacing: .1em;
+            margin-bottom: .3em;
+        }
+
+        p {
+            font-size: .95rem;
+            letter-spacing: .09em;
+            color: #121212;
+        }
+
+        a {
+            text-decoration: none;
+            letter-spacing: 0;
+            font-weight: 600;
+        }
+    }
+
+    .submit {
+        font-size: 1.2rem;
+        color: whitesmoke;
+        background-color: #2384D9;
+        border: none;
+        border-radius: 2px;
+        padding: .5em 0;
+        font-weight: 600;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: background-color .4s;
+
+        &:hover, &:focus {
+            background-color: #2E6EA6;
+        }
+    }
+
+    a.forgot-pass {
+        display: block;
+        align-self: flex-end;
+        margin: 1.25em 0;
+        text-decoration: none;
+    }
+
+    .error-div {
+        background-color: red;
+        color: whitesmoke;
+        border-radius: 3px;
+        padding: .5em .75em;
+        margin-bottom: 1.25em;
+
+        p {
+            letter-spacing: .1em;
+            font-weight: 600;
+            margin-bottom: .25em;
+        }
+    }
+}

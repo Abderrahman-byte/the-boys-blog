@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 
 import '../styles/Header.scss'
 
@@ -8,6 +8,7 @@ import { AuthContext } from '../context/AuthContext'
 export const Header = () => {
     const { user, isAuthenticated } = useContext(AuthContext)
     const [navStatus, setNavStatus] = useState(false)
+    const { pathname } = useLocation()
 
     const toggleDropdown = e => {
         console.log('something clickde')
@@ -41,6 +42,7 @@ export const Header = () => {
                     <li><NavLink exact to=''>Home</NavLink></li>
                     <li><NavLink exact to='/categories'>Categories</NavLink></li>
                     <li><NavLink exact to='/team'>Team</NavLink></li>
+
                     {user && user.is_staff ? (
                         <li onClick={toggleDropdown} className='dropdown'>
                             <a href='#'>Staff <i className="fas fa-chevron-up up"></i><i className="fas fa-chevron-down down"></i></a>
@@ -50,16 +52,19 @@ export const Header = () => {
                             </ul>
                         </li>
                     ) : null}
+
                     <li><NavLink exact to='/about'>About</NavLink></li>
                     <li><NavLink exact to='/contact'>Contact</NavLink></li>
+
                     {user && isAuthenticated ? (
                         <li><NavLink exact to='/logout' className='btn btn-orange'>Logout</NavLink></li>
                     ) : (
                         <>
-                            <li><NavLink exact to='/login' className='btn btn-primary'>Login</NavLink></li>
+                            <li><NavLink exact to={{pathname: '/login', state: { from:  pathname}}} className='btn btn-primary'>Login</NavLink></li>
                             <li><NavLink exact to='/register' className='btn btn-primary'>Sign Up</NavLink></li>
                         </>
                     )}
+                    
                 </ul>
             </nav>
 

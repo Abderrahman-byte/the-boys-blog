@@ -20,7 +20,6 @@ export const AuthProvider = ({children}) => {
 
         if(req.status >= 200 && req.status < 300) {
             const data = await req.json()
-            console.log(data.user)
             if(data.user) {
                 setAuth(true)
                 setUser(data.user)
