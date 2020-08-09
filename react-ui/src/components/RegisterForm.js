@@ -19,8 +19,96 @@ export const RegisterForm = () => {
 
     const [addError, setAddError] = useState(null)
 
+    const checkUsername = () => {
+        const regex = /^[A-za-z]{4,}\w*$/
+
+        if(username === '') {
+            setErrorUsername('Username Field is required')
+            return false
+        }
+
+        if(username.length < 6) {
+            setErrorUsername('Username must contain at least 6 characteres')
+            return false
+        }
+
+        if(!regex.test(username)) {
+            setErrorUsername('Username must contain letter uppercase or lowercase or digits.')
+            return false
+        }
+
+        setErrorUsername(null)
+        return true
+    }
+
+    const checkEmail = () => {
+        const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+        if(email === '') {
+            setErrorEmail('Email Address Field required')
+            return false
+        }
+
+        if(!regex.test(email)) {
+            setErrorEmail('Invalid email address !')
+            return false
+        }
+
+        setErrorEmail(null)
+        return true
+    }
+
+    const checkPassword = () => {
+        const regex = /(?=.*?[A-Z]+)(?=.*?[a-z]+.?)(?=.*?[0-9]+).*/
+
+        if(password1 === '') {
+            setErrorPassword1('Password Field required')
+            return false
+        }
+
+        if(password1.length < 8) {
+            setErrorPassword1('Password must contain at least 8 characters')
+            return false
+        }
+
+        if(!regex.test(password1)) {
+            setErrorPassword1('Password must contain letters uppercase and lowercase and digits')
+            return false
+        }
+
+        setErrorPassword1(null)
+        return false
+    }
+
+    const checkMatchPassword = () => {
+        if(password1 !== password2) {
+            setErrorPassword2('Password Doesn\'t match at all.')
+            return false
+        }
+
+        setErrorPassword2(null)
+        return false
+    }
+
+    const register = () => {
+        const payload = {username, email, password: password1}
+        console.log(payload)
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        const usernameVerified = checkUsername()
+        const emailVerified = checkEmail()
+        const passwordVerified = checkPassword()
+        const passwordsMatch = checkMatchPassword()
+
+        if(usernameVerified && emailVerified && passwordVerified && passwordsMatch) {
+            register()
+        }
+    }
+
     return (
-        <form className="LoginForm RegisterForm">
+        <form onSubmit={handleSubmit} className="LoginForm RegisterForm">
             <div className='form-header'>
                 <h6>Create new account</h6>
             </div>
