@@ -138,6 +138,7 @@ export const RegisterForm = () => {
         <form onSubmit={handleSubmit} className="LoginForm RegisterForm">
             <div className='form-header'>
                 <h6>Create new account</h6>
+                <p>Stay informed on our latest news and articles!</p>
             </div>
             <div className={usernameError ? 'form-group error': 'form-group'}>
                 <input 
