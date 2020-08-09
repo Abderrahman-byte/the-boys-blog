@@ -21,6 +21,7 @@ class Article(models.Model) :
     categories = models.ManyToManyField(Category)
     title = models.CharField(max_length=500)
     content = models.TextField()
+    views = models.IntegerField(default=0)
     posted_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
@@ -28,6 +29,10 @@ class Article(models.Model) :
         constraints = [
             models.UniqueConstraint(fields=['title'], name='article_unique_title')
         ]
+
+    def add_view(self) :
+        self.views = self.views + 1
+        self.save()
 
     def save(self, *args, **kwargs) :
         if not self.author.is_staff :
