@@ -77,7 +77,7 @@ export const RegisterForm = () => {
         }
 
         setErrorPassword1(null)
-        return false
+        return true
     }
 
     const checkMatchPassword = () => {
@@ -87,12 +87,38 @@ export const RegisterForm = () => {
         }
 
         setErrorPassword2(null)
-        return false
+        return true
     }
 
-    const register = () => {
+    const register = async () => {
         const payload = {username, email, password: password1}
-        console.log(payload)
+        const reqOptions = {
+            method: 'POST', 
+            body: JSON.stringify(payload), 
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const req = await fetch('http://localhost:8000/api/register', reqOptions)
+        const data = await req.json()
+        console.log(data)
+
+        if(req.status >= 200 && req.status < 300) {
+            if(data.token) {
+                setToken(data.token)
+            }
+
+            if(data.user) {
+                setAuth(true)
+                setUser(data.user)
+            }
+        } else {
+            if(data.details) {
+                setAddError(data.details)
+            } else {
+                setAddError('Something goes wrong')
+            }
+        }
     }
 
     const handleSubmit = e => {
@@ -102,6 +128,7 @@ export const RegisterForm = () => {
         const passwordVerified = checkPassword()
         const passwordsMatch = checkMatchPassword()
 
+        
         if(usernameVerified && emailVerified && passwordVerified && passwordsMatch) {
             register()
         }
@@ -162,7 +189,7 @@ export const RegisterForm = () => {
 
             {addError ? (
                 <div className='error-div'>
-                    <p>hgehghegehgeheghegehgehgehegeghegheg</p>
+                    <p>{addError}</p>
                 </div>
             ): null}
 
