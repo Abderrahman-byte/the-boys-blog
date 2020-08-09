@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 
 import '../styles/Header.scss'
@@ -25,6 +25,10 @@ export const Header = () => {
 
         target.classList.toggle('active')
     }
+
+    useEffect(() => {
+        setNavStatus(false)
+    }, [pathname])
 
     const toggleNavBar = () => {
         setNavStatus(!navStatus)
