@@ -8,9 +8,17 @@ form {
     
     .form-group {
         margin-bottom: .75em;
+
         label {
             margin-bottom: .5em;
         } 
+
+        small {
+            margin-top: .5em;
+            display: block;
+            letter-spacing: .05em;
+            font-size: .8rem;
+        }
 
         .form-control {
             width: 100%;
@@ -23,6 +31,16 @@ form {
 
             &:focus {
                 border-bottom-color: #2384D9;
+            }
+        }
+
+        &.error {
+            .form-control {
+                border-color: #ff1f1f;
+            }
+
+            small {
+                color: #ff1f1f;
             }
         }
     }
@@ -73,8 +91,16 @@ form {
         text-decoration: none;
     }
 
+    a.footer {
+        display: block;
+        text-align: center;
+        margin-top: 1.5em;
+        text-decoration: none;
+        font-size: 1rem;
+    }
+
     .error-div {
-        background-color: red;
+        background-color: #ff1f1f;
         color: whitesmoke;
         border-radius: 3px;
         padding: .5em .75em;

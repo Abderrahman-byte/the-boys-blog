@@ -7,6 +7,7 @@ import './styles/Forms.scss'
 import { Header } from './components/Header'
 import { MainPage } from './pages/Main.page'
 import { LoginPage } from './pages/Login.page'
+import { RegisterPage } from './pages/Register.page'
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Header />
       <Switch>
         <Route exact path='/login' component={LoginPage} />
+        <Route exact path='/register' component={RegisterPage} />
         <Route exact path='' component={MainPage} />
       </Switch>
     </div>
