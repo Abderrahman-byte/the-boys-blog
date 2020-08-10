@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.utils import timezone
+from django.db import utils
 
 from users.models import User
 from blog.models import *
@@ -25,11 +26,17 @@ class UserSerializer(serializers.ModelSerializer) :
         fields = ['id', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_superuser', 'date_joined']
 
     def create(self, validated_data) :
-        password = validated_data.pop('password')
-        user = User(**validated_data)
-        user.set_password(password)
-        user.save()
-        return user
+        try :
+            password = validated_data.pop('password')
+            user = User(**validated_data)
+            user.set_password(password)
+            user.save()
+            return user
+        except utils.IntegrityError as ex :
+            msg = ex.__str__()
+            field_name = msg.split()[3].split('.')[1]
+            error_msg = user.unique_error_message(User, (field_name,)).message
+            raise Exception(error_msg)
 
     def update(self, instance, validated_data) :
         instance.username = validated_data.get('username', instance.username)

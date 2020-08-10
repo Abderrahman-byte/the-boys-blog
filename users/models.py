@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
 
 import random, string
 
@@ -17,6 +18,8 @@ def getUserId():
 
 class User(AbstractUser) :
     id = models.CharField(primary_key=True, default=getUserId, max_length=11)
+    email = models.EmailField(blank=True, null=True, unique=True, error_messages={ 
+        'unique': _("This email has already been registered.")})
     # staff_title = models.ForeignKey(StaffTitle, on_delete=models.SET_NULL, null=True, blank=True)
     staff_title = models.CharField(max_length=200, null=True, blank=True)
     about = models.CharField(max_length=500, null=True, blank=True)
