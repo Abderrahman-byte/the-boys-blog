@@ -10,7 +10,6 @@ export const Logout = () => {
 
     useEffect(() => {
         logout()
-        console.log('logout is done')
     })
 
     return <Redirect to={from && ''} />

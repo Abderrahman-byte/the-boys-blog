@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 
 import random, string
+from validate_email import validate_email
 
 def getUserId(): 
     allowed = list(string.ascii_letters + string.digits)
@@ -27,6 +28,14 @@ class User(AbstractUser) :
     # User profil image is missing
 
     def save(self, *args, **kwargs) :
+        # MUST ADD A EMAIL VERIFICATION
+        
+        # if self.email is not None :
+        #     email_valid = validate_email(self.email,verify=True)
+        #     print(email_valid)
+        #     if not email_valid or email_valid is None:
+        #         raise Exception('Email does not exists')
+
         if self.is_staff :
             if self.staff_title is None or self.staff_title == '':
                 raise Exception('Staff members should have staff title registered')
