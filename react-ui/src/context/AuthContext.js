@@ -33,6 +33,12 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    const logout = () => {
+        setToken('')
+        setAuth(false)
+        setUser(null)
+    }
+
     useEffect(() => {
         initUser()
     }, [])
@@ -44,7 +50,8 @@ export const AuthProvider = ({children}) => {
             isAuthenticated,
             setUser,
             setAuth,
-            setToken
+            setToken,
+            logout
         }}>
             {children}
         </AuthContext.Provider>

@@ -8,6 +8,7 @@ import { Header } from './components/Header'
 import { MainPage } from './pages/Main.page'
 import { LoginPage } from './pages/Login.page'
 import { RegisterPage } from './pages/Register.page'
+import { Logout } from './components/Logout'
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
       <Switch>
         <Route exact path='/login' component={LoginPage} />
         <Route exact path='/register' component={RegisterPage} />
+        <Route exact path='/logout' component={Logout} />
         <Route exact path='' component={MainPage} />
       </Switch>
     </div>

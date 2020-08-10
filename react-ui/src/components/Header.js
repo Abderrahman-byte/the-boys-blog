@@ -61,11 +61,11 @@ export const Header = () => {
                     <li><NavLink exact to='/contact'>Contact</NavLink></li>
 
                     {user && isAuthenticated ? (
-                        <li><NavLink exact to='/logout' className='btn btn-orange'>Logout</NavLink></li>
+                        <li><NavLink exact to={{pathname: '/logout', state: { from:  pathname}}} className='btn btn-orange'>Logout</NavLink></li>
                     ) : (
                         <>
                             <li><NavLink exact to={{pathname: '/login', state: { from:  pathname}}} className='btn btn-primary'>Login</NavLink></li>
-                            <li><NavLink exact to='/register' className='btn btn-primary'>Sign Up</NavLink></li>
+                            <li><NavLink exact to={{pathname: '/register', state: { from:  pathname}}} className='btn btn-primary'>Sign Up</NavLink></li>
                         </>
                     )}
                     
