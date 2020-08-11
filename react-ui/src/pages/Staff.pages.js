@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Switch, Route } from 'react-router-dom'
 
-export const StaffPages = () => {
+import { ProfilPage } from './Profil.page'
+import { AuthContext } from '../context/AuthContext'
+
+export const StaffPages = (props) => {
+    const { user } = useContext(AuthContext)
+
     return (
-        <div>
-            <h1>Staff Only pages </h1>
-        </div>
+        <Switch>
+            <Route path='/staff/profil/'>
+                <ProfilPage profil={user} />
+            </Route>
+        </Switch>
     )
 }

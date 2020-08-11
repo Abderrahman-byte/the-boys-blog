@@ -20,10 +20,11 @@ class TimestampField(serializers.Field) :
 
 class UserSerializer(serializers.ModelSerializer) :
     date_joined = TimestampField()
+    articles_count = serializers.IntegerField(source='article_set.count', read_only=True)
 
     class Meta :
         model = User
-        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_superuser', 'date_joined']
+        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'avatar', 'is_staff', 'is_superuser', 'date_joined', 'articles_count', 'staff_title']
 
     def create(self, validated_data) :
         try :

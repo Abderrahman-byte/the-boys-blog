@@ -24,8 +24,7 @@ class User(AbstractUser) :
     # staff_title = models.ForeignKey(StaffTitle, on_delete=models.SET_NULL, null=True, blank=True)
     staff_title = models.CharField(max_length=200, null=True, blank=True)
     about = models.CharField(max_length=500, null=True, blank=True)
-
-    # User profil image is missing
+    avatar = models.TextField(default='/media/users/default-user.png')
 
     def save(self, *args, **kwargs) :
         # MUST ADD A EMAIL VERIFICATION

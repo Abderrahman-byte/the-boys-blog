@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponseNotFound, HttpResponseBadRequest
 from django.contrib.auth import authenticate
 from django.db import utils
+from rest_framework.parsers import FileUploadParser
 
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -137,6 +138,7 @@ class CommentApi(APIView) :
 class UserInfoApi(APIView) :
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+    parser_classes = [FileUploadParser]
 
     def get(self, request) :
         user = request.user
@@ -145,11 +147,18 @@ class UserInfoApi(APIView) :
         return Response(context, content_type='application/json')
 
     def put(self, request) :
-        user = request.user
-        data = request.data
-        updated_user = UserSerializer().update(user, data)
-        serializer = UserSerializer(updated_user)
-        return Response(serializer.data, content_type='application/json')
+        try :
+            files = request.data.pop('file')
+            user = request.user
+            data = request.data
+            print(data)
+            print(files)
+            updated_user = UserSerializer().update(user, data)
+            serializer = UserSerializer(updated_user)
+            return Response(serializer.data, content_type='application/json')
+        except Exception as ex :
+            print(ex.with_traceback())
+            return Response('')
 
 class UserLoginApi(APIView) :
 
