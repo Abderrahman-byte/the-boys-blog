@@ -4,6 +4,9 @@
     width: 100%;
     height: 300px;
     background-image: url('http://localhost:8000/media/taust.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,13 +23,25 @@
         max-width: 200px;
         max-height: 200px;
         border-radius: 50%;
-        margin-bottom: .5em;
+        margin-bottom: 1.5em;
     }
 
     .avatar {
         object-fit: cover;
         object-position: center;
         border: 3px solid whitesmoke;
+    }
+
+    .name {
+        letter-spacing: .1em;
+        font-weight: 700;
+        font-size: 1.6rem;
+        margin-bottom: .3em;
+    }
+
+    .info {
+        letter-spacing: 1px;
+        font-size: 1rem;
     }
 
     .EditAvatar {
@@ -64,15 +79,41 @@
         }
     }
 
-    .name {
-        letter-spacing: .1em;
-        font-weight: 700;
-        font-size: 1.6rem;
+    .EditName {
+        position: relative;
         margin-bottom: .3em;
-    }
 
-    .info {
-        letter-spacing: 1px;
-        font-size: 1rem;
+        .name {
+            margin-bottom: 0;
+        }
+
+        .name-input {
+            letter-spacing: .1em;
+            font-weight: 700;
+            font-size: 1.6rem;
+            text-align: center;
+            background-color: transparent;
+            border-radius: 3px;
+            border: 1px solid whitesmoke;
+            color: whitesmoke;
+            padding: .25em 0;
+        }
+
+        .edit-btn {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translate(150%, -50%);
+            background-color: transparent;
+            border: 0;
+            color: gray;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: color .4s ease-in-out;
+
+            &:hover, &:focus {
+                color: whitesmoke;
+            }
+        }
     }
 }

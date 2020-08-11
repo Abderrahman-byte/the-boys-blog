@@ -4,6 +4,7 @@ import '../styles/ProfilHeader.scss'
 
 import { EditAvatar } from './EditAvatar'
 import { AuthContext } from '../context/AuthContext'
+import { EditName } from './EditName'
 
 export const ProfilHeader = ({profil}) => {
     const { user } = useContext(AuthContext)
@@ -11,13 +12,17 @@ export const ProfilHeader = ({profil}) => {
     return (
         <div className='ProfilHeader'>
             {user && profil.id === user.id? (
-                <EditAvatar profil={profil} />
+                <>
+                    <EditAvatar profil={profil} />
+                    <EditName profil={profil} />
+                </>
             ) : (
-                <img className='avatar' src={`http://localhost:8000${profil.avatar}`} alt={`${profil.username} avatar`} />
+                <>
+                    <img className='avatar' src={`http://localhost:8000${profil.avatar}`} alt={`${profil.username} avatar`} />
+                    <h3 className='name'>{profil.first_name} {profil.last_name}</h3>
+                </>
             )} 
             
-
-            <h3 className='name'>{profil.first_name} {profil.last_name}</h3>
             <p className='info'>{profil.staff_title} | Articles : {profil.articles_count}</p>
         </div>
     )
