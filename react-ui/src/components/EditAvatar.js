@@ -9,14 +9,12 @@ export const EditAvatar = ({profil}) => {
     const updateImage = async () => {
         const file = avatarFileInput.current.files[0]
         const formData = new FormData()
-        formData.append('avatar', file, file.name)
-        const req = await fetch('http://localhost:8000/api/user/', {
-            method: 'PUT',
+        formData.append('avatar', file)
+        const req = await fetch('http://localhost:8000/api/user/avatar', {
+            method: 'POST',
             body: formData,
             headers: {
                 'Authorization': `Token ${token}`,
-                'Enctype': 'multipart/form-data',
-                'Content-Type': 'multipart/form-data',
             }
         })
 

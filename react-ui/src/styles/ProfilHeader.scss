@@ -3,11 +3,11 @@
 .ProfilHeader {
     width: 100%;
     height: 300px;
-    padding: .75em 0;
-    background-color: red;
+    background-image: url('http://localhost:8000/media/taust.jpg');
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     color: whitesmoke;
 
     @include mediaQuery(600px) {
@@ -26,13 +26,13 @@
     .avatar {
         object-fit: cover;
         object-position: center;
-        border: 3px solid black;
+        border: 3px solid whitesmoke;
     }
 
     .EditAvatar {
         overflow: hidden;
         position: relative;
-        border: 3px solid black;
+        border: 3px solid whitesmoke;
 
         .avatar {
             width: 100%;
@@ -55,7 +55,8 @@
             background-color: gray;
             border: 0;
             cursor: pointer;
-            opacity: .1;
+            opacity: .4;
+            transition: opacity .4s;
 
             &:hover {
                 opacity: .7;
