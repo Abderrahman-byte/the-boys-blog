@@ -3,11 +3,14 @@ import { Route } from 'react-router-dom'
 
 import { AuthContext } from '../context/AuthContext'
 
-export const StaffOnlyRouter = ({children, ...rest}) => {
+const NotFound = () => {
+    return (<div><h1>This page Dont exists</h1></div>)
+}
+export const StaffOnlyRouter = ({component, ...rest}) => {
     const { user } = useContext(AuthContext)
-    const component = user && (user.is_staff || user.is_superuser) ? children : (<div><h1>This page Dont exists</h1></div>)
+    const toRender = user && (user.is_staff || user.is_superuser) ? component : NotFound
 
     return (
-        <Route {...rest} render={() => component} />
+        <Route {...rest} component={toRender} />
     )
 }

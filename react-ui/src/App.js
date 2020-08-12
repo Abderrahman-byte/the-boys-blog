@@ -21,9 +21,7 @@ const App = () => {
         <Route exact path='/register' component={RegisterPage} />
         <Route exact path='/logout' component={Logout} />
 
-        <StaffOnlyRouter path='/staff'>
-          <StaffPages />
-        </StaffOnlyRouter>
+        <StaffOnlyRouter path='/staff' component={StaffPages} />
 
         <Route exact path='' component={MainPage} />
       </Switch>
