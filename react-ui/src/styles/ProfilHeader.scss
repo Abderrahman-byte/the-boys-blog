@@ -97,6 +97,9 @@
             border: 1px solid whitesmoke;
             color: whitesmoke;
             padding: .25em 0;
+            &.error {
+                border-color: red;
+            }
         }
 
         .edit-btn {
