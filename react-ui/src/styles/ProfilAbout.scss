@@ -1,0 +1,55 @@
+.ProfilAbout {
+    h4 {
+        font-size: 1.7rem;
+        letter-spacing: .1em;
+        margin-bottom: .5em;
+    }
+
+    .about, .EditAbout > .input-about {
+        background-color: rgb(240, 240, 240);
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        border-radius: 3px;
+        width: 100%;
+        max-width: 600px;
+        padding: .5em .75em;
+        font-size: 1rem;
+        letter-spacing: .1em;
+        line-height: 25px;
+        min-height: 150px;
+    }
+
+    .about > span {
+        display: block;
+    }
+
+    .EditAbout {
+        position: relative;
+
+        .about {
+            padding-right: calc(1em + 10px);
+        }
+
+        .input-about {
+            resize: none;
+            height: 150px;
+            background-color: white;
+            font-size: 1.1rem;
+        }
+
+        .edit-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 1.3rem;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: rgb(36, 36, 36);
+            opacity: .7;
+            transition: opacity .4s ease-in-out;
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+}
