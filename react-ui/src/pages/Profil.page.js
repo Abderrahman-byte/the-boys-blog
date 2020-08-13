@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, NavLink, useRouteMatch, Route } from 'react-router-dom'
+import { Switch, NavLink, useRouteMatch, Route, Redirect } from 'react-router-dom'
 
 import '../styles/ProfilPage.scss'
 
@@ -24,6 +24,8 @@ export const ProfilPage = ({ profil }) => {
                     <Route exact path={`${match.path}/about`}>
                         <ProfilAbout profil={profil} />
                     </Route>
+                    {/* Articles profil page is missing  */}
+                    <Redirect exact from={`${match.path}`} to={`${match.path}/about`} />
                 </Switch>
             </div>
 

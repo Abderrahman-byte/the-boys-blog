@@ -43,10 +43,22 @@ button, input, textarea {
   font-weight: 600;
   transition: background-color .4s;
 
+  &.btn-elt {
+    padding: .5em 1em;
+    border: 0;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
   &.btn-primary {
     background-color: #2384D9 !important;
     &:hover, &:focus {
       background-color: #2E6EA6 !important;
+    }
+
+    &:disabled {
+      background-color: transparentize(#2E6EA6, .5) !important;
+      cursor: default !important;
     }
   }
 
@@ -54,6 +66,11 @@ button, input, textarea {
     background-color: #e60000 !important;
     &:hover, &:focus {
       background-color: #ff4400 !important;
+    }
+
+    &:disabled {
+      background-color: transparentize(#e60000, .5) !important;
+      cursor: default !important;
     }
   }
 } 

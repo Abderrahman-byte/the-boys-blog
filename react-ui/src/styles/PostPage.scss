@@ -1,0 +1,37 @@
+@import './mixins.scss';
+
+.PostPage {
+    width: 95%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2em 0;
+
+    & > h1 {
+        font-size: 1.8rem;
+        letter-spacing: .1em;
+        font-weight: 300;
+        margin-bottom: 1em;
+    }
+
+    .editor {
+        border: 1px solid rgb(228, 231, 235);
+        border-radius: 8px;
+        margin-bottom: 2em;
+        padding: 1.5em 1em;
+        box-shadow: 0 24px 24px -18px rgba(69,104,129,.33), 0 9px 45px 0 rgba(114,119,160,.12);
+        
+        @include mediaQuery(635px) {
+            padding: 3em 2em;
+        } 
+    }
+
+    .btns-div {
+        display:flex;
+        justify-content: flex-end;
+
+        .btn {
+            margin-left: .75em;
+        }
+    }
+}

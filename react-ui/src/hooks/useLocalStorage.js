@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 const getSavedValue = (key, initial) => {
     const savedValue = localStorage.getItem(key)
-    if(savedValue) return savedValue
+    if(savedValue) return JSON.parse(savedValue)
 
     if(initial instanceof Function) return initial()
 
@@ -15,7 +15,7 @@ export const useLocalStorage = (key, initial) => {
     })
 
     useEffect(() => {
-        localStorage.setItem(key, value)
+        localStorage.setItem(key, JSON.stringify(value))
     }, [value, key])
 
     return [value, setValue]

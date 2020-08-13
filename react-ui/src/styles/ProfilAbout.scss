@@ -24,7 +24,8 @@
 
     .EditAbout {
         position: relative;
-
+        max-width: 600px;
+        
         .about {
             padding-right: calc(1em + 10px);
         }
