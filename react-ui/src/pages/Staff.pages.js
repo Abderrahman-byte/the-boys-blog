@@ -13,7 +13,10 @@ export const StaffPages = ({match}) => {
             <Route path={`${match.path}/profil`}>
                 <ProfilPage profil={user} />
             </Route>
-            <Route path={`${match.path}/new-post`} component={PostPage}  />
+            <Route path={`${match.path}/new-post`}>
+                <PostPage create />
+            </Route>
+            
             <Redirect exact from={`${match.path}`} to={`${match.path}/profil`} />
         </Switch>
     )
