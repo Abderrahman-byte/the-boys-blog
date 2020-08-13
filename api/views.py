@@ -77,6 +77,17 @@ class ArticleApi(APIView) :
         article.delete()
         return Response(status=204)
 
+class UploadArticlesImages(APIView) :
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsStaff]
+
+    def post(self, request) :
+        image = request.FILES['image']
+        file_path = upload_file(image, 'images')
+        url = f'{request.scheme}://{request.get_host()}{file_path}'
+        context = {'success': 1, 'file': {'url': url}}
+        return Response(context, content_type='application/json')
+
 # Comments APi Views 
 # # # # # #
 

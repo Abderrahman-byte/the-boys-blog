@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+
 import Embed from '@editorjs/embed'
 import Table from '@editorjs/table'
 import Paragraph from '@editorjs/paragraph'
@@ -15,6 +17,23 @@ import Delimiter from '@editorjs/delimiter'
 import InlineCode from '@editorjs/inline-code'
 import SimpleImage from '@editorjs/simple-image'
 
+const uploadByFile = async (file) => {
+    const token = JSON.parse(localStorage.getItem('token'))
+    const formData = new FormData()
+    formData.append('image', file)
+    const options = {
+        method: 'POST',
+        body: formData,
+        headers : {
+            'Authorization': `Token ${token}`
+        }
+    }
+    const req = await fetch('http://localhost:8000/api/articles/images', options)
+    const data = await req.json()
+
+    return data
+}
+
 export const EDITOR_JS_TOOLS = {
     embed: Embed,
     table: Table,
@@ -23,13 +42,20 @@ export const EDITOR_JS_TOOLS = {
     warning: Warning,
     code: Code,
     linkTool: LinkTool,
-    image: Image,
+    simpleImage: SimpleImage,
+    image: {
+        class: Image,
+        config: {
+            uploader: {
+                uploadByFile: uploadByFile 
+            }
+        }
+    },
     raw: Raw,
     header: Header,
     quote: Quote,
     marker: Marker,
     checklist: CheckList,
     delimiter: Delimiter,
-    inlineCode: InlineCode,
-    simpleImage: SimpleImage
+    inlineCode: InlineCode
 }
