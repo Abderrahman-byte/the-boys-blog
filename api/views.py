@@ -36,11 +36,19 @@ class ArticlesApi(APIView) :
         return Response(serializer.data, content_type='application/json')
 
     def post(self, request) :
-        data = request.data
-        data['author'] = request.user
-        article = ArticleSerializer().create(data)
-        serializer = ArticleSerializer(article)
+        try :
+            data = request.data
+            data['author'] = request.user
+            if data.get('overview') is not None :
+                parsed_overview = urlparse(data.get('overview'))
+                if parsed_overview.netloc == request.get_host() :
+                    data['overview'] = parsed_overview.path
 
+            article = ArticleSerializer().create(data)
+            serializer = ArticleSerializer(article)
+        except Exception as ex:
+            return Response({'details': ex.__str__()}, status=400, content_type='application/json')
+            
         return Response(serializer.data, status=201, content_type='application/json')
         
 class ArticleApi(APIView) :
@@ -65,8 +73,12 @@ class ArticleApi(APIView) :
 
         self.check_object_permissions(request, article)
         data = request.data
-        article = ArticleSerializer().update(article, data)
-        serializer = ArticleSerializer(article)
+        try :
+            article = ArticleSerializer().update(article, data)
+            serializer = ArticleSerializer(article)
+        except Exception as ex :
+            return Response({'details': ex.__str__()}, status=400, content_type='application/json')
+            
         return Response(serializer.data, status=201, content_type='application/json')
 
     def delete(self, request, pk) :

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from users.models import User
 
@@ -19,8 +20,10 @@ class Article(models.Model) :
     id = models.UUIDField(primary_key=True, default=uuid4)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     categories = models.ManyToManyField(Category)
-    title = models.CharField(max_length=500)
-    content = models.TextField()
+    title = models.CharField(max_length=500, unique=True, error_messages={ 
+        'unique': _("The article title is already used")})
+    content = models.JSONField()
+    overview = models.TextField(default='/media/image/placeholder.jpg')
     views = models.IntegerField(default=0)
     posted_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)

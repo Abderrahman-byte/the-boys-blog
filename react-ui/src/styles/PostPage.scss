@@ -107,4 +107,19 @@
             margin-left: .75em;
         }
     }
+
+    .errors-div {
+        margin-bottom: 1em;
+        .error {
+            width: 100%;
+            background-color: transparentize(rgb(255, 35, 35), .1);
+            color: whitesmoke;
+            padding: .75em .5em;
+            margin-bottom: .5em;
+            border-radius: 5px;
+            font-size: 1.25rem;
+            letter-spacing: .1em;
+            text-transform: capitalize;
+        }
+    }
 }

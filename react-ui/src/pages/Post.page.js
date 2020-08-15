@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, createRef } from 'react'
 import EditorJs from 'react-editor-js'
 
 import '../styles/PostPage.scss'
@@ -11,10 +11,12 @@ import { AuthContext } from '../context/AuthContext'
 export const PostPage = ({ create, article }) => {
     const { token } = useContext(AuthContext)
 
+    const editor = createRef()
     const [editorContent, setEditorContent] = useLocalStorage('new-post-content', {"time":1597330033064,"blocks":[{"type":"header","data":{"text":"Lorem Ipsum","level":2}},{"type":"paragraph","data":{"text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}}],"version":"2.18.0"})
     const [articleTitle, setArticleTitle] = useState('')
     const [overviewUrl, setOverviewUrl] = useState(null)
     const [imgIsLoading, setImagLoading] = useState(false)
+    const [errors, setErrors] = useState([])
 
     const [isNew, setIsNew] = useState(create ? true : false)
     const [articleId, setArticleId] = useState(article || null)
@@ -56,9 +58,74 @@ export const PostPage = ({ create, article }) => {
         }
     }
 
+    const checkErrors = () => {
+        let errorsList = []
+
+        if(articleTitle === '' || !articleTitle) {
+            errorsList.push('Article title is required')
+        }
+
+        if(!overviewUrl) {
+            errorsList.push('Article overview image is required')
+        }
+
+        if(!editorContent || !editorContent.blocks || editorContent.blocks < 2) {
+            errorsList.push('Article content is not accepted')
+        }
+
+        if(imgIsLoading) {
+            errorsList.push('Wait until the overview image is loaded')
+        }
+        
+        setErrors(errorsList)
+
+        return errorsList
+    }
+
+    const save = async () => {
+        const checkedErrors = checkErrors()
+        
+        if(checkedErrors.length > 0) return
+
+        const payload = {'title': articleTitle, 'content': JSON.stringify(editorContent), 'overview': overviewUrl}
+        const method = isNew ? 'POST': 'PUT'
+        const url = !isNew && articleId ? `http://localhost:8000/api/articles/${articleId}` : 'http://localhost:8000/api/articles/'
+        const options = { method, body: JSON.stringify(payload), headers: {'Authorization': `Token ${token}`, 'Content-Type': 'application/json'}}
+        const req = await fetch(url, options)
+
+        const data = await req.json()
+
+        if(req.status >= 200 && req.status < 300) {
+            setIsNew(false)
+            setArticleId(data.id)
+        } else {
+            if (data.details) setErrors([data.details])
+            else setErrors(['Something goes wrong on the server'])
+        }
+    }
+
+    const getArticle = async () => {
+        // Has not been test
+        const req = await fetch(`http://localhost:8000/api/articles/${articleId}`)
+        const data = await req.json()
+        const title = data.title
+        const overview = data.overview
+        const content = JSON.parse(data.content)
+        editor.current.render(content)
+        setOverviewUrl(overview)
+        setArticleTitle(title)
+    }
+
+    const previewArticle = () => {
+        console.log('You forgot to do preview page article')
+    } 
+
     useEffect(() => {
-        console.log(isNew)
-    })
+        // Has not been test
+        if(!isNew && articleId) {
+            getArticle()
+        }
+    }, [])
 
     return (
         <div className='PostPage'>
@@ -91,12 +158,15 @@ export const PostPage = ({ create, article }) => {
             </div>
 
             <div className='editor'>
-                <EditorJs data={editorContent} onChange={changeEditor} tools={EDITOR_JS_TOOLS} />
+                <EditorJs ref={editor} data={editorContent} onChange={changeEditor} tools={EDITOR_JS_TOOLS} />
             </div>
-
+            
+            <div className='errors-div'>
+                {errors.map((err, i) => (<p key={i} className='error'>{err}</p>))}
+            </div>
             <div className='btns-div'>
-                <button className='btn btn-primary btn-elt'>save</button>
-                <button disabled className='btn btn-primary btn-elt'>preview</button>
+                <button onClick={save} className='btn btn-primary btn-elt'>save</button>
+                <button onClick={previewArticle} disabled={isNew && !articleId} className='btn btn-primary btn-elt'>preview</button>
             </div>
         </div>
     )
