@@ -17,17 +17,21 @@
     .title-input {
         width: 100%;
         font-size: 1.5rem;
-        padding: .25em .5em;
-        margin-bottom: 1em;
+        padding: .5em .75em;
+        margin-bottom: 1.5em;
         border: 1px solid rgb(228, 231, 235);
         border-radius: 3px;
         letter-spacing: .1em;
+        box-shadow: 0 24px 24px -18px rgba(69,104,129,.33), 0 9px 45px 0 rgba(114,119,160,.12);
+
     }
 
     .overview-div {
         position: relative;
-        margin-bottom: 1em;
+        margin-bottom: 2em;
         border: 1px solid rgb(228, 231, 235);
+        box-shadow: 0 24px 24px -18px rgba(69,104,129,.33), 0 9px 45px 0 rgba(114,119,160,.12);
+
 
         img {
             width: 100%;

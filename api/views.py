@@ -13,7 +13,9 @@ from django.utils.decorators import method_decorator
 from .serializers import *
 from .permissions import *
 from blog.models import Article
-from .utils import upload_file
+from .utils import upload_file, delete_file
+
+from urllib.parse import urlparse
 
 # Articles Api
 # # # # # #
@@ -87,6 +89,25 @@ class UploadArticlesImages(APIView) :
         url = f'{request.scheme}://{request.get_host()}{file_path}'
         context = {'success': 1, 'file': {'url': url}}
         return Response(context, content_type='application/json')
+
+    def delete(self, request) :
+        data = request.data
+        file = data.get('file')
+        if file is not None : file_url = file.get('url')
+        else : file_url = none
+        
+        url_parsed = urlparse(file_url)
+
+        if request.get_host() != url_parsed.netloc :
+            return Response({'details': 'hostname does\'not match.'}, status=400, content_type='application/json')
+
+        file_path = url_parsed.path.lstrip('/').lstrip('media').lstrip('/')
+        exists = delete_file(file_path)
+
+        if not exists :
+            return Response({'details': 'Image doesnot exists.'}, status=400, content_type='application/json')
+        
+        return Response(status=204)
 
 # Comments APi Views 
 # # # # # #

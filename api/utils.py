@@ -18,3 +18,11 @@ def upload_file(file, dir=None) :
     fn = fs.save(filename, file)
     file_url = fs.url(fn)
     return file_url
+
+def delete_file(file_path) :
+    full_path = os.path.join(settings.MEDIA_ROOT, file_path)
+    if not os.path.exists(full_path) :
+        return False
+    
+    os.remove(full_path)
+    return True
