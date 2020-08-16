@@ -94,6 +94,10 @@ $nav-break: 1200px;
                 &.active {
                     font-weight: 600;
                     color: black;
+                    background-color: rgb(235, 235, 235);
+                    @include mediaQuery($nav-break) {
+                        background-color: transparent;
+                    }
                 }
 
                 &:hover {

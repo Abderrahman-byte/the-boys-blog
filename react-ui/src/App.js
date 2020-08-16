@@ -23,7 +23,7 @@ const App = () => {
 
         <StaffOnlyRouter path='/staff' component={StaffPages} />
 
-        <Route exact path='' component={MainPage} />
+        <Route path='' component={MainPage} />
       </Switch>
     </div>
   )

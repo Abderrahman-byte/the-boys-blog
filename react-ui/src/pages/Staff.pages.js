@@ -13,7 +13,7 @@ export const StaffPages = ({match}) => {
             <Route path={`${match.path}/profil`}>
                 <ProfilPage profil={user} />
             </Route>
-            <Route path={`${match.path}/new-post`}>
+            <Route exact path={`${match.path}/new-post`}>
                 <PostPage create />
             </Route>
             

@@ -101,6 +101,18 @@ button, input, textarea {
   border-color: gray transparent transparent transparent;
 }
 
+.lds-ring.big {
+  width: 120px;
+  height: 120px;
+
+  div {
+    width: 92px;
+    height: 92px;
+    margin: 12px;
+    border-width: 12px;
+  }
+}
+
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;
 }

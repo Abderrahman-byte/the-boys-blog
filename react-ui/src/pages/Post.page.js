@@ -5,7 +5,6 @@ import '../styles/PostPage.scss'
 
 import { EDITOR_JS_TOOLS } from '../components/editorTools'
 import { useLocalStorage } from '../hooks/useLocalStorage'
-import { Link, Redirect } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 
 export const PostPage = ({ create, article }) => {

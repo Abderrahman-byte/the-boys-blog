@@ -51,7 +51,7 @@ export const Header = () => {
                         <li onClick={toggleDropdown} className='dropdown'>
                             <a href='#'>Staff <i className="fas fa-chevron-up up"></i><i className="fas fa-chevron-down down"></i></a>
                             <ul className='dropdown-menu'>
-                                <li><NavLink exact to='/staff/profil'>Profil</NavLink></li>
+                                <li><NavLink to='/staff/profil'>Profil</NavLink></li>
                                 <li><NavLink exact to='/staff/new-post'>Write Article</NavLink></li>
                             </ul>
                         </li>
