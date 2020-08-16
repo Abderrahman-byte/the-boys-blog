@@ -3,12 +3,11 @@ import React, { useState } from 'react'
 import '../styles/Wallpaper.scss'
 
 export const Wallpaper = ({src, text}) => {
-    const [currentImg, setCurrentImg] = useState(src)
     const [imgIsLoaded, setImgLoaded] = useState(false)
 
     return (
         <div className='Wallpaper'>
-            <img className={imgIsLoaded ? null : 'hidden'} src={currentImg} onLoad={() => setImgLoaded(true)} />
+            <img className={imgIsLoaded ? null : 'hidden'} src={src} onLoad={() => setImgLoaded(true)} onError={() => setImgLoaded(false)} />
 
             {imgIsLoaded ? (
                 <div className='filter'>

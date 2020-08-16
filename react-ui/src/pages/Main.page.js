@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { Switch, Route } from 'react-router-dom'
 
 import '../styles/MainPage.scss'
 
 import { Wallpaper } from '../components/Wallpaper'
+import { ArticlePage } from './Article.page'
 
 export const MainPage = () => {
     const [wallpaperImg, setWallpaperImg] = useState('http://localhost:8000/media/images/wp-1.jpg')
@@ -11,6 +13,12 @@ export const MainPage = () => {
     return (
         <div className='MainPage'>
             <Wallpaper src={wallpaperImg} text={headerText} />
+
+            <Switch>
+                <Route path='/articles/:id'>
+                    <ArticlePage setWallpaper={setWallpaperImg} setTitle={setHeaderText} />
+                </Route>
+            </Switch>
         </div>
     )
 }
