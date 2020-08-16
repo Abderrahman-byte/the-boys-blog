@@ -121,8 +121,8 @@ export const PostPage = ({ create, article }) => {
     } 
 
     useEffect(() => {
-        // Has not been test
         if(!isNew && articleId) {
+        // Has not been test
             getArticle()
         }
     }, [])

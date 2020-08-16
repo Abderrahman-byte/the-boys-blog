@@ -36,7 +36,7 @@ export const EditName = ({profil}) => {
     const saveName = async () => {
         const nameParts = nameInputValue.split(' ')
         const first = nameParts[0]
-        const last = nameParts[nameParts.length - 1]
+        const last = nameParts.slice(1).join(' ')
 
         if(nameInputValue === '') {
             setInputError(true)
