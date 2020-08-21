@@ -1,0 +1,77 @@
+.Article {
+    border: 1px solid red;
+    padding-bottom: 4em;
+
+    .warning {
+        margin: .4em 0;
+        background: #ffcc00;
+        padding: 1em .25em;
+        text-align: center;
+        border-radius: 3px;
+    }
+
+    .block__content {
+        margin: 0 auto;
+        max-width: 650px;
+    }
+
+    .BlockHeader {
+        padding: 1em 0;
+    }
+
+    .Paragraph {
+        line-height: 1.6em;
+        padding: .4em 0;
+    }
+
+    .Image {
+        width: 100%;
+        padding: .75em 0;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        img {
+            width: auto;
+            margin-bottom: .5em;
+            border-radius: 5px;
+            &.border {
+                border: 1px solid #e4e7eb;
+            }
+        }
+
+        figcaption {
+            font-size: .95rem;
+            border: 1px solid #e4e7eb;
+            border-radius: 3px;
+            padding: 10px 12px;
+            text-align: center;
+            width: 100%;
+        }
+    }
+
+    .Embed {
+        border: none;
+        width: 100%;
+        margin: .4em 0;
+        border-radius: 3px;
+    }
+
+    .List {
+        padding: .4em 0;
+        padding-left: 40px;
+        
+        &.unordered {
+            list-style: disc;
+        }
+
+        &.ordered {
+            list-style: decimal;
+        }
+
+        & > li {
+            padding: 5.5px 0 5.5px 3px;
+            line-height: 1.6em;
+        }
+    }
+}

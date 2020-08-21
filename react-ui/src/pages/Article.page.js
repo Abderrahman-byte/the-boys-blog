@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
+import '../styles/ArticlePage.scss'
+import { Article } from '../components/Article'
+import { ArticleHeader } from '../components/ArticleHeader'
+
 export const ArticlePage = ({setWallpaper, setTitle}) => {
     const { id } = useParams()
-    const [data, setData] = useState({})
+    const [data, setData] = useState(null)
+    const [blocks, setBlocks] = useState(null)
     
     const getArticle = async () => {
         const req = await fetch(`http://localhost:8000/api/articles/${id}`)
@@ -22,11 +27,35 @@ export const ArticlePage = ({setWallpaper, setTitle}) => {
     }, [])
 
     useEffect(() => {
-        setWallpaper(data.overview)
-        setTitle(data.title)
+        if(data) {
+            let content = {}
+            try { content = JSON.parse(data.content) }
+            catch(err) {
+                console.error(err)
+                content = {}
+            }
+            setBlocks(content.blocks || null)
+            setWallpaper(data.overview)
+            setTitle(data.title)  
+        }
     }, [data])
 
     return (
-        <div>{id}</div>
+        <div className='ArticlePage'>
+            <div className='row'>
+                <div className='content'>
+                    {data && data.author ? (
+                        <ArticleHeader author={data.author} />
+                    ) : !blocks ? null : (
+                        <div className='lds-ring center'><div></div><div></div><div></div><div></div></div>
+                    )}
+
+                    {blocks ? (<Article blocks={blocks} />) : (
+                        <div className='lds-ring center'><div></div><div></div><div></div><div></div></div>
+                    )}
+                </div>
+                <div className='aside'>abderrahman</div>
+            </div>
+        </div>
     )
 }

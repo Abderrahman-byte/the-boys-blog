@@ -1,0 +1,37 @@
+@import './mixins.scss';
+
+$content-break: 900px;
+
+.MainPage {
+    .row {
+        width: 100%;
+        padding: 1em .75em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        @include mediaQuery($content-break) {
+            flex-direction: row;
+            padding: 2em 1.5em;
+        }
+
+        .aside {
+            width: 100%;
+            padding: 1em;
+            margin-top: .5em;
+            border: 1px solid magenta;
+            @include mediaQuery($content-break) {
+                width: 29%;
+                margin: 0;
+            }
+        }
+
+        .content {
+            width: 100%;
+            margin-bottom: .5em;
+            @include mediaQuery($content-break) {
+                width: 69%;
+                margin: 0;
+            }
+        }
+    }
+}

@@ -43,6 +43,7 @@ class UserSerializer(serializers.ModelSerializer) :
             user.save()
             return user
         except utils.IntegrityError as ex :
+            print('integrity error', ex.with_traceback())
             msg = ex.__str__()
             field_name = msg.split()[3].split('.')[1]
             error_msg = user.unique_error_message(User, (field_name,)).message
@@ -128,5 +129,5 @@ class ArticleSerializer(serializers.Serializer) :
         except utils.IntegrityError as ex :
             msg = ex.__str__()
             field_name = msg.split()[3].split('.')[1]
-            error_msg = instance.unique_error_message(User, (field_name,)).message
+            error_msg = instance.unique_error_message(Article, (field_name,)).message
             raise Exception(error_msg)

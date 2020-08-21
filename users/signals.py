@@ -15,7 +15,10 @@ def createToken(sender, instance, created, *args, **kwargs) :
 @receiver(pre_save, sender=User)
 def removeUselessFiles(sender, instance, *args, **kwargs) :
     id = instance.id
-    user = User.objects.get(pk=id)
+    try :
+        user = User.objects.get(pk=id)
+    except User.DoesNotExist :
+        return
 
     if user.avatar != '/media/users/default-user.png' and user.avatar != instance.avatar :
         path = user.avatar.lstrip('/').lstrip('media').lstrip('/')
