@@ -13,4 +13,4 @@ validate-email = "*"
 py3dns = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.6"
