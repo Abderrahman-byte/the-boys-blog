@@ -48,7 +48,7 @@ class User(AbstractUser) :
             if self.about is None or self.about == '' :
                 raise Exception('About text is required for staff members')
         
-        if not self.is_staff or not self.is_superuser :
+        if not self.is_staff and not self.is_superuser :
             self.staff_title = None 
 
         super().save(*args, **kwargs)
