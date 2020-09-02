@@ -51,7 +51,7 @@ const dataToComponent = (block) => {
 }
 
 export const Article = ({ blocks }) => {
-    const children = blocks.map(block => <div className='block__content'>{dataToComponent(block)}</div>)
+    const children = blocks.map((block, i) => <div key={i} className='block__content'>{dataToComponent(block)}</div>)
     return (
         <div className='Article'>
             {children}
