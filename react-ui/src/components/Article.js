@@ -43,7 +43,7 @@ const dataToComponent = (block) => {
         case 'checklist':
             return (<p className='warning'>Type {block.type} is not supported yet</p>)
         case 'delimiter':
-            return (<p className='warning'>Type {block.type} is not supported yet</p>)
+            return (<div className='delimiter'></div>)
         case 'inlineCode':
             return (<p className='warning'>Type {block.type} is not supported yet</p>)
     }
