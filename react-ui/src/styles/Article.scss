@@ -89,4 +89,57 @@
             letter-spacing: 0.2em;
         }
     }
+
+    .Checklist {
+        padding: .4em 0;
+
+        .checklist-item {
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+
+            .button {
+                display: inline-block;
+                flex-shrink: 0;
+                position: relative;
+                width: 20px;
+                height: 20px;
+                margin: 10px 10px 10px 0;
+                border-radius: 50%;
+                border: 1px solid #d0d0d0;
+                background: #fff;
+                user-select: none;
+
+                &.checked {
+                    background: #388ae5;
+                    border-color: #388ae5;
+                }
+
+                &.checked::after {
+                    opacity: 1;
+                }
+
+                &::after {
+                    position: absolute;
+                    top: 5px;
+                    left: 5px;
+                    width: 8px;
+                    height: 5px;
+                    border: 2px solid #fcfff4;
+                    border-top: none;
+                    border-right: none;
+                    background: transparent;
+                    content: '';
+                    opacity: 0;
+                    transform: rotate(-45deg);
+                }
+            }
+
+            .text {
+                outline: none;
+                flex-grow: 1;
+                padding: 10px 0;
+            }
+        }
+    }
 }

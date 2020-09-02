@@ -7,6 +7,7 @@ import { Header } from './blocks/Header'
 import { BlockImage } from './blocks/Image'
 import { Embed } from './blocks/Embed'
 import { BlockList } from './blocks/List'
+import { Checklist } from './blocks/Checklist'
 
 const dataToComponent = (block) => {
     if (!block || !block.data || !block.type) {
@@ -41,7 +42,7 @@ const dataToComponent = (block) => {
         case 'marker':
             return (<p className='warning'>Type {block.type} is not supported yet</p>)
         case 'checklist':
-            return (<p className='warning'>Type {block.type} is not supported yet</p>)
+            return (<Checklist data={block.data} />)
         case 'delimiter':
             return (<div className='delimiter'></div>)
         case 'inlineCode':
