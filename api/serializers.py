@@ -101,6 +101,7 @@ class ArticleSerializer(serializers.Serializer) :
     categories = CategorySerializer(many=True)
     title = serializers.CharField()
     content = serializers.JSONField()
+    posted_date = TimestampField()
     overview = MediaUrlField()
     comment_set = CommentSerializer(many=True)
 

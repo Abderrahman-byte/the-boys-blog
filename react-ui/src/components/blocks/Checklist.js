@@ -2,8 +2,6 @@ import React from 'react'
 import { AllHtmlEntities } from 'html-entities'
 
 export const Checklist = ({data}) => {
-    console.log(data)
-
     if(!data || !data.items) {
         return null
     } 

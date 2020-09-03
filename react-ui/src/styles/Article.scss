@@ -1,6 +1,7 @@
 .Article {
-    border: 1px solid red;
+    border: 1px solid #e4e7eb;
     padding-bottom: 4em;
+    border-radius: 3px;
 
     .warning {
         margin: .4em 0;
@@ -13,6 +14,7 @@
     .block__content {
         margin: 0 auto;
         max-width: 650px;
+        width: 95%;
     }
 
     .BlockHeader {

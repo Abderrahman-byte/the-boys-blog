@@ -1,9 +1,27 @@
 .ArticleHeader {
     border: 1px solid #e4e7eb;
     margin-bottom: .75em;
-    padding: .25em .5em;
+    padding: .25em .75em;
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: 3px;
 
-    
+    p {
+        font-size: .95rem;
+        font-style: italic;
+        text-align: right;
+        text-transform: capitalize;
+    }
+
+    .author {
+        font-weight: 700;
+        font-style: normal;
+        color: #2384D9;
+        text-decoration: none;
+    }
+
+    span {
+        font-style: normal;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
 }
