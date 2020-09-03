@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import '../styles/ArticlePage.scss'
 import { Article } from '../components/Article'
 import { ArticleHeader } from '../components/ArticleHeader'
+import { AuthorCard } from '../components/AuthorCard'
 
 export const ArticlePage = ({setWallpaper, setTitle}) => {
     const { id } = useParams()
@@ -53,6 +54,8 @@ export const ArticlePage = ({setWallpaper, setTitle}) => {
                     {blocks ? (<Article blocks={blocks} />) : (
                         <div className='lds-ring center'><div></div><div></div><div></div><div></div></div>
                     )}
+
+                    {(data && data.author) && (<AuthorCard author={data.author} />)}
                 </div>
                 <div className='aside'>abderrahman</div>
             </div>
