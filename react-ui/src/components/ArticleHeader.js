@@ -6,6 +6,10 @@ import '../styles/ArticleHeader.scss'
 export const ArticleHeader = ({author, pubdate}) => {
     return (
         <div className='ArticleHeader'>
+            <div className='control'>
+                <Link className='edit' data-title='Edit Article'><i className='fas fa-cog'></i></Link>
+                <Link className='delete' data-title='Delete Article'><i className='fas fa-trash'></i></Link>
+            </div>
             <p>Published at {(new Date(pubdate)).toLocaleString()} <span>|</span> by <Link className='author'>{author.first_name} {author.last_name}</Link></p>
         </div>
     )

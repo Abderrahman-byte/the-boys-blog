@@ -4,6 +4,46 @@
     padding: .25em .75em;
     background-color: #fff;
     border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .control {
+        a  {
+            font-size: 1.1rem;
+            display: inline-block;
+            margin-right: 1.5em;
+            position: relative;
+
+            &.edit {
+                color: grey;
+            }
+
+            &.delete {
+                color: rgb(253, 30, 30);
+            }
+
+            &::after {
+                content: attr(data-title);
+                position: absolute;
+                top: -30px;
+                left: 50%;
+                font-size: .75rem;
+                width: 130px;
+                background-color: rgba(12, 12, 12, 0.75);
+                color: whitesmoke;
+                padding: .5em .75em;
+                border-radius: 3px;
+                transform: scale(0);
+                transform-origin: center;
+                transition: .4s transform ease-in-out;
+            }
+
+            &:hover::after {
+                transform: scale(1);
+            }
+        }
+    }
 
     p {
         font-size: .95rem;
