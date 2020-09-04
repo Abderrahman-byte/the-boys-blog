@@ -116,7 +116,7 @@ export const PostPage = ({ create, article }) => {
         const data = await req.json()
         
         if(data.author.id !== user.id) {
-            // history.push(`/articles/${data.id}`)
+            history.push(`/articles/${data.id}`)
         }
 
         const title = data.title
