@@ -7,9 +7,12 @@ import '../styles/PostPage.scss'
 import { EDITOR_JS_TOOLS } from '../components/editorTools'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { AuthContext } from '../context/AuthContext'
+import { ModelsContext } from '../context/ModelsContext'
+import { LoadingModel } from '../components/LoadingModel'
 
 export const PostPage = ({ create, article }) => {
     const { token, user } = useContext(AuthContext)
+    const { openModel, closeModel } = useContext(ModelsContext)
     const params = useParams()
     const history = useHistory()
 
@@ -111,6 +114,8 @@ export const PostPage = ({ create, article }) => {
     } 
 
     const getArticle = async (id) => {
+        openModel(<LoadingModel />, false)
+
         const req = await fetch(`http://localhost:8000/api/articles/${id}`, )
         // Must Handle 404 and 500 ERRORS
         const data = await req.json()
@@ -128,6 +133,8 @@ export const PostPage = ({ create, article }) => {
         }
         setOverviewUrl(overview)
         setArticleTitle(title)
+
+        setTimeout(closeModel, 1000)
     }
 
     useEffect(() => {
