@@ -22,26 +22,6 @@
             &.delete {
                 color: rgb(253, 30, 30);
             }
-
-            &::after {
-                content: attr(data-title);
-                position: absolute;
-                top: -30px;
-                left: 50%;
-                font-size: .75rem;
-                width: 130px;
-                background-color: rgba(12, 12, 12, 0.75);
-                color: whitesmoke;
-                padding: .5em .75em;
-                border-radius: 3px;
-                transform: scale(0);
-                transform-origin: center;
-                transition: .4s transform ease-in-out;
-            }
-
-            &:hover::after {
-                transform: scale(1);
-            }
         }
     }
 

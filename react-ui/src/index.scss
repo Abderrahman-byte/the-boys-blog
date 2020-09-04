@@ -36,6 +36,7 @@ button, input, textarea {
   outline: none;
 }
 
+// Buttons
 .btn {
   border-radius: 5px;
   letter-spacing: .15em;
@@ -75,7 +76,46 @@ button, input, textarea {
   }
 } 
 
+// Tooltips
+.tooltip {
+  &::after {
+    content: attr(data-title);
+    position: absolute;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-align: center;
+    width: 120px;
+    // background-color: rgba(12, 12, 12, 0.75);
+    background-color: rgba(12, 12, 12, 1);
+    color: whitesmoke;
+    padding: .5em .75em;
+    // border-radius: 3px;
+    border-radius: 6px;
+    transform: scale(0);
+    transform-origin: center;
+    transition: .2s transform ease-in-out;
+    z-index: 1;
+    opacity: .8;
+  }
 
+  &.tooltip-top::after {
+      left: 50%;
+      bottom: 100%;
+      margin-left: -60px;
+  }
+
+  &.tooltip-right::after {
+      top: -5px;
+      left: 105%;
+  }
+
+  &:hover::after {
+      transform: scale(1);
+  }
+}
+
+// Loading Ring
 .lds-ring {
   display: block;
   position: relative;
