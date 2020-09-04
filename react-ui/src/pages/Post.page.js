@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, createRef } from 'react'
+import { useRouteMatch, useParams, useHistory } from 'react-router-dom'
 import EditorJs from 'react-editor-js'
 
 import '../styles/PostPage.scss'
@@ -8,9 +9,11 @@ import { useLocalStorage } from '../hooks/useLocalStorage'
 import { AuthContext } from '../context/AuthContext'
 
 export const PostPage = ({ create, article }) => {
-    const { token } = useContext(AuthContext)
+    const { token, user } = useContext(AuthContext)
+    const params = useParams()
+    const history = useHistory()
 
-    const editor = createRef()
+    let editorRef = null
     const [editorContent, setEditorContent] = useLocalStorage('new-post-content', {"time":1597330033064,"blocks":[{"type":"header","data":{"text":"Lorem Ipsum","level":2}},{"type":"paragraph","data":{"text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}}],"version":"2.18.0"})
     const [articleTitle, setArticleTitle] = useState('')
     const [overviewUrl, setOverviewUrl] = useState(null)
@@ -103,26 +106,38 @@ export const PostPage = ({ create, article }) => {
         }
     }
 
-    const getArticle = async () => {
-        // Has not been test
-        const req = await fetch(`http://localhost:8000/api/articles/${articleId}`)
+    const previewArticle = () => {
+        history.push(`/articles/${articleId}`)
+    } 
+
+    const getArticle = async (id) => {
+        const req = await fetch(`http://localhost:8000/api/articles/${id}`, )
+        // Must Handle 404 and 500 ERRORS
         const data = await req.json()
+        
+        if(data.author.id !== user.id) {
+            // history.push(`/articles/${data.id}`)
+        }
+
         const title = data.title
         const overview = data.overview
         const content = JSON.parse(data.content)
-        editor.current.render(content)
+        if(editorRef) {
+            await editorRef.isReady
+            editorRef.render(content)
+        }
         setOverviewUrl(overview)
         setArticleTitle(title)
     }
 
-    const previewArticle = () => {
-        console.log('You forgot to do preview page article')
-    } 
-
     useEffect(() => {
+        if(!isNew && !articleId) {
+            setArticleId(params.id)
+            getArticle(params.id)
+        }
+
         if(!isNew && articleId) {
-        // Has not been test
-            getArticle()
+            getArticle(articleId)
         }
     }, [])
 
@@ -157,7 +172,9 @@ export const PostPage = ({ create, article }) => {
             </div>
 
             <div className='editor'>
-                <EditorJs ref={editor} data={editorContent} onChange={changeEditor} tools={EDITOR_JS_TOOLS} />
+                <EditorJs 
+                instanceRef={async instance => editorRef = instance }
+                data={editorContent} onChange={changeEditor} tools={EDITOR_JS_TOOLS} />
             </div>
             
             <div className='errors-div'>

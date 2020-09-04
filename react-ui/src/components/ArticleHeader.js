@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext'
 
 import '../styles/ArticleHeader.scss'
 
-export const ArticleHeader = ({author, pubdate}) => {
+export const ArticleHeader = ({author, pubdate, id}) => {
     const { user } = useContext(AuthContext)
     
     return (
@@ -12,7 +12,7 @@ export const ArticleHeader = ({author, pubdate}) => {
             <div className='control'>
                 {user.id === author.id ? (
                     <>
-                        <Link className='edit tooltip tooltip-right'  data-title='Edit Article'><i className='fas fa-cog'></i></Link>
+                        <Link to={`/staff/edit-article/${id}`} className='edit tooltip tooltip-right'  data-title='Edit Article'><i className='fas fa-cog'></i></Link>
                         <Link className='delete tooltip tooltip-top' data-title='Delete Article'><i className='fas fa-trash'></i></Link>
                     </>
                 ) : (null)}    

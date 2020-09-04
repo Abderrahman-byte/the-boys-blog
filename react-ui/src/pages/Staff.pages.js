@@ -16,6 +16,10 @@ export const StaffPages = ({match}) => {
             <Route exact path={`${match.path}/new-post`}>
                 <PostPage create />
             </Route>
+
+            <Route exact path={`${match.path}/edit-article/:id`}>
+                <PostPage />
+            </Route>
             
             <Redirect exact from={`${match.path}`} to={`${match.path}/profil`} />
         </Switch>
