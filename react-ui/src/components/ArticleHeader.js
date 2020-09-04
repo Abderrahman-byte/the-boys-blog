@@ -13,11 +13,11 @@ export const ArticleHeader = ({author, pubdate, id}) => {
                 {user && user.id === author.id ? (
                     <>
                         <Link to={`/staff/edit-article/${id}`} className='edit tooltip tooltip-right'  data-title='Edit Article'><i className='fas fa-cog'></i></Link>
-                        <Link className='delete tooltip tooltip-top' data-title='Delete Article'><i className='fas fa-trash'></i></Link>
+                        <Link to='#' className='delete tooltip tooltip-top' data-title='Delete Article'><i className='fas fa-trash'></i></Link>
                     </>
                 ) : (null)}    
             </div>
-            <p>Published at {(new Date(pubdate)).toLocaleString()} <span>|</span> by <Link className='author'>{author.first_name} {author.last_name}</Link></p>
+            <p>Published at {(new Date(pubdate)).toLocaleString()} <span>|</span> by <Link to="#" className='author'>{author.first_name} {author.last_name}</Link></p>
         </div>
     )
 }

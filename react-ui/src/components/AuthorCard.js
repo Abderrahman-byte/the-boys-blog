@@ -11,7 +11,7 @@ export const AuthorCard = ({ author }) => {
                 <span className='title'>{author.first_name} {author.last_name}</span>
                 <span className='staff'>{author.staff_title}</span>
                 <p className='about'>{author.about.split('\n').map((t, i) => (<span key={i}>{t}</span>))}</p>
-                <Link className='btn btn-primary'>Profil</Link>
+                <Link to="#" className='btn btn-primary'>Profil</Link>
             </div>
         </div>
     )
