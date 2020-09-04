@@ -35,6 +35,7 @@ export const PostPage = ({ create, article }) => {
         const file = e.target.files[0]
 
         if(file) {
+            openModel(<LoadingModel />, false)
             setImagLoading(true)
             const formData = new FormData()
             formData.append('image', file)
@@ -47,6 +48,7 @@ export const PostPage = ({ create, article }) => {
             } else {
                 console.error('Must set errors')
             }
+            setTimeout(closeModel, 1000)
         }
 
     }
@@ -92,6 +94,7 @@ export const PostPage = ({ create, article }) => {
         
         if(checkedErrors.length > 0) return
 
+        openModel(<LoadingModel />, false)
         const payload = {'title': articleTitle, 'content': JSON.stringify(editorContent), 'overview': overviewUrl}
         const method = isNew ? 'POST': 'PUT'
         const url = !isNew && articleId ? `http://localhost:8000/api/articles/${articleId}` : 'http://localhost:8000/api/articles/'
@@ -107,6 +110,7 @@ export const PostPage = ({ create, article }) => {
             if (data.details) setErrors([data.details])
             else setErrors(['Something goes wrong on the server'])
         }
+        setTimeout(closeModel, 1000)
     }
 
     const previewArticle = () => {
