@@ -18,6 +18,7 @@ export const ModelsProvider = ({children}) => {
     const closeModel = () => {
         setIsOpen(false)
         setModel(null)
+        setClosable(false)
     }
 
     return (
