@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from django.http import HttpResponseNotFound, HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, Http404
 from django.contrib.auth import authenticate
 from django.db import utils
 from rest_framework.parsers import FileUploadParser
@@ -59,7 +59,7 @@ class ArticleApi(APIView) :
         try :
             article = Article.objects.get(pk=pk)
         except Article.DoesNotExist :
-            return HttpResponseNotFound()
+            raise Http404
 
         self.check_object_permissions(request, article)
         serializer = ArticleSerializer(article)
@@ -69,7 +69,7 @@ class ArticleApi(APIView) :
         try :
             article = Article.objects.get(pk=pk)
         except Article.DoesNotExist :
-            return HttpResponseNotFound()
+            raise Http404
 
         self.check_object_permissions(request, article)
         data = request.data
@@ -85,7 +85,7 @@ class ArticleApi(APIView) :
         try :
             article = Article.objects.get(pk=pk)
         except Article.DoesNotExist :
-            return HttpResponseNotFound()
+            raise Http404
 
         self.check_object_permissions(request, article)
         article.delete()
@@ -149,7 +149,7 @@ class CommentApi(APIView) :
         try :
             comment = Comment.objects.get(pk=pk)
         except Comment.DoesNotExist :
-            return HttpResponseNotFound()
+            raise Http404
 
         self.check_object_permissions(request, comment)
         serializer = CommentSerializer(comment)
@@ -159,7 +159,7 @@ class CommentApi(APIView) :
         try :
             comment = Comment.objects.get(pk=pk)
         except Comment.DoesNotExist :
-            return HttpResponseNotFound()
+            raise Http404
 
         self.check_object_permissions(request, comment)
         data = request.data
@@ -172,7 +172,7 @@ class CommentApi(APIView) :
         try :
             comment = Comment.objects.get(pk=pk)
         except Comment.DoesNotExist :
-            return HttpResponseNotFound()
+            raise Http404
 
         self.check_object_permissions(request, comment)
         return Response(status=204)
