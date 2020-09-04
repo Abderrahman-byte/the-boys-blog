@@ -85,14 +85,15 @@ $nav-break: 1200px;
                 padding-left: 1.25em;
                 text-decoration: none;
                 font-size: 1rem;
-                color: rgba(0,0,0,0.87);
+                font-weight: 600;
+                color: rgba(0,0,0,0.65);
+                transition: .3s color ease-in-out;
 
                 @include mediaQuery($nav-break) {
                     padding: .5em 1.25em;
                 }
 
                 &.active {
-                    font-weight: 600;
                     color: black;
                     background-color: rgb(235, 235, 235);
                     @include mediaQuery($nav-break) {
@@ -104,7 +105,6 @@ $nav-break: 1200px;
                     background-color: whitesmoke;
                     @include mediaQuery($nav-break) {
                         background-color: transparent;
-                        font-weight: 600;
                         color: black;
                     }
                 }
