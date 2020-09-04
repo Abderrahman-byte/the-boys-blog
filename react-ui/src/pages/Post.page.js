@@ -44,7 +44,6 @@ export const PostPage = ({ create, article }) => {
             if(req.status >= 200 && req.status < 300) {
                 const data = await req.json()
                 setOverviewUrl(data.file.url)
-                console.log(data)
             } else {
                 console.error('Must set errors')
             }
@@ -151,6 +150,11 @@ export const PostPage = ({ create, article }) => {
             getArticle(articleId)
         }
     }, [])
+
+    useEffect(() => {
+        // Must be fixed
+        console.log("something  has change")
+    }, [create])
 
     return (
         <div className='PostPage'>

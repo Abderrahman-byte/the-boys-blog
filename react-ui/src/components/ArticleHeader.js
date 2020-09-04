@@ -10,7 +10,7 @@ export const ArticleHeader = ({author, pubdate, id}) => {
     return (
         <div className='ArticleHeader'>
             <div className='control'>
-                {user.id === author.id ? (
+                {user && user.id === author.id ? (
                     <>
                         <Link to={`/staff/edit-article/${id}`} className='edit tooltip tooltip-right'  data-title='Edit Article'><i className='fas fa-cog'></i></Link>
                         <Link className='delete tooltip tooltip-top' data-title='Delete Article'><i className='fas fa-trash'></i></Link>

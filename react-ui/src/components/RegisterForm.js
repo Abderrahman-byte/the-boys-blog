@@ -3,10 +3,13 @@ import React, { useContext, useState } from 'react'
 import '../styles/LoginForm.scss'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
+import { LoadingModel } from './LoadingModel'
+import { ModelsContext } from '../context/ModelsContext'
 
 export const RegisterForm = () => {
     const { setUser, setAuth, setToken } = useContext(AuthContext)
-    
+    const { openModel, closeModel } = useContext(ModelsContext)
+
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password1, setPassword1] = useState('')
@@ -91,6 +94,7 @@ export const RegisterForm = () => {
     }
 
     const register = async () => {
+        openModel(<LoadingModel />, false)
         const payload = {username, email, password: password1}
         const reqOptions = {
             method: 'POST', 
@@ -119,6 +123,7 @@ export const RegisterForm = () => {
                 setAddError('Something goes wrong')
             }
         }
+        setTimeout(closeModel, 1000)
     }
 
     const handleSubmit = e => {

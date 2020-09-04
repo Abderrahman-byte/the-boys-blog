@@ -4,15 +4,19 @@ import '../styles/LoginForm.scss'
 
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
+import { ModelsContext } from '../context/ModelsContext'
+import { LoadingModel } from './LoadingModel'
 
 export const LoginForm = () => {
     const { setUser, setToken, setAuth } = useContext(AuthContext)
+    const { openModel, closeModel } = useContext(ModelsContext)
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(null)
 
     const login = async () => {
+        openModel(<LoadingModel />, false)
         const payload = {username, password}
         const reqOptions = {
             method: 'POST', 
@@ -40,6 +44,8 @@ export const LoginForm = () => {
                 setError('Something goes wrong')
             }
         }
+
+        setTimeout(closeModel)
     }
 
     const handleSubmit = e => {
