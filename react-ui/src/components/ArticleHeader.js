@@ -7,7 +7,7 @@ import { AuthContext } from '../context/AuthContext'
 import { ModelsContext } from '../context/ModelsContext'
 import { ConfirmModel } from './ConfirmModel'
 
-export const ArticleHeader = ({author, pubdate, id}) => {
+export const ArticleHeader = ({author, pubdate, id, setDefault}) => {
     const { user, token } = useContext(AuthContext)
     const { openModel, closeModel } = useContext(ModelsContext)
     const history = useHistory()
@@ -23,10 +23,10 @@ export const ArticleHeader = ({author, pubdate, id}) => {
 
         if(req.status >= 200 && req.status < 300) {
             history.replace('/')
-            closeModel()
-        } else {
-            closeModel()
-        } 
+            setDefault()
+        }
+
+        closeModel()
     }
 
     const handleDelete = () => {

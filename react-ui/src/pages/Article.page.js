@@ -6,7 +6,7 @@ import { Article } from '../components/Article'
 import { ArticleHeader } from '../components/ArticleHeader'
 import { AuthorCard } from '../components/AuthorCard'
 
-export const ArticlePage = ({setWallpaper, setTitle}) => {
+export const ArticlePage = ({setWallpaper, setTitle, setDefault}) => {
     const { id } = useParams()
     const [data, setData] = useState(null)
     const [blocks, setBlocks] = useState(null)
@@ -46,7 +46,7 @@ export const ArticlePage = ({setWallpaper, setTitle}) => {
             <div className='row'>
                 <div className='content'>
                     {data && data.author ? (
-                        <ArticleHeader author={data.author} pubdate={data.posted_date} id={id} />
+                        <ArticleHeader author={data.author} pubdate={data.posted_date} id={id} setDefault={setDefault} />
                     ) : !blocks ? null : (
                         <div className='lds-ring center'><div></div><div></div><div></div><div></div></div>
                     )}

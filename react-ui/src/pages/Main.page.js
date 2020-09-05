@@ -10,13 +10,18 @@ export const MainPage = () => {
     const [wallpaperImg, setWallpaperImg] = useState('http://localhost:8000/media/images/wp-1.jpg')
     const [headerText, setHeaderText] = useState('Grow fast or die slow')
 
+    const setDefault = () => {
+        setWallpaperImg('http://localhost:8000/media/images/wp-1.jpg')
+        setHeaderText('Grow fast or die slow')
+    }
+
     return (
         <div className='MainPage'>
             <Wallpaper src={wallpaperImg} text={headerText} />
 
             <Switch>
                 <Route path='/articles/:id'>
-                    <ArticlePage setWallpaper={setWallpaperImg} setTitle={setHeaderText} />
+                    <ArticlePage setDefault={setDefault} setWallpaper={setWallpaperImg} setTitle={setHeaderText} />
                 </Route>
             </Switch>
         </div>
