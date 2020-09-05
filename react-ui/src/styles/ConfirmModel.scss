@@ -1,0 +1,40 @@
+.ConfirmModel {
+    position: relative;
+    padding: 1.75em 1em;
+    background: whitesmoke;
+    border-radius: 3px;
+    max-width: 95%;
+
+    .text {
+        text-align: center;
+        font-size: 1.2rem;
+        letter-spacing: .1em;
+        font-weight: 700;
+    }
+
+    .closer {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-size: 1.2rem;
+        background-color: whitesmoke;
+        border: 0;
+        color: gray;
+        cursor: pointer;
+    }
+
+    .confirm-btn {
+        display: block;
+        margin: 0 auto;
+        margin-top: .5em;
+        padding: .3em .7em;
+        font-size: 1em;
+        font-weight: 700;
+        color: white;
+        background-color: #6c757d;
+        border: 1px solid #6c757d;
+        cursor: pointer;
+        letter-spacing: .1em;
+        border-radius: 3px;
+    }
+}

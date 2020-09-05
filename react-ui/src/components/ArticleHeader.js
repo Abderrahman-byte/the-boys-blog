@@ -1,11 +1,39 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
-import { AuthContext } from '../context/AuthContext'
+import { Link, useHistory } from 'react-router-dom'
 
 import '../styles/ArticleHeader.scss'
 
+import { AuthContext } from '../context/AuthContext'
+import { ModelsContext } from '../context/ModelsContext'
+import { ConfirmModel } from './ConfirmModel'
+
 export const ArticleHeader = ({author, pubdate, id}) => {
-    const { user } = useContext(AuthContext)
+    const { user, token } = useContext(AuthContext)
+    const { openModel, closeModel } = useContext(ModelsContext)
+    const history = useHistory()
+
+    const deleteArticle = async () => {
+        const req = await fetch(`http://localhost:8000/api/articles/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`
+            }
+        })
+
+        if(req.status >= 200 && req.status < 300) {
+            history.replace('/')
+            closeModel()
+        } else {
+            closeModel()
+        } 
+    }
+
+    const handleDelete = () => {
+        if(user && user.id === author.id) {
+            openModel(<ConfirmModel text='Do you want to delete this article ?' callback={deleteArticle} />, true)
+        } 
+    }
     
     return (
         <div className='ArticleHeader'>
@@ -13,7 +41,7 @@ export const ArticleHeader = ({author, pubdate, id}) => {
                 {user && user.id === author.id ? (
                     <>
                         <Link to={`/staff/edit-article/${id}`} className='edit tooltip tooltip-right'  data-title='Edit Article'><i className='fas fa-cog'></i></Link>
-                        <Link to='#' className='delete tooltip tooltip-top' data-title='Delete Article'><i className='fas fa-trash'></i></Link>
+                        <Link onClick={handleDelete} to='#' className='delete tooltip tooltip-top' data-title='Delete Article'><i className='fas fa-trash'></i></Link>
                     </>
                 ) : (null)}    
             </div>
