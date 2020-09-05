@@ -18,7 +18,10 @@ export const StaffPages = ({match}) => {
             </Route>
 
             <Route exact path={`${match.path}/edit-article/:id`}>
-                <PostPage />
+                <>
+                    <span></span>    
+                    <PostPage />
+                </>
             </Route>
             
             <Redirect exact from={`${match.path}`} to={`${match.path}/profil`} />

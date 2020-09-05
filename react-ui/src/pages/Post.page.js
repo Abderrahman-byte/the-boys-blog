@@ -107,7 +107,7 @@ export const PostPage = ({ create, article }) => {
             setArticleId(data.id)
         } else {
             if (data.details) setErrors([data.details])
-            else setErrors(['Something goes wrong on the server'])
+            else setErrors(['Something went wrong on the server'])
         }
         setTimeout(closeModel, 1000)
     }
@@ -140,6 +140,10 @@ export const PostPage = ({ create, article }) => {
         setTimeout(closeModel, 1000)
     }
 
+    const clearEditor = async () => {
+        console.log('You forgot to clean editor')
+    }
+
     useEffect(() => {
         if(!isNew && !articleId) {
             setArticleId(params.id)
@@ -150,11 +154,6 @@ export const PostPage = ({ create, article }) => {
             getArticle(articleId)
         }
     }, [])
-
-    useEffect(() => {
-        // Must be fixed
-        console.log("something  has change")
-    }, [create])
 
     return (
         <div className='PostPage'>
@@ -196,6 +195,7 @@ export const PostPage = ({ create, article }) => {
                 {errors.map((err, i) => (<p key={i} className='error'>{err}</p>))}
             </div>
             <div className='btns-div'>
+                <button onClick={clearEditor} className='btn btn-orange btn-elt'>clear</button>
                 <button onClick={save} className='btn btn-primary btn-elt'>save</button>
                 <button onClick={previewArticle} disabled={isNew && !articleId} className='btn btn-primary btn-elt'>preview</button>
             </div>
