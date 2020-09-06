@@ -76,7 +76,8 @@ class CategorySerializer(serializers.Serializer) :
         raise Exception('You Forgot to make Update method for Category Serializer')
 
 class CommentSerializer(serializers.ModelSerializer) :
-    author = serializers.PrimaryKeyRelatedField(read_only=True)
+    # author = serializers.PrimaryKeyRelatedField(read_only=True)
+    author = UserSerializer()
     article = serializers.PrimaryKeyRelatedField(read_only=True)
     posted_date = TimestampField()
 
@@ -102,7 +103,7 @@ class ArticleSerializer(serializers.Serializer) :
     content = serializers.JSONField()
     posted_date = TimestampField()
     overview = MediaUrlField()
-    comment_set = CommentSerializer(many=True)
+    # comment_set = CommentSerializer(many=True)
 
     def create(self, validated_data) :
         try :

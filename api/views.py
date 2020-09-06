@@ -122,12 +122,32 @@ class UploadArticlesImages(APIView) :
         return Response(status=204)
 
 # Comments APi Views 
-# # # # # #
+# # # # # # # # # # #
 
 class CommentsApi(APIView) :
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
+    def get(self, request) :
+        data = request.query_params
+        id = data.get('id')
+        try : 
+            limit = int(data.get('limit', 10))
+            offset = int(data.get('offset', 0))
+        except :
+            limit = 10
+            offset = 0
+        
+        try :
+            article = Article.objects.get(pk=id)
+            comments = article.comment_set.all().order_by('-posted_date')[offset:offset + limit]
+        except :
+            return HttpResponseBadRequest()
+
+        serializer = CommentSerializer(comments, many=True)
+
+        return Response(serializer.data, status=201, content_type='application/json')
+        
     def post(self, request) :
         data = request.data
         data['author'] = request.user
