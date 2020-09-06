@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import '../styles/Comments.scss'
 import { CommentsList } from './CommentsList'
 
 export const CommentsSection = ({id, count}) => {
     const [currentPage, setPage] = useState(1)
-    const [itemPerPage, setItemsPerPage] = useState(10)
+    const [itemPerPage, setItemsPerPage] = useState(5)
     const [data, setData] = useState([])
     const [isMore, setMore] = useState(true)
     const [isLoading, setLoadingState] = useState(false)
@@ -28,6 +28,8 @@ export const CommentsSection = ({id, count}) => {
                 if(!response) return
             }
 
+            if(data.length + response.length >= commentsCount) setMore(false)
+
             setData([...data, ...response])
         } else {
             setMore(false)
@@ -36,7 +38,13 @@ export const CommentsSection = ({id, count}) => {
         setLoadingState(false)
     }
 
-    useState(() => {
+    const nextComments = () => {
+        console.log("more has been clicked")
+        setPage(currentPage + 1)
+    }
+
+    useEffect(() => {
+        console.log("current page has been changed")
         getComments()
     }, [currentPage])
 
@@ -49,6 +57,8 @@ export const CommentsSection = ({id, count}) => {
             {(data && data.length > 0) && (<CommentsList items={data} />)}
             
             {(isMore && isLoading) && (<p>...Loading</p>)}
+
+            {(isMore && data.length > 0 && !isLoading) && (<button onClick={nextComments} className='btn btn-elt btn-primary more-btn'>More</button>)}
         </div>
     )
 }

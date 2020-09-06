@@ -14,6 +14,7 @@ export const CommentItem = ({data}) => {
 
         return relevent ? `${relevent} at ${hours}:${minutes}` : date.toLocaleString()
     }
+    
     return (
         <div className='CommentItem'>
             <img className='avatar' src={`http://localhost:8000${data.author.avatar}`} />
