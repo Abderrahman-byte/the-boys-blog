@@ -8,6 +8,7 @@ $break-point: 650px;
     padding: .5em .75em;
     border: 1px solid #e4e7eb;
     border-radius: 3px;
+    margin-bottom: 3em;
     @include mediaQuery($break-point) {
         flex-direction: row;
     }

@@ -103,6 +103,7 @@ class ArticleSerializer(serializers.Serializer) :
     content = serializers.JSONField()
     posted_date = TimestampField()
     overview = MediaUrlField()
+    comments_count = serializers.IntegerField(source='comment_set.count', read_only=True)
     # comment_set = CommentSerializer(many=True)
 
     def create(self, validated_data) :

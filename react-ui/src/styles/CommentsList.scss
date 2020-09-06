@@ -1,0 +1,54 @@
+@import './mixins.scss';
+
+.CommentsList {
+    // border: 1px solid green;
+
+    .CommentItem {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1em;
+        padding: .75em .75em .5em .75em;
+        border: 1px solid #e4e7ed;
+        border-radius: 3px;
+
+        @include mediaQuery(600px) {
+            margin-bottom: 2em;
+            padding: .75em 1.5em;
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            margin-right: 20px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .info {
+            flex-grow: .9;
+            padding: .4em 0;
+
+            .name {
+                font-size: 1rem;
+                font-weight: 700;
+                letter-spacing: .1em;
+            }
+
+            .posted_date {
+                font-size: .7rem;
+                letter-spacing: .1em;
+                color: gray;
+            }
+
+            .content {
+                border-radius: 3px;
+                width: 100%;
+                margin-top: .75em;
+                padding: .4em .75em;
+                background: #e4e7ed;
+                min-height: 60px;
+            }
+        }
+    }
+}

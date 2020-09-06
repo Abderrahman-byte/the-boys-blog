@@ -146,7 +146,7 @@ class CommentsApi(APIView) :
 
         serializer = CommentSerializer(comments, many=True)
 
-        return Response(serializer.data, status=201, content_type='application/json')
+        return Response(serializer.data, status=200, content_type='application/json')
         
     def post(self, request) :
         data = request.data
