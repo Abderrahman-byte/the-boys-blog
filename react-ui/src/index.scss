@@ -110,6 +110,11 @@ button, input, textarea {
       left: 105%;
   }
 
+  &.tooltip-left::after {
+    top: -5px;
+    left: -105%;
+  }
+
   &:hover::after {
       transform: scale(1);
   }

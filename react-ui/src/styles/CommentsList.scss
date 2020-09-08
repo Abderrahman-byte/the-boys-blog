@@ -79,8 +79,35 @@
 
         .controls {
             position: absolute;
-            top: 5px;
+            top: 8px;
             right: 5px;
+            width: 12%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            @include mediaQuery(700px) {
+                width: 10%;
+            }
+
+            @include mediaQuery(800px) {
+                width: 8%;
+            }
+
+            button {
+                cursor: pointer;
+                background-color: transparent;
+                border: 0;
+                font-size: 1.1rem;
+
+                &.edit {
+                    color: gray;
+                }
+
+                &.delete {
+                    color: rgb(255, 32, 32);
+                }
+            }
         }
     }
 }

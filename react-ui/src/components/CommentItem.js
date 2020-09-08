@@ -2,18 +2,23 @@ import React, { useEffect, useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { AuthContext } from '../context/AuthContext'
+import { ModelsContext } from '../context/ModelsContext'
+import { ConfirmModel } from './ConfirmModel'
+import { CommentsContext } from '../context/CommentContext'
 
 export const CommentItem = ({data}) => {
-    const { user } = useContext(AuthContext)
+    const { user, token } = useContext(AuthContext)
+    const { openModel, closeModel } = useContext(ModelsContext)
+    const { deleteComment } = useContext(CommentsContext)
     const history = useHistory()
-    const [articleAuthor, setArticleAuthor] = useState(history.location.state.article_author)
+
+    const [articleAuthor] = useState(history.location.state.article_author)
     const [privileges, setPrivileges] = useState([])
 
     useEffect(() => {
         let prevClone = []
 
         if(articleAuthor && data.author.id === articleAuthor.id ) {
-            console.log(data.author.id)
             prevClone = [...prevClone, 'author']
         } 
         
@@ -48,7 +53,30 @@ export const CommentItem = ({data}) => {
         if(privClone.indexOf('author') >= 0) {
             privClone.splice(privClone.indexOf('author'), 1)
         }
+
         return privClone[0]
+    }
+
+    const deleteItem = async () => {
+        const req = await fetch(`http://localhost:8000/api/comments/${data.id}/`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
+
+        if(req.status >= 200 && req.status < 300) {
+            deleteComment(data.id)
+        }
+
+        closeModel()
+    }
+
+    const openDeleteWarn = () => {
+        console.log(data)
+        if(data.id) {
+            openModel(<ConfirmModel text='Do you realy want to delete you comment' callback={deleteItem} />, true)
+        } 
     }
     
     return (
@@ -69,12 +97,11 @@ export const CommentItem = ({data}) => {
             </div>
 
             {user && data && user.id === data.author.id && (
-            <div className='controls'>
-                <button>
-                    <i className='fas fa-pen'></i>
-                    <i className='fas fa-trash'></i>
-                </button>
-            </div>) } 
+                <div className='controls'>
+                    <button data-title='Edit Comment' className='edit tooltip tooltip-left'><i className='fas fa-pen'></i></button>
+                    <button onClick={openDeleteWarn} data-title='Delete Comment' className='delete tooltip tooltip-top'><i className='fas fa-trash'></i></button>
+                </div>
+            ) } 
             
         </div>
     )

@@ -6,10 +6,6 @@ import { CommentsContext } from '../context/CommentContext'
 
 export const CommentsSection = () => {
     const { dataCount, data, isLoading, isMore, nextComments } = useContext(CommentsContext)
-    
-    useEffect(() => {
-        console.log(dataCount)
-    })
 
     return (
         <div className='CommentsSection'>

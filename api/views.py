@@ -195,6 +195,7 @@ class CommentApi(APIView) :
             raise Http404
 
         self.check_object_permissions(request, comment)
+        comment.delete()
         return Response(status=204)
 
 # Auth Views 
