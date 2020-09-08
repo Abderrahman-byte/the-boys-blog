@@ -184,7 +184,7 @@ class CommentApi(APIView) :
         self.check_object_permissions(request, comment)
         data = request.data
 
-        comment = CommentSerializer().update(data)
+        comment = CommentSerializer().update(comment, data)
         serializer = CommentSerializer(comment)
         return Response(serializer.data, status=201, content_type='application/json')
 

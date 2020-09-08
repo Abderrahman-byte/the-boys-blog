@@ -1,0 +1,49 @@
+.EditCommentModel {
+    position: relative;
+    width: 95%;
+    max-width: 500px;
+    padding: 1.5em 1em;
+    background-color: whitesmoke;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .closer {
+        position: absolute;
+        top: 5px;
+        right: 8px;
+        background-color: whitesmoke;
+        border: 0;
+        cursor: pointer;
+        font-size: 1.4rem;
+        color: gray;
+    }
+
+    label {
+        margin-bottom: .5em;
+        font-size: 1.2rem;
+        font-weight: 300;
+        letter-spacing: .1em;
+    }
+
+    textarea {
+        resize: none;
+        width: 100%;
+        height: 120px;
+        margin-bottom: 1.5em;
+        border: 1px solid #e2e7ed;
+        border-radius: 3px;
+        padding: .75em 1em;
+    }
+
+    .error-text {
+        font-size: 1em;
+        background-color: rgb(255, 35, 35);
+        padding: .25em .5em;
+        border-radius: 3px;
+        margin-bottom: .75em;
+        color: whitesmoke;
+        letter-spacing: .1em;
+    }
+}
