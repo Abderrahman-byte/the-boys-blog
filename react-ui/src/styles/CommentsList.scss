@@ -11,23 +11,38 @@
         padding: .75em .75em .5em .75em;
         border: 1px solid #e4e7ed;
         border-radius: 3px;
+        position: relative;
 
         @include mediaQuery(600px) {
             margin-bottom: 2em;
             padding: .75em 1.5em;
         }
 
-        .avatar {
-            width: 60px;
-            height: 60px;
+        .profil {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin-right: 20px;
-            border-radius: 50%;
-            object-fit: cover;
+
+            .avatar {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-bottom: .5em;
+            }
+
+            span {
+                font-size: .75em;
+                font-weight: 900;
+                text-transform: capitalize;
+            }
         }
 
         .info {
-            flex-grow: .9;
+            flex-grow: 1;
             padding: .4em 0;
+            margin-right: 5%;
 
             .name {
                 font-size: 1rem;
@@ -49,6 +64,23 @@
                 background: #e4e7ed;
                 min-height: 60px;
             }
+        }
+
+        &.author {
+            border-width: 3px;
+            border-radius: 8px;
+
+            .title {
+                color: #2384D9;
+                font-size: .75em;
+                font-weight: 900;
+            }
+        }
+
+        .controls {
+            position: absolute;
+            top: 5px;
+            right: 5px;
         }
     }
 }

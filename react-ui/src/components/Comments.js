@@ -1,60 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import '../styles/Comments.scss'
 import { CommentsList } from './CommentsList'
+import { CommentsContext } from '../context/CommentContext'
 
-export const CommentsSection = ({id, count}) => {
-    const [currentPage, setPage] = useState(1)
-    const [itemPerPage, setItemsPerPage] = useState(5)
-    const [data, setData] = useState([])
-    const [isMore, setMore] = useState(true)
-    const [isLoading, setLoadingState] = useState(false)
-    const [commentsCount, setCount] = useState(count)
-
-    const getComments = async () => {
-        setLoadingState(true)
-        const offset = (itemPerPage * currentPage) - itemPerPage
-        const url = `http://localhost:8000/api/comments/?id=${id}&limit=${itemPerPage}&offset=${offset}`
-        const req = await fetch(url)
-
-        if(req.status >= 200 && req.status < 300) {
-            let response = null
-
-            try { response = await req.json() }
-            catch(err) { response = null }
-
-            if(!response || response.length < itemPerPage) {
-                setMore(false)
-                if(!response) return
-            }
-
-            if(data.length + response.length >= commentsCount) setMore(false)
-
-            setData([...data, ...response])
-        } else {
-            setMore(false)
-        }
-
-        setLoadingState(false)
-    }
-
-    const nextComments = () => {
-        console.log("more has been clicked")
-        setPage(currentPage + 1)
-    }
-
+export const CommentsSection = () => {
+    const { dataCount, data, isLoading, isMore, nextComments } = useContext(CommentsContext)
+    
     useEffect(() => {
-        console.log("current page has been changed")
-        getComments()
-    }, [currentPage])
+        console.log(dataCount)
+    })
 
     return (
         <div className='CommentsSection'>
             <div className='comments-header'>
-                <p>{commentsCount} comment{commentsCount !== 1 ? 's' : ''} </p>
+                <p>{dataCount} comment{dataCount !== 1 ? 's' : ''} </p>
             </div>
 
-            {(data && data.length > 0) && (<CommentsList items={data} />)}
+            {(data && data.length > 0) && (<CommentsList />)}
             
             {(isMore && isLoading) && (<p>...Loading</p>)}
 

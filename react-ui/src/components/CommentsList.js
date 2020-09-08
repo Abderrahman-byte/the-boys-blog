@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import '../styles/CommentsList.scss'
 
 import { CommentItem } from './CommentItem'
+import { CommentsContext } from '../context/CommentContext'
 
-export const CommentsList = ({items}) => {
+export const CommentsList = () => {
+    const { data } = useContext(CommentsContext)
 
     return (
         <div className='CommentsList'>
-            {items.map(item => <CommentItem key={item.id} data={item} />)}
+            {data.map(item => <CommentItem key={item.id} data={item} />)}
         </div>
     )
 }
