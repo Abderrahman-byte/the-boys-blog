@@ -1,0 +1,31 @@
+.CommentSkelton {
+    $skin-clr: #C1C7D0;
+
+    .profil {
+        span {
+            width: 40px;
+            height: 8px;
+            background-color: $skin-clr;
+        }
+    }
+
+    .info {
+        .name {
+            width: 150px;
+            height: 15px;
+            background-color: $skin-clr;
+            margin-bottom: .5em;
+        }
+
+        .posted_date {
+            width: 50px;
+            height: 8px;
+            background-color: $skin-clr;
+        }
+
+        .content {
+            background-color: $skin-clr;
+        }
+    }
+
+}
