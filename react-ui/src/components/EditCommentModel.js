@@ -17,14 +17,16 @@ export const EditCommentModel = ({initContent, id, callback}) => {
     }
 
     const saveComment = async () => {
-        if(content === initContent) {
+        const text = content.trim()
+
+        if(text === initContent) {
             closeModel()
             return
         }
 
         const req = await fetch(`http://localhost:8000/api/comments/${id}/`, {
             method: 'PUT',
-            body : JSON.stringify({content}),
+            body : JSON.stringify({content: text}),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Token ${token}`
