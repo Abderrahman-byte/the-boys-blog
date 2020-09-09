@@ -1,0 +1,36 @@
+.CommentForm {
+    border-bottom: 1px solid #e4e7ed;
+    margin-bottom: 1.25em;
+    padding: .75em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    textarea {
+        resize: none;
+        width: 100%;
+        height: 80px;
+        border: 3px solid #e2e7ed;
+        border-radius: 8px;
+        padding: .75em .5em;
+        transition: .2s ease-in-out;
+        font-size: 1.1rem;
+        margin-bottom: .5em;
+
+        &:focus {
+            border-color: #b8c0cc;
+            height: 150px;
+        }
+    }
+
+    .length {
+        font-size: 1rem;
+        display: none;
+        margin-bottom: .5em;
+        margin-right: 3px;
+    }
+
+    .form-content:focus + .length {
+        display: inline-block;
+    }
+}
