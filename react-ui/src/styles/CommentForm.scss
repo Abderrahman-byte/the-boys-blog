@@ -17,7 +17,7 @@
         font-size: 1.1rem;
         margin-bottom: .5em;
 
-        &:focus {
+        &.focus {
             border-color: #b8c0cc;
             height: 150px;
         }
@@ -30,7 +30,7 @@
         margin-right: 3px;
     }
 
-    .form-content:focus + .length {
+    .form-content.focus + .length {
         display: inline-block;
     }
 }

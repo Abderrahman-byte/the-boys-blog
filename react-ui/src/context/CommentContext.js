@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 
 export const CommentsContext = createContext({})
 
@@ -10,7 +10,7 @@ export const CommentsProvider = ({id, count, children}) => {
     const [itemsPerPage] = useState(5)
     
     const [isMore, setMoreState] = useState(true)
-    const [isLoading, setLoadingState] = useState(false)
+    const [isLoading, setLoadingState] = useState(true)
     const [skelton, setSkeltonState] = useState(false)
 
     const getComments = async () => {
@@ -55,6 +55,10 @@ export const CommentsProvider = ({id, count, children}) => {
         setDataCount(dataCount - 1)
     }
 
+    const addComment = (comment) => {
+        setData([comment, ...data])
+    }
+
     useEffect(() => {
         getComments()
     }, [currentPage])
@@ -72,7 +76,8 @@ export const CommentsProvider = ({id, count, children}) => {
             nextComments, 
             editComment, 
             deleteComment,
-            setSkeltonState
+            setSkeltonState,
+            addComment
         }}>
             {children}
         </CommentsContext.Provider>
