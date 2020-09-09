@@ -11,6 +11,7 @@ export const CommentsProvider = ({id, count, children}) => {
     
     const [isMore, setMoreState] = useState(true)
     const [isLoading, setLoadingState] = useState(false)
+    const [skelton, setSkeltonState] = useState(true)
 
     const getComments = async () => {
         setLoadingState(true)
@@ -61,7 +62,17 @@ export const CommentsProvider = ({id, count, children}) => {
 
     return (
         <CommentsContext.Provider value={{
-            data, dataCount, isMore, setMoreState, isLoading, nextComments, editComment, deleteComment
+            id, 
+            data, 
+            dataCount, 
+            isMore, 
+            isLoading,  
+            skelton, 
+            setMoreState, 
+            nextComments, 
+            editComment, 
+            deleteComment,
+            setSkeltonState
         }}>
             {children}
         </CommentsContext.Provider>
