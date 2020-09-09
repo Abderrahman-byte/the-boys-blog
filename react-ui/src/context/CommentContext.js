@@ -11,7 +11,7 @@ export const CommentsProvider = ({id, count, children}) => {
     
     const [isMore, setMoreState] = useState(true)
     const [isLoading, setLoadingState] = useState(false)
-    const [skelton, setSkeltonState] = useState(true)
+    const [skelton, setSkeltonState] = useState(false)
 
     const getComments = async () => {
         setLoadingState(true)

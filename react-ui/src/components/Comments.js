@@ -17,8 +17,6 @@ export const CommentsSection = () => {
             { id && <CommentForm />}
 
             {(data && data.length > 0) && (<CommentsList />)}
-            
-            {(isMore && isLoading) && (<p>...Loading</p>)}
 
             {(isMore && data.length > 0 && !isLoading) && (<button onClick={nextComments} className='btn btn-elt btn-primary more-btn'>More</button>)}
         </div>
