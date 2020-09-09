@@ -1,14 +1,15 @@
 import React, { useContext, useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 
 import '../styles/CommentForm.scss'
 
 import { AuthContext } from '../context/AuthContext'
 import { CommentsContext } from '../context/CommentContext'
-import { useParams } from 'react-router-dom'
 import { ModelsContext } from '../context/ModelsContext'
 import { LoadingModel } from '../components/LoadingModel'
 
 export const CommentForm = () => {
+    const history = useHistory()
     const { id, setSkeltonState, addComment } = useContext(CommentsContext)
     const { user, token } = useContext(AuthContext)
     const { openModel, closeModel } = useContext(ModelsContext)
@@ -67,6 +68,24 @@ export const CommentForm = () => {
         setTimeout(closeModel, 1000)
     }
 
+    if(!token || !user || !user.id) {
+        return (
+            <div className='comment-mesg'>
+                <p className='mesg'>Only members of this blog can comment on articles.</p>
+                <div className='links'>
+                    <Link 
+                        className='btn btn-elt btn-primary' 
+                        to={{pathname: '/login', state: { from: history.location.pathname}}} 
+                    >Login</Link>
+                    <Link 
+                        className='btn btn-elt btn-primary' 
+                        to={{pathname: '/register', state: { from: history.location.pathname}}} 
+                    >Register</Link>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className='CommentForm'>
             <textarea 
@@ -86,7 +105,7 @@ export const CommentForm = () => {
             <button 
                 onClick={handleSubmit} 
                 className="save btn btn-elt btn-primary" 
-                disabled={content.split(' ').length < 3 && content.length < 10}
+                disabled={content.split(' ').length < 3 && content.length < 5}
             >submit</button>
         </div>
     )

@@ -1,3 +1,35 @@
+.comment-mesg {
+    width: 100%;
+    background-color: gray;
+    margin-bottom: 1.25em;
+    padding: 1.25em 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+
+    .mesg {
+        text-align: center;
+        margin-bottom: .75em;
+        color: whitesmoke;
+        letter-spacing: .1em;
+        font-size: 1.2rem;
+    }
+
+    .links {
+        width: 95%;
+        max-width: 250px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        a {
+            text-decoration: none;
+        }
+    }
+}
+
 .CommentForm {
     border-bottom: 1px solid #e4e7ed;
     margin-bottom: 1.25em;
@@ -32,5 +64,18 @@
 
     .form-content.focus + .length {
         display: inline-block;
+    }
+
+    .error-text {
+        align-self: flex-start;
+        background-color: red;
+        padding: .5em .75em;
+        color: whitesmoke;
+        border-radius: 3px;
+        margin: .5em 0;
+        font-size: .9rem;
+        font-weight: 700;
+        width: 100%;
+        max-width: 600px;
     }
 }
