@@ -9,7 +9,7 @@ urlpatterns = [
     path('comments/', views.CommentsApi.as_view(), name='add-comment'),
     path('comments/<uuid:pk>/', views.CommentApi.as_view(), name='comment-details'),
 
-    path('user/', views.UserInfoApi.as_view(), name='user-info'),
+    path('user/', views.UserAuthApi.as_view(), name='user-info'),
     path('user/avatar', views.UserAvatarUpload.as_view(), name='user-avatar'),
     path('login', views.UserLoginApi.as_view(), name='user-login'),
     path('register', views.UserRegisterApi.as_view(), name='user-register'),

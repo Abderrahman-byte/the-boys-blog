@@ -201,7 +201,7 @@ class CommentApi(APIView) :
 # Auth Views 
 # # # # # #
 
-class UserInfoApi(APIView) :
+class UserAuthApi(APIView) :
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
