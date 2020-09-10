@@ -25,12 +25,20 @@ class ArticlesApi(APIView) :
     permission_classes = [IsStaffOrReadOnly]
 
     def get(self, request) :
-        features = request.query_params.get('features', None)
+        params = request.query_params
+        author_id = params.get('author')
+        limit = params.get('limit', 5)
+        offset = params.get('offset', 0)
 
-        if features is not None :
-            articles_list = Article.objects.all().order_by('-posted_date')[:3]
+        if author_id is not None :
+            try :
+                author = User.objects.get(pk=author_id)
+            except User.DoesNotExist :
+                # Returns badrequest instead of 404
+                return HttpResponseBadRequest()
+            articles = author.article_set.all().order_by('-posted_date')[offset: limit + offset]
         else :
-            articles = Article.objects.all().order_by('-posted_date')
+            articles = author.article_set.all().order_by('-posted_date')[offset: limit + offset]
 
         serializer = ArticleSerializer(articles, many=True)
         return Response(serializer.data, content_type='application/json')
@@ -58,6 +66,7 @@ class ArticleApi(APIView) :
     def get(self, request, pk) :
         try :
             article = Article.objects.get(pk=pk)
+            article.add_view() # Not good way to add new views
         except Article.DoesNotExist :
             raise Http404
 
