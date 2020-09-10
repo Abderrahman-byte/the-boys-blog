@@ -1,0 +1,119 @@
+.ArticleCard {
+    border: 1px solid #e2e7ed;
+    width: 95%;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-bottom: 1.75em;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: white;
+
+    a {
+        color: #2384d9;
+        text-decoration: none;
+    }
+
+    .header {
+        position: relative;
+        img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            object-position: center;
+            opacity: .8;
+            transition: opacity .2s ease-in-out;
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        .controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 2;
+
+            button, a {
+                display: inline-flex;
+                border-radius: 50%;
+                margin-left: .75em;
+                font-size: 1.1rem;
+                width: 40px;
+                height: 40px;
+                background-color: whitesmoke;
+                border: 1px solid #e4e7ed;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                color: gray;
+                transition: .2s ease-in-out;
+            }
+
+            .delete:hover {
+                background-color: rgb(255, 30, 30);
+                border-color: rgb(255, 30, 30);
+                color: whitesmoke;
+            }
+
+            .edit:hover {
+                background-color: #2384d9;
+                border-color: #2384d9;
+                color: whitesmoke;
+            }
+        }
+    }
+
+    .info {
+        padding: .25em 1em;
+        // background-color: cornsilk;
+
+        .title {
+            font-size: 1.75rem;
+            letter-spacing: .1em;
+            // margin-bottom: .5em;
+        }
+
+        .date {
+            font-size: .8rem;
+            color: rgb(51, 51, 51);
+            letter-spacing: .1em;
+
+            .bold {
+                font-size: 1rem;
+                font-weight: 900;
+            }
+        }
+
+        .overview {
+            margin: 1rem 0;
+            font-size: 1rem;
+            letter-spacing: .1em;
+        }
+    }
+
+    .footer {
+        padding: .5em .75em;
+        border-top: 1px solid #e4e7ed;
+
+        span, span>a {
+            display: inline-block;
+        }
+
+        .comments {
+            margin-right: .5em;
+            margin-bottom: .5em;
+            color: gray;
+            font-size: .75rem;
+            font-weight: 900;
+        }
+
+        .hashtags {
+            a {
+                font-size: .95rem;
+                font-weight: 900;
+                margin: .25em 0;
+                margin-right: .5em;
+            }
+        }
+    }
+}
