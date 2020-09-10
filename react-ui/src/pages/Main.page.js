@@ -23,6 +23,8 @@ export const MainPage = () => {
                 <Route path='/articles/:id'>
                     <ArticlePage setDefault={setDefault} setWallpaper={setWallpaperImg} setTitle={setHeaderText} />
                 </Route>
+
+                
             </Switch>
         </div>
     )

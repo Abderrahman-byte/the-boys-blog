@@ -49,7 +49,7 @@ export const ArticleCard = ({data}) => {
             <div className='info'>
                 <h6 className='title'>{data.title}</h6>
                 <span className='date'>Posted {(new Date(data.posted_date)).toLocaleString()} 
-                <span className='bold'> | </span>by <Link to="#" className='author'>{data.author.first_name} {data.author.last_name}</Link></span>
+                <span className='bold'> | </span>by <Link to={`/authors/${data.author.id}`} className='author'>{data.author.first_name} {data.author.last_name}</Link></span>
                 <p className='overview'>{overview} <Link className='read_btn' to={`/articles/${data.id}`}>Read More</Link></p>
             </div>
 

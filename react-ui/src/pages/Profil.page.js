@@ -15,8 +15,8 @@ export const ProfilPage = ({ profil }) => {
             <ProfilHeader profil={profil} />
             <nav className='profil-nav'>
                 <ul>
-                    <li><NavLink to={`${match.path}/about`}>About</NavLink></li>
-                    <li><NavLink to={`${match.path}/articles`}>Articles</NavLink></li>
+                    <li><NavLink to={`${match.url}/about`}>About</NavLink></li>
+                    <li><NavLink to={`${match.url}/articles`}>Articles</NavLink></li>
                 </ul>
             </nav>
             
