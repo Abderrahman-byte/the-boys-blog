@@ -57,6 +57,7 @@ export const CommentsProvider = ({id, count, children}) => {
 
     const addComment = (comment) => {
         setData([comment, ...data])
+        setDataCount(dataCount + 1)
     }
 
     useEffect(() => {
