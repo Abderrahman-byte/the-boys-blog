@@ -27,8 +27,12 @@ class ArticlesApi(APIView) :
     def get(self, request) :
         params = request.query_params
         author_id = params.get('author')
-        limit = params.get('limit', 5)
-        offset = params.get('offset', 0)
+        try :
+            limit = int(params.get('limit', 5))
+            offset = int(params.get('offset', 0))
+        except :
+            limit = 5
+            offset = 0
 
         if author_id is not None :
             try :
