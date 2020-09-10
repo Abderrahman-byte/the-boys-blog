@@ -276,3 +276,14 @@ class UserRegisterApi(APIView) :
             status = 400
 
         return Response(context, status=status, content_type='application/json') 
+
+class UserInfoApi(APIView) :
+    def get(self, request, pk) :
+        try : 
+            author = User.objects.get(pk=pk)
+        except User.DoesNotExist :
+            # Instead of 404 we used bad request
+            return HttpResponseBadRequest()
+
+        serializer = UserSerializer(author)
+        return Response(serializer.data, content_type='application/json')
