@@ -5,6 +5,7 @@ import '../styles/ProfilPage.scss'
 
 import { ProfilHeader } from '../components/ProfilHeader'
 import { ProfilAbout } from '../components/ProfilAbout'
+import { ProfilArticles } from '../components/ProfilArticles'
 
 export const ProfilPage = ({ profil }) => {
     const match = useRouteMatch()
@@ -24,7 +25,11 @@ export const ProfilPage = ({ profil }) => {
                     <Route exact path={`${match.path}/about`}>
                         <ProfilAbout profil={profil} />
                     </Route>
-                    {/* Articles profil page is missing  */}
+
+                    <Route exact path={`${match.path}/articles`}>
+                        <ProfilArticles profil={profil} />
+                    </Route>
+
                     <Redirect exact from={`${match.path}`} to={`${match.path}/about`} />
                 </Switch>
             </div>
