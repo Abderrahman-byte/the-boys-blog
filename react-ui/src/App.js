@@ -14,6 +14,7 @@ import { StaffPages } from './pages/Staff.pages'
 import { AuthorProfilPage } from './pages/AuthorProfil.page'
 import { AdminOnly } from './components/AdminOnly'
 import { AdminPages } from './pages/Admin.pages'
+import { NotFound } from './pages/NotFound'
 
 const App = () => {
   return (
@@ -27,6 +28,8 @@ const App = () => {
 
         <StaffOnlyRouter path='/staff' component={StaffPages} />
         <AdminOnly path='/admin' component={AdminPages} />
+
+        <Route path='/NotFound' component={NotFound} />
 
         <Route path='' component={MainPage} />
       </Switch>

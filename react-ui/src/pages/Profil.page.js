@@ -6,6 +6,7 @@ import '../styles/ProfilPage.scss'
 import { ProfilHeader } from '../components/ProfilHeader'
 import { ProfilAbout } from '../components/ProfilAbout'
 import { ProfilArticles } from '../components/ProfilArticles'
+import { NotFound } from './NotFound'
 
 export const ProfilPage = ({ profil }) => {
     const match = useRouteMatch()
@@ -31,6 +32,8 @@ export const ProfilPage = ({ profil }) => {
                     </Route>
 
                     <Redirect exact from={`${match.path}`} to={`${match.path}/about`} />
+
+                    <Route render={() => <Redirect to='/NotFound' />} />
                 </Switch>
             </div>
 

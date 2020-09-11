@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { ProfilPage } from './Profil.page'
 import { AuthContext } from '../context/AuthContext'
 import { PostPage } from './Post.page'
+import { NotFound } from './NotFound'
 
 export const StaffPages = ({match}) => {
     const { user } = useContext(AuthContext)
@@ -25,6 +26,8 @@ export const StaffPages = ({match}) => {
             </Route>
             
             <Redirect exact from={`${match.path}`} to={`${match.path}/profil`} />
+
+            <Route component={NotFound} />
         </Switch>
     )
 }

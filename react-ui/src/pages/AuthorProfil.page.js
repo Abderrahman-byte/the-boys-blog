@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { ModelsContext } from '../context/ModelsContext'
 import { LoadingModel } from '../components/LoadingModel'
 import { ProfilPage } from '../pages/Profil.page'
+import { NotFound } from './NotFound'
 
 export const AuthorProfilPage = () => {
     const { id } = useParams()
@@ -37,7 +38,7 @@ export const AuthorProfilPage = () => {
         return <ProfilPage profil={profil} />
     } else {
         return (
-            <div>This profil does not exist you should make 404 page</div>
+            <NotFound />
         )
     }
 }

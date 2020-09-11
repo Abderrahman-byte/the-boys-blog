@@ -4,10 +4,7 @@ import { Route } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { ModelsContext } from '../context/ModelsContext'
 import { LoadingModel } from './LoadingModel'
-
-const NotFound = () => {
-    return (<div><h1>This page Dont exists</h1></div>)
-}
+import { NotFound } from '../pages/NotFound'
 
 export const StaffOnlyRouter = ({component, ...rest}) => {
     const { user } = useContext(AuthContext)

@@ -3,6 +3,8 @@ import { Switch, Route } from 'react-router-dom'
 import { ManageCategoriesPage } from './ManageCategories.page'
 import { ManageStaff } from './ManageStaff.page'
 
+import { NotFound } from './NotFound'
+
 export const AdminPages = ({match}) => {
     
     return (
@@ -10,9 +12,7 @@ export const AdminPages = ({match}) => {
             <Route exact path={`${match.path}/categories`} component={ManageCategoriesPage} />
             <Route exact path={`${match.path}/staff`} component={ManageStaff} />
 
-            <Route>
-                <div>This page doesnt exist please make a dicent 404 page</div>
-            </Route>
+            <Route component={NotFound} />
         </Switch>
     )
 }

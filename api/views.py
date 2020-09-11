@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from django.http import HttpResponseBadRequest, Http404
+from django.http import HttpResponseBadRequest, Http404, HttpResponseForbidden, HttpResponseNotFound
 from django.contrib.auth import authenticate
 from django.db import utils
 from rest_framework.parsers import FileUploadParser
@@ -68,11 +68,14 @@ class ArticleApi(APIView) :
     permission_classes = [IsAuthorOrReadOnly]
 
     def get(self, request, pk) :
+        print('Get article api')
         try :
             article = Article.objects.get(pk=pk)
             article.add_view() # Not good way to add new views
         except Article.DoesNotExist :
-            raise Http404
+            # Returns badrequest instead of 404
+            # That didnt work
+            return HttpResponseForbidden
 
         self.check_object_permissions(request, article)
         serializer = ArticleSerializer(article)
