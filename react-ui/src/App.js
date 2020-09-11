@@ -12,6 +12,8 @@ import { Logout } from './components/Logout'
 import { StaffOnlyRouter } from './components/StaffOnly'
 import { StaffPages } from './pages/Staff.pages'
 import { AuthorProfilPage } from './pages/AuthorProfil.page'
+import { AdminOnly } from './components/AdminOnly'
+import { AdminPages } from './pages/Admin.pages'
 
 const App = () => {
   return (
@@ -24,6 +26,7 @@ const App = () => {
         <Route path='/authors/:id' component={AuthorProfilPage} />
 
         <StaffOnlyRouter path='/staff' component={StaffPages} />
+        <AdminOnly path='/admin' component={AdminPages} />
 
         <Route path='' component={MainPage} />
       </Switch>

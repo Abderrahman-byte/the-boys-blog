@@ -9,10 +9,10 @@ const NotFound = () => {
     return (<div><h1>This page Dont exists</h1></div>)
 }
 
-export const StaffOnlyRouter = ({component, ...rest}) => {
+export const AdminOnly = ({component, ...rest}) => {
     const { user } = useContext(AuthContext)
     const { openModel, closeModel } = useContext(ModelsContext)
-    const toRender = user === undefined ? (() => <div></div>) : user && (user.is_staff || user.is_superuser) ? component : NotFound
+    const toRender = user === undefined ? (() => <></>) : user && user.is_superuser ? component : NotFound
 
     useEffect(() => {
         if(user === undefined) {
@@ -21,7 +21,7 @@ export const StaffOnlyRouter = ({component, ...rest}) => {
             setTimeout(closeModel, 1000)
         }
     }, [user])
-
+    
     return (
         <Route {...rest} component={toRender} />
     )
