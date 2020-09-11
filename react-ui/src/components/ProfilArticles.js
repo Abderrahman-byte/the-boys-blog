@@ -7,7 +7,7 @@ import { ArticlesList } from './ArticlesList'
 export const ProfilArticles = ({profil}) => {
     const [data, setData] = useState([])
     const [currentPage, setPage] = useState(1)
-    const [itemsPerPage] = useState(5)
+    const [itemsPerPage] = useState(1)
 
     const [isMore, setMoreState] = useState(true)
     const [isLoading, setLoadingState] = useState(false)
@@ -41,6 +41,10 @@ export const ProfilArticles = ({profil}) => {
         }
         setLoadingState(false)
     }
+    
+    const nextPage = () => {
+        setPage(currentPage + 1)
+    }
 
     useEffect(() => {
         if(isMore) {
@@ -50,7 +54,9 @@ export const ProfilArticles = ({profil}) => {
     
     return (
         <div className='ProfilArticle'>
-            {data && data.length > 0 ? <ArticlesList data={data} isLoading={isLoading} /> : null}
+            {data && data.length > 0 ? <ArticlesList data={data} isLoading={isLoading} itemsPerPage={itemsPerPage} /> : null}
+            
+            {isMore && !isLoading ? (<button className='btn btn-elt btn-primary more' onClick={nextPage}>More</button>) : null}
         </div>
     )
 }

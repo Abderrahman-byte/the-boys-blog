@@ -3,4 +3,9 @@
     display: flex;
     justify-content: center;
     padding: 1em 0;
+    flex-direction: column;
+
+    .more {
+        align-self: center;
+    }
 }

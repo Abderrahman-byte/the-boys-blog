@@ -19,8 +19,7 @@ export const AuthorProfilPage = () => {
             let data = null
             try { data = await req.json()}
             catch (err) { data = null }
-
-            console.log(data)
+            
             setProfil(data)
         }
 
