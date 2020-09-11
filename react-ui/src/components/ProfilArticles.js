@@ -7,7 +7,7 @@ import { ArticlesList } from './ArticlesList'
 export const ProfilArticles = ({profil}) => {
     const [data, setData] = useState([])
     const [currentPage, setPage] = useState(1)
-    const [itemsPerPage] = useState(1)
+    const [itemsPerPage] = useState(5)
 
     const [isMore, setMoreState] = useState(true)
     const [isLoading, setLoadingState] = useState(false)
@@ -54,7 +54,12 @@ export const ProfilArticles = ({profil}) => {
     
     return (
         <div className='ProfilArticle'>
-            {data && data.length > 0 ? <ArticlesList data={data} isLoading={isLoading} itemsPerPage={itemsPerPage} /> : null}
+            {data && data.length > 0 ? <ArticlesList 
+                data={data} 
+                isLoading={isLoading} 
+                itemsPerPage={itemsPerPage} 
+                count={profil.articles_count} 
+            /> : null}
             
             {isMore && !isLoading ? (<button className='btn btn-elt btn-primary more' onClick={nextPage}>More</button>) : null}
         </div>
