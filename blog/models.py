@@ -23,7 +23,7 @@ class Article(models.Model) :
     title = models.CharField(max_length=500, unique=True, error_messages={ 
         'unique': _("The article title is already used")})
     content = models.JSONField()
-    overview = models.TextField(default='/media/image/placeholder.jpg')
+    overview = models.TextField(default='/media/images/placeholder.jpg')
     views = models.IntegerField(default=0)
     posted_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
