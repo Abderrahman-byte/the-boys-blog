@@ -41,6 +41,10 @@ export const ProfilArticles = ({profil}) => {
         }
         setLoadingState(false)
     }
+
+    const removeArticle = (id) => {
+        setData([...data.filter(item => item.id !== id)])
+    }
     
     const nextPage = () => {
         setPage(currentPage + 1)
@@ -59,6 +63,7 @@ export const ProfilArticles = ({profil}) => {
                 isLoading={isLoading} 
                 itemsPerPage={itemsPerPage} 
                 count={profil.articles_count} 
+                removeItem={removeArticle}
             /> : null}
             
             {isMore && !isLoading ? (<button className='btn btn-elt btn-primary more' onClick={nextPage}>More</button>) : null}

@@ -8,38 +8,51 @@
     }
 
     .profil-nav {
-        background-color: whitesmoke;
+        // background-color: #e4e7eb;
+        // border-bottom: 1px solid #e4e7eb;
         ul {
             width: 100%;
             display: flex;
             align-items: stretch;
+            // margin: 0 auto;
             list-style: none;
             max-width: 500px;
 
             li {
                 width: 50%;
+                // margin-right: .5em;
                 a {
                     display: block;
                     width: 100%;
-                    padding: .25em 0;
+                    padding: .5em 0;
                     text-align: center;
                     background-color: #2384D9 ;
                     color: whitesmoke;
                     text-decoration: none;
-                    font-size: 1.5rem;
+                    font-size: 1.1rem;
                     letter-spacing: .1em;
-                    font-weight: 300;
+                    font-weight: 700;
                     border-right: 1px solid whitesmoke;
+                    // border-radius: 8px;
                     transition: background-color .4s;
                     &:hover, &.active {
                         background-color: #2E6EA6 ;
                     }
+
+                    // &.active {
+                    //     border-bottom-right-radius: 0;
+                    //     border-bottom-left-radius: 0;
+                    // }
                 }
             }
-                
-            &> li:last-child > a{
-                border: none;
-            }
+            
+            // &> li:last-child {
+            //     margin-right: 0;
+            // }
+
+            // &> li:last-child > a{
+            //     border: none;
+            // }
         }
     }
 } 

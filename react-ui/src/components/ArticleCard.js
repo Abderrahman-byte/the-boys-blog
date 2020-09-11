@@ -3,12 +3,39 @@ import React, { useState, useEffect, useCallback, useContext } from 'react'
 import '../styles/ArticleCard.scss'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
+import { ModelsContext } from '../context/ModelsContext'
+import { ConfirmModel } from './ConfirmModel'
 
-export const ArticleCard = ({data}) => {
-    const { user } = useContext(AuthContext)
+export const ArticleCard = ({data, deleteItem}) => {
+    const { user, token } = useContext(AuthContext)
+    const { openModel, closeModel } = useContext(ModelsContext)
     const [contentBlock, setContent] = useState([])
     const [maxChars] = useState(200)
     const [overview, setOverview] = useState('')
+
+    const deleteArticle = async () => {
+        if(!data || !user || !data.id || !user.id || !data.author || data.author.id !== user.id) return
+
+        const req = await fetch(`http://localhost:8000/api/articles/${data.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`
+            }
+        })
+
+        if(req.status >= 200 && req.status < 300) {
+            deleteItem(data.id)
+        }
+
+        closeModel()
+    }
+
+    const handleDelete = () => {
+        if(user && user.id === data.author.id) {
+            openModel(<ConfirmModel text='Do you want to delete this article ?' callback={deleteArticle} />, true)
+        } 
+    }
 
     useEffect(() => {
         let content = null
@@ -41,7 +68,7 @@ export const ArticleCard = ({data}) => {
                 {user && data && data.author.id === user.id ? (
                     <div className='controls'>
                         <Link className='edit' to={`/staff/edit-article/${data.id}`}><i className='fas fa-pen'></i> </Link>
-                        <button className='delete'><i className='fas fa-trash-alt'></i> </button>
+                        <button onClick={handleDelete} className='delete'><i className='fas fa-trash-alt'></i> </button>
                     </div>
                 ) : null}
             </div>
