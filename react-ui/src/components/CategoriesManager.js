@@ -4,6 +4,7 @@ import '../styles/CategoriesManager.scss'
 
 import { CategoriesContext } from '../context/CategoriesContext'
 import { CategoryItem } from './CategoryItem'
+import { AddCategoryForm } from './AddCategoryForm'
 
 export const CategoriesManager = () => {
     const { categoriesList } = useContext(CategoriesContext)
@@ -11,7 +12,7 @@ export const CategoriesManager = () => {
     return (
         <div className='CategoriesManager'>
             <div className='header'>
-                <h2>Manage Categories :</h2>
+                <h2>Global Categories :</h2>
             </div>
 
 
@@ -23,7 +24,7 @@ export const CategoriesManager = () => {
                 )}
             </div>
 
-            
+            <AddCategoryForm />
         </div>
     )
 }

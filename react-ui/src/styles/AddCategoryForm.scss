@@ -1,0 +1,20 @@
+.AddCategoryForm {
+    margin: 1em auto;
+    max-width: 400px;
+
+    .form-group {
+        margin-bottom: 1.25em;
+
+        .form-control {
+            padding-left: .5em;
+            border-top-right-radius: 3px;
+            border-top-left-radius: 3px;
+        }
+    }
+
+    .save {
+        margin-left: auto;
+        margin-right: auto;
+        padding: .5em 1.75em;
+    }
+}
