@@ -22,7 +22,7 @@ export const CategoriesProvider = ({children}) => {
     }
 
     const deleteCategory = async (id) => {
-        if(!user || !token || !user.id) return
+        if(!user || !token || !user.id || !user.is_superuser) return
         const req = await fetch(`http://localhost:8000/api/categories/${id}`, {
             method: 'DELETE',
             headers: {
@@ -36,12 +36,16 @@ export const CategoriesProvider = ({children}) => {
         }
     }
 
+    const addCategory = (data) => {
+        setCategoriesData([data, ...categoriesList])
+    }
+
     useEffect(() => {
         getCategories()    
     }, [])
 
     return (
-        <CategoriesContext.Provider value={{categoriesList, deleteCategory}}>
+        <CategoriesContext.Provider value={{categoriesList, deleteCategory, addCategory}}>
             {children}
         </CategoriesContext.Provider>
     )
