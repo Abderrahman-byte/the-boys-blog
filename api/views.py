@@ -37,13 +37,16 @@ class ArticlesApi(APIView) :
         if author_id is not None :
             try :
                 author = User.objects.get(pk=author_id)
+                articles = author.article_set.all().order_by('-posted_date')[offset: limit + offset]
             except User.DoesNotExist :
-                # Returns badrequest instead of 404
-                return HttpResponseBadRequest()
-            articles = author.article_set.all().order_by('-posted_date')[offset: limit + offset]
+                context = {'details': 'Author id doesn\'t exists'}
+                return Response(context, status=404, content_type='application/json')
+            except Exception as ex :
+                context = {'details': ex.__str__()}
+                return Response(context, status=400, content_type='application/json')
         else :
-            articles = author.article_set.all().order_by('-posted_date')[offset: limit + offset]
-
+            articles = Article.objects.all().order_by('-posted_date')[offset: limit + offset]
+        
         serializer = ArticleSerializer(articles, many=True)
         return Response(serializer.data, content_type='application/json')
 
@@ -68,18 +71,21 @@ class ArticleApi(APIView) :
     permission_classes = [IsAuthorOrReadOnly]
 
     def get(self, request, pk) :
-        print('Get article api')
         try :
             article = Article.objects.get(pk=pk)
-            article.add_view() # Not good way to add new views
+            article.add_view()
+            self.check_object_permissions(request, article)
+            serializer = ArticleSerializer(article)
+            context = serializer.data
+            status = 200
         except Article.DoesNotExist :
-            # Returns badrequest instead of 404
-            # That didnt work
-            return HttpResponseForbidden
+            context = {'details': 'Article doesn\'t exists'}
+            status = 404
+        except Exception as ex :
+            context = {'details': ex.__str__()}
+            status = 400
 
-        self.check_object_permissions(request, article)
-        serializer = ArticleSerializer(article)
-        return Response(serializer.data, content_type='application/json')
+        return Response(context, status=status, content_type='application/json')
 
     def put(self, request, pk) :
         try :
@@ -101,7 +107,10 @@ class ArticleApi(APIView) :
         try :
             article = Article.objects.get(pk=pk)
         except Article.DoesNotExist :
-            raise Http404
+            return Response({'details': 'Article doesn\'t exist.'}, status=201, content_type='application/json')
+        except Exception as ex :
+            context = {'details': ex.__str__()}
+            return Response(context, status=400, content_type='application/json')
 
         self.check_object_permissions(request, article)
         article.delete()
@@ -130,10 +139,11 @@ class UploadArticlesImages(APIView) :
             return Response({'details': 'hostname does\'not match.'}, status=400, content_type='application/json')
 
         file_path = url_parsed.path.lstrip('/').lstrip('media').lstrip('/')
+        # You should check if the file is needed
         exists = delete_file(file_path)
 
         if not exists :
-            return Response({'details': 'Image doesnot exists.'}, status=400, content_type='application/json')
+            return Response({'details': 'Image doesn\'t exists.'}, status=400, content_type='application/json')
         
         return Response(status=204)
 
@@ -157,11 +167,13 @@ class CommentsApi(APIView) :
         try :
             article = Article.objects.get(pk=id)
             comments = article.comment_set.all().order_by('-posted_date')[offset:offset + limit]
-        except :
-            return HttpResponseBadRequest()
+        except Article.DoesNotExist:
+            return Response({'details': 'Article Doesn\'t exist'})
+        except Exception as ex :
+            context = {'details': ex.__str__()}
+            return Response(context, status=400, content_type='application/json')
 
         serializer = CommentSerializer(comments, many=True)
-
         return Response(serializer.data, status=200, content_type='application/json')
         
     def post(self, request) :
@@ -171,7 +183,10 @@ class CommentsApi(APIView) :
         try :
             data['article'] = Article.objects.get(pk=data.get('article'))
         except Article.DoesNotExist:
-            return HttpResponseBadRequest()
+            return Response({'details': 'Article Doesn\'t exist'}, status=404, content_type='application/json')
+        except Exception as ex :
+            context = {'details': ex.__str__()}
+            return Response(context, status=400, content_type='application/json')
 
         comment = CommentSerializer().create(data)
         serializer = CommentSerializer(comment)
@@ -185,30 +200,37 @@ class CommentApi(APIView) :
         try :
             comment = Comment.objects.get(pk=pk)
         except Comment.DoesNotExist :
-            raise Http404
+            return Response({'details': 'Comment Doesn\'t exist'}, status=404, content_type='application/json')
+        except Exception as ex :
+            context = {'details': ex.__str__()}
+            return Response(context, status=400, content_type='application/json')
 
         self.check_object_permissions(request, comment)
         serializer = CommentSerializer(comment)
-        return Response(serializer.data, status=201, content_type='application/json')
+        return Response(serializer.data, status=200, content_type='application/json')
 
     def put(self, request, pk) :
         try :
             comment = Comment.objects.get(pk=pk)
+            self.check_object_permissions(request, comment)
+            data = request.data
+            comment = CommentSerializer().update(comment, data)
+            serializer = CommentSerializer(comment)
+            return Response(serializer.data, status=201, content_type='application/json')
         except Comment.DoesNotExist :
-            raise Http404
-
-        self.check_object_permissions(request, comment)
-        data = request.data
-
-        comment = CommentSerializer().update(comment, data)
-        serializer = CommentSerializer(comment)
-        return Response(serializer.data, status=201, content_type='application/json')
+            return Response({'details': 'Comment Doesn\'t exist'}, status=404, content_type='application/json')
+        except Exception as ex :
+            context = {'details': ex.__str__()}
+            return Response(context, status=400, content_type='application/json')
 
     def delete(self, request, pk) :
         try :
             comment = Comment.objects.get(pk=pk)
         except Comment.DoesNotExist :
-            raise Http404
+            return Response({'details': 'Comment Doesn\'t exist'}, status=404, content_type='application/json')
+        except Exception as ex :
+            context = {'details': ex.__str__()}
+            return Response(context, status=400, content_type='application/json')
 
         self.check_object_permissions(request, comment)
         comment.delete()
@@ -262,10 +284,13 @@ class CategoryApi(APIView) :
         try :
             category = Category.objects.get(pk=pk)
             category.delete()
-            return Response('', status=204)
+            return Response(status=204)
         except Category.DoesNotExist:
             details = 'Category does\' exists, or have been deleted'
             return Response({'details': details}, status=400, content_type='application/json')
+        except Exception as ex :
+            context = {'details': ex.__str__()}
+            return Response(context, status=400, content_type='application/json')
 
 # Auth Views 
 # # # # # #
@@ -338,8 +363,10 @@ class UserInfoApi(APIView) :
         try : 
             author = User.objects.get(pk=pk)
         except User.DoesNotExist :
-            # Instead of 404 we used bad request
-            return HttpResponseBadRequest()
+            return Response({'details': 'User Doesn\'t exist'}, status=404, content_type='application/json')
+        except Exception as ex :
+            context = {'details': ex.__str__()}
+            return Response(context, status=400, content_type='application/json')
 
         serializer = UserSerializer(author)
         return Response(serializer.data, content_type='application/json')

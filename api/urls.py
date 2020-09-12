@@ -5,11 +5,11 @@ from . import views
 urlpatterns = [
     path('articles/', views.ArticlesApi.as_view(), name='articles-list'),
     path('articles/images', views.UploadArticlesImages.as_view(), name='upload-articles-images'),
-    path('articles/<uuid:pk>', views.ArticleApi.as_view(), name='article-details'),
+    path('articles/<pk>', views.ArticleApi.as_view(), name='article-details'),
     path('comments/', views.CommentsApi.as_view(), name='add-comment'),
-    path('comments/<uuid:pk>/', views.CommentApi.as_view(), name='comment-details'),
+    path('comments/<pk>/', views.CommentApi.as_view(), name='comment-details'),
     path('categories/', views.CategoriesApi.as_view(), name='categories-list'),
-    path('categories/<uuid:pk>', views.CategoryApi.as_view(), name='category'),
+    path('categories/<pk>', views.CategoryApi.as_view(), name='category'),
 
     # Authentication
     path('user/', views.UserAuthApi.as_view(), name='user-auth'),
