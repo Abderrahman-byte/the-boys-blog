@@ -1,11 +1,12 @@
 import React from 'react'
 import { CategoriesProvider } from '../context/CategoriesContext'
+import { CategoriesManager } from '../components/CategoriesManager'
 
 export const ManageCategoriesPage = () => {
 
     return (
         <CategoriesProvider>
-            <div>...you can manage CATEGORIES - Coming soon</div>
+            <CategoriesManager />
         </CategoriesProvider>
     )
 }

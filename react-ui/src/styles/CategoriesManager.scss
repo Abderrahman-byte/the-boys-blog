@@ -1,0 +1,38 @@
+.CategoriesManager {
+    margin: 0 auto;
+    margin-top: 2em;
+    width: 95%;
+    max-width: 600px;
+    background-color: whitesmoke;
+    border: 1px solid #e4e7ed;
+    border-radius: 8px;
+    padding: .75em .75em;
+
+    .header {
+        border-bottom: 1px solid #e4e7ed;
+        padding-bottom: .5em;
+
+        h2 {
+            letter-spacing: .1em;
+            font-weight: 300;
+        }
+    }
+
+    .categories-list {
+        padding: .75em 0;
+        border-bottom: 1px solid #e4e7ed;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .msg {
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        color: rgb(68, 68, 68);
+        text-align: center;
+        width: 100%;
+        margin: .5em 0;
+        text-transform: capitalize;
+    }
+}

@@ -1,0 +1,39 @@
+.CategoryItem {
+    border: 1px solid #e4e7ed;
+    border-radius: 8px;
+    margin-right: .75em;
+    margin-bottom: .5em;
+    position: relative;
+    padding: .75em .5em;
+    padding-right: calc(10px + 20px + .25em);
+    background-color: white;
+
+    .deleter {
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        transform: translateY(-50%);
+        border: 1px solid #e4e7ed;
+        border-radius: 50%;
+        background-color: whitesmoke;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1rem;
+        transition: .2s ease-in-out;
+        color: rgb(180, 180, 180);
+        cursor: pointer;
+
+        &:hover {
+            color: gray;
+        }
+    }
+
+    .title {
+        font-size: .9rem;
+        text-transform: capitalize;
+        font-weight: 700;
+    }
+}
