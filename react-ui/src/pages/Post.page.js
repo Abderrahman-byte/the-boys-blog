@@ -120,17 +120,18 @@ export const PostPage = ({ create, article }) => {
         openModel(<LoadingModel />, false)
 
         const req = await fetch(`http://localhost:8000/api/articles/${id}`, )
-        
-        // Must Handle 404 and 500 ERRORS
+        console.log(req)
         if(!(req.status >= 200 && req.status < 300) ) {
             history.push('/NotFound')
             setTimeout(closeModel, 1000)
+            return
         }
 
         const data = await req.json()
-
+        
         if(data.author.id !== user.id) {
             history.push(`/articles/${data.id}`)
+            return
         }
 
         const title = data.title
