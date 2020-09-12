@@ -10,7 +10,7 @@ export const ProfilArticles = ({profil}) => {
     const [itemsPerPage] = useState(5)
 
     const [isMore, setMoreState] = useState(true)
-    const [isLoading, setLoadingState] = useState(false)
+    const [isLoading, setLoadingState] = useState(true)
 
     const getArticles = async () => {
         if(!profil || !profil.id || !profil.articles_count) {
