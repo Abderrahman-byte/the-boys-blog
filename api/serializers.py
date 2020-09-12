@@ -69,11 +69,27 @@ class CategorySerializer(serializers.Serializer) :
     title = serializers.CharField()
     short_title = serializers.CharField()
 
-    def create(self) :
-        raise Exception('You Forgot to make Create method for Category Serializer')
+    def create(self, validated_data) :
+        try :
+            category = Category(**validated_data)
+            category.save()
+            return category
+        except utils.IntegrityError as ex :
+            msg = ex.__str__()
+            field_name = msg.split()[3].split('.')[1]
+            error_msg = category.unique_error_message(Category, (field_name,)).message
+            raise Exception(error_msg)
 
-    def update(self) :
-        raise Exception('You Forgot to make Update method for Category Serializer')
+    def update(self, instance, validated_data) :
+        try :
+            instance.title = validated_data.get('title', instance.title)
+            instance.short_title = validated_data.get('short_title', instance.short_title)
+            instance.save()
+        except utils.IntegrityError as ex :
+            msg = ex.__str__()
+            field_name = msg.split()[3].split('.')[1]
+            error_msg = instance.unique_error_message(Category, (field_name,)).message
+            raise Exception(error_msg)
 
 class CommentSerializer(serializers.ModelSerializer) :
     # author = serializers.PrimaryKeyRelatedField(read_only=True)

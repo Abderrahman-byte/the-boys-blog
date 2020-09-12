@@ -214,6 +214,59 @@ class CommentApi(APIView) :
         comment.delete()
         return Response(status=204)
 
+
+# Categories Views
+# # # # # # # # # #
+
+class CategoriesApi(APIView) :
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAdminOrReadOnly]
+
+    def get(self, request) :
+        categories = Category.objects.all()
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data, content_type='application/json')
+
+    def post(self, request) :
+        try :
+            data = request.data
+            category = CategorySerializer().create(data)
+            serializer = CategorySerializer(category)
+        except Exception as ex:
+            return Response({'details': ex.__str__()}, status=400, content_type='application/json')
+
+        return Response(serializer.data, status=201, content_type='application/json')
+
+class CategoryApi(APIView) :    
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAdminOrReadOnly]
+
+    # THAT DID WORK
+    # def get(self, request, pk) :
+    #     return Response({'details': f'Doesn\'t exists {pk} '}, status=404, content_type='application/json')
+
+    def put(self, request, pk) :
+        data = request.data
+        try :
+            category = Category.objects.get(pk=pk)
+            category_updated = CategorySerializer().update(category, data)
+            serializer = CategorySerializer(category)
+            return Response(serializer.data, status=201, content_type='application/json')
+        except Category.DoesNotExist:
+            details = 'Category does\' exists, or have been deleted'
+            return Response({'details': details}, status=400, content_type='application/json')
+        except Exception as ex :
+            return Response({'details': ex.__str__()}, status=400, content_type='application/json')
+
+    def delete(self, request, pk) :
+        try :
+            category = Category.objects.get(pk=pk)
+            category.delete()
+            return Response('', status=204)
+        except Category.DoesNotExist:
+            details = 'Category does\' exists, or have been deleted'
+            return Response({'details': details}, status=400, content_type='application/json')
+
 # Auth Views 
 # # # # # #
 

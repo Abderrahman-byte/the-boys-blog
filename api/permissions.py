@@ -2,8 +2,6 @@ from rest_framework import permissions
 
 class IsStaffOrReadOnly(permissions.BasePermission) :
     def has_permission(self, request, view) :
-        print('Has permission called')
-
         if request.method in permissions.SAFE_METHODS :
             return True
         
@@ -23,6 +21,11 @@ class IsAuthenticatedOrReadOnly(permissions.BasePermission) :
 
         return request.user.is_authenticated
 
+class IsAdminOrReadOnly(permissions.BasePermission) :
+    def has_permission(self, request, view) :
+        if request.method in permissions.SAFE_METHODS :
+            return True
+        return bool(request.user.is_superuser)
 
 class IsStaff(permissions.BasePermission) :
     def has_permission(self, request, view) :

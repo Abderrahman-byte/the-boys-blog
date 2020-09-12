@@ -8,7 +8,10 @@ urlpatterns = [
     path('articles/<uuid:pk>', views.ArticleApi.as_view(), name='article-details'),
     path('comments/', views.CommentsApi.as_view(), name='add-comment'),
     path('comments/<uuid:pk>/', views.CommentApi.as_view(), name='comment-details'),
+    path('categories/', views.CategoriesApi.as_view(), name='categories-list'),
+    path('categories/<uuid:pk>', views.CategoryApi.as_view(), name='category'),
 
+    # Authentication
     path('user/', views.UserAuthApi.as_view(), name='user-auth'),
     path('user-info/<str:pk>', views.UserInfoApi.as_view(), name='user-info'),
     path('user/avatar', views.UserAvatarUpload.as_view(), name='user-avatar'),
