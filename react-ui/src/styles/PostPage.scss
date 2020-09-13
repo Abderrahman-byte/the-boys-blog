@@ -26,67 +26,6 @@
 
     }
 
-    .overview-div {
-        position: relative;
-        margin-bottom: 2em;
-        border: 1px solid rgb(228, 231, 235);
-        box-shadow: 0 24px 24px -18px rgba(69,104,129,.33), 0 9px 45px 0 rgba(114,119,160,.12);
-
-
-        img {
-            width: 100%;
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 3px;
-        }
-
-        .delete-image {
-            position: absolute;
-            top: 0;
-            right: 0;
-            padding: .2em;
-            font-size: 1.4rem;
-            background-color: transparent;
-            border: none;
-            color: rgb(255, 36, 36);
-            cursor: pointer;
-            opacity: .6;
-
-            &:hover {
-                opacity: 1;
-            }
-        }
-
-        label.upload {
-            display: flex;
-            width: 100%;
-            padding: 1em 0;
-            cursor: pointer;
-            border-radius: 3px;
-            color: gray;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: .2s ease-in-out;
-
-            &:hover {
-                color: whitesmoke;
-                background-color: gray;
-            }
-
-            i {
-                font-size: 3rem;
-                margin-bottom: .25em;
-            }
-
-            p {
-                font-size: 1.25rem;
-                letter-spacing: .1em;
-                font-weight: 700;
-            }
-        }
-    }
-
     .editor {
         border: 1px solid rgb(228, 231, 235);
         border-radius: 8px;
