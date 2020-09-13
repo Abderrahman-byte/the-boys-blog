@@ -1,3 +1,5 @@
+@import './mixins.scss';
+
 .ArticleCard {
     border: 1px solid #e2e7ed;
     width: 95%;
@@ -7,6 +9,19 @@
     border-radius: 5px;
     overflow: hidden;
     background-color: white;
+
+    @include mediaQuery(900px) {
+        width: 45%;
+        margin-left: .25em;
+        margin-right: auto;
+    }
+
+    @include mediaQuery(1000px) {
+        margin: 0;
+        margin-bottom: 1.75em;
+        margin-left: .75em;
+        margin-right: auto;
+    }
 
     a {
         color: #2384d9;
