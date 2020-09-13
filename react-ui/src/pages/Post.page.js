@@ -10,6 +10,8 @@ import { AuthContext } from '../context/AuthContext'
 import { ModelsContext } from '../context/ModelsContext'
 import { LoadingModel } from '../components/LoadingModel'
 import { OverviewDiv } from '../components/OverviewDiv'
+import { CategoriesProvider } from '../context/CategoriesContext'
+import { ArticleCategories } from '../components/ArticleCategories'
 
 export const PostPage = ({ create, article }) => {
     const { token, user } = useContext(AuthContext)
@@ -18,10 +20,11 @@ export const PostPage = ({ create, article }) => {
     const history = useHistory()
 
     let editorRef = null
-    // const [editorContent, setEditorContent] = useLocalStorage('new-post-content', {"time":1597330033064,"blocks":[{"type":"header","data":{"text":"Lorem Ipsum","level":2}},{"type":"paragraph","data":{"text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}}],"version":"2.18.0"})
-    const [editorContent, setEditorContent] = useState({"time":1597330033064,"blocks":[{"type":"header","data":{"text":"Lorem Ipsum","level":2}},{"type":"paragraph","data":{"text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}}],"version":"2.18.0"})
+    const [editorContent, setEditorContent] = useLocalStorage('new-post-content', {"time":1597330033064,"blocks":[{"type":"header","data":{"text":"Lorem Ipsum","level":2}},{"type":"paragraph","data":{"text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}}],"version":"2.18.0"})
+    // const [editorContent, setEditorContent] = useState({"time":1597330033064,"blocks":[{"type":"header","data":{"text":"Lorem Ipsum","level":2}},{"type":"paragraph","data":{"text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}}],"version":"2.18.0"})
     const [articleTitle, setArticleTitle] = useState('')
     const [overviewUrl, setOverviewUrl] = useState(null)
+    const [categoriesIds, setCategoriesIds] = useState([])
     // const [imgIsLoading, setImagLoading] = useState(false)
     const [errors, setErrors] = useState([])
 
@@ -63,7 +66,7 @@ export const PostPage = ({ create, article }) => {
         if(checkedErrors.length > 0) return
 
         openModel(<LoadingModel />, false)
-        const payload = {'title': articleTitle, 'content': JSON.stringify(editorContent), 'overview': overviewUrl}
+        const payload = {'title': articleTitle, 'content': JSON.stringify(editorContent), 'overview': overviewUrl, 'categories': categoriesIds}
         const method = isNew ? 'POST': 'PUT'
         const url = !isNew && articleId ? `http://localhost:8000/api/articles/${articleId}` : 'http://localhost:8000/api/articles/'
         const options = { method, body: JSON.stringify(payload), headers: {'Authorization': `Token ${token}`, 'Content-Type': 'application/json'}}
@@ -102,7 +105,7 @@ export const PostPage = ({ create, article }) => {
             history.push(`/articles/${data.id}`)
             return
         }
-
+        console.log(data)
         const title = data.title
         const overview = data.overview
         const content = JSON.parse(data.content)
@@ -112,7 +115,7 @@ export const PostPage = ({ create, article }) => {
         }
         setOverviewUrl(overview)
         setArticleTitle(title)
-
+        setCategoriesIds(data.categories.map(item => item.id))
         setTimeout(closeModel, 1000)
     }
 
@@ -144,6 +147,10 @@ export const PostPage = ({ create, article }) => {
                 instanceRef={async instance => editorRef = instance }
                 data={editorContent} onChange={changeEditor} tools={EDITOR_JS_TOOLS} />
             </div>
+
+            <CategoriesProvider>
+                <ArticleCategories init={categoriesIds} setGlobal={setCategoriesIds} />
+            </CategoriesProvider>            
             
             <div className='errors-div'>
                 {errors.map((err, i) => (<p key={i} className='error'>{err}</p>))}
