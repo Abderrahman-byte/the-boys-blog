@@ -20,8 +20,8 @@ export const PostPage = ({ create, article }) => {
     const history = useHistory()
 
     let editorRef = null
-    const [editorContent, setEditorContent] = useLocalStorage('new-post-content', {"time":1597330033064,"blocks":[{"type":"header","data":{"text":"Lorem Ipsum","level":2}},{"type":"paragraph","data":{"text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}}],"version":"2.18.0"})
-    // const [editorContent, setEditorContent] = useState({"time":1597330033064,"blocks":[{"type":"header","data":{"text":"Lorem Ipsum","level":2}},{"type":"paragraph","data":{"text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}}],"version":"2.18.0"})
+    // const [editorContent, setEditorContent] = useLocalStorage('new-post-content', {"time":1597330033064,"blocks":[{"type":"header","data":{"text":"Lorem Ipsum","level":2}},{"type":"paragraph","data":{"text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}}],"version":"2.18.0"})
+    const [editorContent, setEditorContent] = useState({"time":1597330033064,"blocks":[{"type":"header","data":{"text":"Lorem Ipsum","level":2}},{"type":"paragraph","data":{"text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}}],"version":"2.18.0"})
     const [articleTitle, setArticleTitle] = useState('')
     const [overviewUrl, setOverviewUrl] = useState(null)
     const [categoriesIds, setCategoriesIds] = useState([])
@@ -113,14 +113,11 @@ export const PostPage = ({ create, article }) => {
             await editorRef.isReady
             editorRef.render(content)
         }
+        setEditorContent(content)
         setOverviewUrl(overview)
         setArticleTitle(title)
         setCategoriesIds(data.categories.map(item => item.id))
         setTimeout(closeModel, 1000)
-    }
-
-    const clearEditor = async () => {
-        console.log('You forgot to clean editor')
     }
 
     useEffect(() => {
@@ -156,7 +153,7 @@ export const PostPage = ({ create, article }) => {
                 {errors.map((err, i) => (<p key={i} className='error'>{err}</p>))}
             </div>
             <div className='btns-div'>
-                <button onClick={clearEditor} className='btn btn-orange btn-elt'>clear</button>
+                {/* <button onClick={clearEditor} className='btn btn-orange btn-elt'>clear</button> */}
                 <button onClick={save} className='btn btn-primary btn-elt'>save</button>
                 <button onClick={previewArticle} disabled={isNew && !articleId} className='btn btn-primary btn-elt'>preview</button>
             </div>

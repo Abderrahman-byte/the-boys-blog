@@ -18,6 +18,7 @@ export const ArticleCategories = ({init, setGlobal}) =>  {
         if(categoriesIds.includes(id)) {
             setCategoriesIds([...categoriesIds.filter(v => v !== id)])
         } else {
+            if(categoriesIds.length >= 5) return
             setCategoriesIds([...categoriesIds, id])
         }
     }
@@ -33,8 +34,6 @@ export const ArticleCategories = ({init, setGlobal}) =>  {
             )
         })
     }
-
-    console.log(categoriesList)
 
     useEffect(() => {
         if(!compare(init, categoriesIds)) {
@@ -54,6 +53,7 @@ export const ArticleCategories = ({init, setGlobal}) =>  {
             <div className='items-container'>
                 {renderItems()}
             </div>
+            <p className='warn'><span>Max = 5</span> <span>{categoriesIds.length}/5</span></p>
         </div>
     )
 }

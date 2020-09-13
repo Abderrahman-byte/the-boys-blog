@@ -110,10 +110,12 @@
 
         .hashtags {
             a {
-                font-size: .95rem;
+                font-size: .9rem;
                 font-weight: 900;
                 margin: .25em 0;
-                margin-right: .5em;
+                text-transform: capitalize;
+                margin-right: .75em;
+                font-style: italic;
             }
         }
     }

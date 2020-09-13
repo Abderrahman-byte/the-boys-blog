@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react'
 
 import '../styles/ArticleCard.scss'
+
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { ModelsContext } from '../context/ModelsContext'
@@ -83,8 +84,7 @@ export const ArticleCard = ({data, deleteItem}) => {
             <div className='footer'>
                 <span className='comments'><i className="fas fa-comment-dots"></i> {data.comments_count} comment{data.comments_count !== 1 ? 's' : ''}</span>
                 <span className='hashtags'>
-                    <Link to='#'>#Hashtages_sepose_to_be_here</Link>
-                    <Link to='#'>#Hashtages_sepose_to_be_here</Link>
+                    {data.categories.map((item, id) => <Link to='#' key={id}>#{item.title.replace(/\s+/g, '_')}</Link>)}
                 </span>
             </div>
         </div>
