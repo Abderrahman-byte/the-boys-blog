@@ -7,7 +7,7 @@ import { AuthContext } from '../context/AuthContext'
 import { ModelsContext } from '../context/ModelsContext'
 import { ConfirmModel } from './ConfirmModel'
 
-export const ArticleCard = ({data, deleteItem}) => {
+export const ArticleCard = ({data, deleteItem, className}) => {
     const { user, token } = useContext(AuthContext)
     const { openModel, closeModel } = useContext(ModelsContext)
     const [contentBlock, setContent] = useState([])
@@ -60,7 +60,7 @@ export const ArticleCard = ({data, deleteItem}) => {
     }, [contentBlock])
     
     return (
-        <div className='ArticleCard'>
+        <div className={'ArticleCard ' + className}>
             <div className='header'>
                 <Link to={`/articles/${data.id}`}>
                     <img 

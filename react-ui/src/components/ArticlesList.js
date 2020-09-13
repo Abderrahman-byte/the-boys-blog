@@ -5,7 +5,7 @@ import '../styles/ArticlesList.scss'
 import { ArticleCard } from './ArticleCard'
 import { ArticleSkel } from './ArticleSkel'
 
-export const ArticlesList = ({data, isLoading, itemsPerPage, count, removeItem}) => {
+export const ArticlesList = ({data, isLoading, itemsPerPage, count, removeItem, table}) => {
 
     const getSkeletons = () => {
         if(itemsPerPage && count && typeof(itemsPerPage) === 'number' && typeof(count) === 'number') {
@@ -20,8 +20,13 @@ export const ArticlesList = ({data, isLoading, itemsPerPage, count, removeItem})
     }
 
     return (
-        <div className='ArticlesList'>
-            {data.map(article => <ArticleCard key={article.id} data={article} deleteItem={removeItem || null} />)}
+        <div className={`ArticlesList ${table ? 'table' : ''}`}>
+            {data.map((article, i) => <ArticleCard 
+                key={article.id} 
+                className={data.length - 1 === i && data.length % 2 === 0? 'last': ''} 
+                data={article} 
+                deleteItem={removeItem || null} 
+            />)}
             {isLoading ? getSkeletons() : null}
         </div>
     )

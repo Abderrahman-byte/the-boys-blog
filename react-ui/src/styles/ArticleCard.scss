@@ -10,16 +10,10 @@
     overflow: hidden;
     background-color: white;
 
-    @include mediaQuery(900px) {
-        width: 45%;
-        margin-left: .25em;
-        margin-right: auto;
-    }
-
-    @include mediaQuery(1000px) {
+    @include mediaQuery(1200px) {
+        width: 48%;
         margin: 0;
         margin-bottom: 1.75em;
-        margin-left: .75em;
         margin-right: auto;
     }
 
