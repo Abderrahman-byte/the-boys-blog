@@ -7,7 +7,7 @@ import { AuthContext } from '../context/AuthContext'
 import { ModelsContext } from '../context/ModelsContext'
 import { ConfirmModel } from './ConfirmModel'
 
-export const ArticleHeader = ({author, pubdate, id, setDefault}) => {
+export const ArticleHeader = ({author, pubdate, id, setDefault, categories}) => {
     const { user, token } = useContext(AuthContext)
     const { openModel, closeModel } = useContext(ModelsContext)
     const history = useHistory()
@@ -37,15 +37,21 @@ export const ArticleHeader = ({author, pubdate, id, setDefault}) => {
     
     return (
         <div className='ArticleHeader'>
-            <div className='control'>
-                {user && user.id === author.id ? (
-                    <>
-                        <Link to={`/staff/edit-article/${id}`} className='edit tooltip tooltip-right'  data-title='Edit Article'><i className='fas fa-cog'></i></Link>
-                        <Link onClick={handleDelete} to='#' className='delete tooltip tooltip-top' data-title='Delete Article'><i className='fas fa-trash'></i></Link>
-                    </>
-                ) : (null)}    
+            <div className='top'>
+                <div className='control'>
+                    {user && user.id === author.id ? (
+                        <>
+                            <Link to={`/staff/edit-article/${id}`} className='edit tooltip tooltip-right'  data-title='Edit Article'><i className='fas fa-cog'></i></Link>
+                            <Link onClick={handleDelete} to='#' className='delete tooltip tooltip-top' data-title='Delete Article'><i className='fas fa-trash'></i></Link>
+                        </>
+                    ) : (null)}    
+                </div>
+                <p className='desc'>Published at {(new Date(pubdate)).toLocaleString()} <span>|</span> by <Link to="#" className='author'>{author.first_name} {author.last_name}</Link></p>
             </div>
-            <p>Published at {(new Date(pubdate)).toLocaleString()} <span>|</span> by <Link to="#" className='author'>{author.first_name} {author.last_name}</Link></p>
+
+            <div className='bottom'>
+                {categories.map(category => <Link key={category.id} to='#'>{category.title}</Link>)}
+            </div>
         </div>
     )
 }

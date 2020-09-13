@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 
 import '../styles/Header.scss'
@@ -7,11 +7,12 @@ import { AuthContext } from '../context/AuthContext'
 
 export const Header = () => {
     const { user, isAuthenticated } = useContext(AuthContext)
-    const [navStatus, setNavStatus] = useState(false)
     const { pathname } = useLocation()
+    const headerRef = useRef(null)
+    const [navStatus, setNavStatus] = useState(false)
+    // const [isFixed, setFixedStatus] = useState(false)
 
     const toggleDropdown = e => {
-        console.log('something clickde')
         e.preventDefault()
         let target = e.target
 
@@ -26,16 +27,33 @@ export const Header = () => {
         target.classList.toggle('active')
     }
 
-    useEffect(() => {
-        setNavStatus(false)
-    }, [pathname])
-
     const toggleNavBar = () => {
         setNavStatus(!navStatus)
     }
 
+    // const handleScroll = (e) => {
+    //     const top = window.pageYOffset
+    //     const headerHeight = headerRef.current ? headerRef.current.offsetHeight : 0
+    //     if(top > headerHeight) {
+    //         setFixedStatus(true)
+    //     } else if(top === 0) {
+    //         setFixedStatus(false)
+    //     }
+    // }
+
+    useEffect(() => {
+        setNavStatus(false)
+    }, [pathname])
+
+    // useEffect(() => {
+    //     window.addEventListener('scroll', handleScroll)
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll)
+    //     }
+    // }, [])
+
     return (
-        <header className='Header'>
+        <header ref={headerRef} className='Header'>
             <NavLink to='' className='logo-btn'>
                 {/* <img  alt='the boys logo'/> */}
                 <h1 className='logo'>The Boys Blog</h1>
@@ -53,6 +71,12 @@ export const Header = () => {
                             <ul className='dropdown-menu'>
                                 <li><NavLink to='/staff/profil'>Profil</NavLink></li>
                                 <li><NavLink exact to='/staff/new-post'>Write Article</NavLink></li>
+                                {user.is_superuser ? (
+                                    <>
+                                        <li><NavLink exact to='/admin/categories'>Edit Categories</NavLink></li>
+                                        <li><NavLink exact to='/admin/staff'>Add Staff</NavLink></li>
+                                    </>
+                                ) : null}
                             </ul>
                         </li>
                     ) : null}

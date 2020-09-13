@@ -53,7 +53,7 @@ export const ArticlePage = ({setWallpaper, setTitle, setDefault}) => {
             <div className='row'>
                 <div className='content'>
                     {data && data.author ? (
-                        <ArticleHeader author={data.author} pubdate={data.posted_date} id={id} setDefault={setDefault} />
+                        <ArticleHeader author={data.author} pubdate={data.posted_date} id={id} setDefault={setDefault} categories={data.categories} />
                     ) : !blocks ? null : (
                         <div className='lds-ring center'><div></div><div></div><div></div><div></div></div>
                     )}
