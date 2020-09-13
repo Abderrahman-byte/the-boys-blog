@@ -63,7 +63,12 @@ export const ArticleCard = ({data, deleteItem}) => {
         <div className='ArticleCard'>
             <div className='header'>
                 <Link to={`/articles/${data.id}`}>
-                    <img className='overview-img' src={data.overview} alt={data.title} />
+                    <img 
+                        className='overview-img' 
+                        onError={(e) => e.target.src = 'http://localhost:8000/media/images/placeholder.jpg'} 
+                        src={data.overview} 
+                        alt={data.title} 
+                    />
                 </Link>
 
                 {user && data && data.author.id === user.id ? (
