@@ -34,12 +34,38 @@
         align-items: center;
         flex-direction: column;
 
-        img {
-            width: auto;
+        .container {
+            align-self: flex-start;
             margin-bottom: .5em;
-            border-radius: 5px;
+            padding: .25em 0;
+
+            img {
+                width: auto;
+                // margin-bottom: .5em;
+                // border-radius: 5px;
+            }
+            
             &.border {
                 border: 1px solid #e4e7eb;
+                width: 100%;
+                border-radius: 5px;
+            }
+
+            &.withBackground {
+                background-color: #e4e7eb;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                border-radius: 5px;
+            }
+
+            &.stretched {
+                width: 100%;
+                border: 1px solid red;
+                img {
+                    display: inline-block;
+                    width: 100%;
+                }
             }
         }
 

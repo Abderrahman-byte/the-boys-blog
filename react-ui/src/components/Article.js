@@ -8,6 +8,7 @@ import { BlockImage } from './blocks/Image'
 import { Embed } from './blocks/Embed'
 import { BlockList } from './blocks/List'
 import { Checklist } from './blocks/Checklist'
+import { SimpleImage } from './blocks/SimpleImage'
 
 const dataToComponent = (block) => {
     if (!block || !block.data || !block.type) {
@@ -30,11 +31,12 @@ const dataToComponent = (block) => {
         case 'linkTool':
             return (<p className='warning'>Type {block.type} is not supported yet</p>)
         case 'simpleImage':
-            return (<p className='warning'>Type {block.type} is not supported yet</p>)
+            // return (<p className='warning'>Type {block.type} is not supported yet</p>)
+            return (<SimpleImage data={block.data} />)
         case 'image':
             return (<BlockImage data={block.data} />)
         case 'raw':
-            return (<p>Type {block.type} is not supported yet</p>)
+            return (<p className='warning'>Type {block.type} is not supported yet</p>)
         case 'header':
             return (<Header data={block.data} />)
         case 'quote':
