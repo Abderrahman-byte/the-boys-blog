@@ -20,6 +20,7 @@ export const OverviewDiv = ({init, setGlobal}) => {
 
             if(req.status >= 200 && req.status < 300) {
                 setOverviewUrl(null)
+                setGlobal(null)
             } else {
                 const data = await req.text()
                 console.log(data)
@@ -69,7 +70,15 @@ export const OverviewDiv = ({init, setGlobal}) => {
 
             {overviewUrl ? (
                 <>
-                    <img onLoad={() => setImagLoading(false)} src={overviewUrl} className={imgIsLoading ? 'hidden': ''} />
+                    <img 
+                        onLoad={() => setImagLoading(false)} 
+                        onError={() => {
+                            setOverviewUrl(null)
+                            setGlobal(null)
+                        }}
+                        src={overviewUrl} 
+                        className={imgIsLoading ? 'hidden': ''} 
+                    />
                     <button onClick={deleteOverview} className={`delete-image ${imgIsLoading ? 'hidden': ''}`}><i className="fas fa-trash-alt"></i></button>
                 </>
             ) : (
