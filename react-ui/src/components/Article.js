@@ -31,7 +31,6 @@ const dataToComponent = (block) => {
         case 'linkTool':
             return (<p className='warning'>Type {block.type} is not supported yet</p>)
         case 'simpleImage':
-            // return (<p className='warning'>Type {block.type} is not supported yet</p>)
             return (<SimpleImage data={block.data} />)
         case 'image':
             return (<BlockImage data={block.data} />)
