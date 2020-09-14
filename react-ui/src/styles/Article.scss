@@ -177,4 +177,24 @@
             }
         }
     }
+
+    .Table {
+        width: 100%;
+        padding: .4em 0;
+
+        table {
+            width: 100%;
+        }
+
+        table, td {
+            border-collapse: collapse;
+            border: 1px solid #dbdbe2;
+        }
+
+        td {
+            padding: .4em 0;
+            text-align: center;
+            height: 100%;
+        }
+    }
 }

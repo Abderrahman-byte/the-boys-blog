@@ -9,6 +9,7 @@ import { Embed } from './blocks/Embed'
 import { BlockList } from './blocks/List'
 import { Checklist } from './blocks/Checklist'
 import { SimpleImage } from './blocks/SimpleImage'
+import { Table } from './blocks/Table'
 
 const dataToComponent = (block) => {
     if (!block || !block.data || !block.type) {
@@ -19,7 +20,7 @@ const dataToComponent = (block) => {
         case 'embed':
             return (<Embed data={block.data} />)
         case 'table':
-            return (<p className='warning'>Type {block.type} is not supported yet</p>)
+            return (<Table data={block.data} />)
         case 'paragraph':
             return (<Paragraph data={block.data} />)
         case 'list':
