@@ -46,7 +46,10 @@ export const EDITOR_JS_TOOLS = {
         inlineToolbar: true,
     },
     warning: Warning,
-    code: Code,
+    code: {
+        class: Code,
+        inlineToolbar: true,
+    },
     linkTool: LinkTool,
     simpleImage: SimpleImage,
     image: {

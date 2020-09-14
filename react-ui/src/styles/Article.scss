@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Sanchez:ital@0;1&display=swap');
+
 .Article {
     border: 1px solid #e4e7eb;
     padding-bottom: 4em;
@@ -195,6 +197,48 @@
             padding: .4em 0;
             text-align: center;
             height: 100%;
+        }
+    }
+
+    .Quote {
+        padding: .5em 0;
+        display: flex;
+        flex-direction: column;
+
+        blockquote {
+            position: relative;
+            font-size: 1.4rem;
+            letter-spacing: .1em;
+            font-family: 'Sanchez', cursive;
+            border-left: .2em solid lighten(hsl(200, 40, 10), 40%);
+            font-weight: 100;
+            padding: .2em;
+            font-style: italic;
+            color: lighten(hsl(200, 40, 10), 40%);
+            margin-bottom: .2em;
+
+            &:before, &:after {
+                content: '\201C';
+                font-family: 'Sanchez';
+                color: lighten(hsl(200, 40, 10), 40%);
+            }
+
+            &:after {
+                content: '\201D';
+            }
+        }
+
+        .caption {
+            font-size: .85rem;
+            letter-spacing: .1em;
+            font-weight: 900;
+            color: darken(hsl(50, 5, 97), 40%);
+            align-self: flex-end;
+
+            &:before {
+                content: '\2015';  
+            }
+            
         }
     }
 }

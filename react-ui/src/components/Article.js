@@ -10,6 +10,7 @@ import { BlockList } from './blocks/List'
 import { Checklist } from './blocks/Checklist'
 import { SimpleImage } from './blocks/SimpleImage'
 import { Table } from './blocks/Table'
+import { Quote } from './blocks/Quote'
 
 const dataToComponent = (block) => {
     if (!block || !block.data || !block.type) {
@@ -40,7 +41,7 @@ const dataToComponent = (block) => {
         case 'header':
             return (<Header data={block.data} />)
         case 'quote':
-            return (<p className='warning'>Type {block.type} is not supported yet</p>)
+            return (<Quote data={block.data} />)
         case 'marker':
             return (<p className='warning'>Type {block.type} is not supported yet</p>)
         case 'checklist':
