@@ -9,12 +9,19 @@
     border-radius: 5px;
     overflow: hidden;
     background-color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 
     @include mediaQuery(1200px) {
         width: 48%;
         margin: 0;
         margin-bottom: 1.75em;
-        margin-right: auto;
+        &:nth-child(2n+1) {
+            margin-right: auto;
+        }
+
+        &:nth-child(2n) {
+            margin-right: 0;
+        }
     }
 
     a {
@@ -128,4 +135,29 @@
             }
         }
     }
+}
+
+.table .ArticleCard {
+    @include mediaQuery(1200px) {
+        &:nth-child(2n+1) {
+            margin-right: 0;
+        }
+
+        &:nth-child(2n) {
+            margin-right: auto;
+        }
+    }
+
+    &.full {
+        @include mediaQuery(1200px) {
+            width: 100%;
+            max-width: 100%;
+            // margin: 0 auto;
+            margin-bottom: 1.75em;
+        }
+    }
+}
+
+.ArticleCard.full .header img {
+    max-height: 300px;
 }

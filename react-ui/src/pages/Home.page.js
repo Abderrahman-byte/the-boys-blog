@@ -4,7 +4,7 @@ import { LoadingModel } from '../components/LoadingModel'
 import { Article } from '../components/Article'
 import { ArticlesList } from '../components/ArticlesList'
 
-export const HomePage = () => {
+export const HomePage = ({setDefault}) => {
     const { openModel, closeModel } = useContext(ModelsContext)
 
     const [data, setData] = useState([])
@@ -37,6 +37,7 @@ export const HomePage = () => {
         } else {
             setMoreState(false)
         }
+
         setLoadingState(false)
         setTimeout(closeModel, 1000)
     }
@@ -46,11 +47,15 @@ export const HomePage = () => {
     }
 
     useEffect(() => {
+        setDefault()
         getArticles()
     }, [])
 
     return (
         <div className='HomePage'>
+            <div className='head'>
+                <h2 className='title'>Latest Articles</h2>
+            </div>
             <div className='row'>
                 <div className='content'>
                     {data.length > 0 ? (<ArticlesList

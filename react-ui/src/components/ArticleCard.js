@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react'
+import { AllHtmlEntities } from 'html-entities'
 
 import '../styles/ArticleCard.scss'
 
@@ -11,7 +12,7 @@ export const ArticleCard = ({data, deleteItem, className}) => {
     const { user, token } = useContext(AuthContext)
     const { openModel, closeModel } = useContext(ModelsContext)
     const [contentBlock, setContent] = useState([])
-    const [maxChars] = useState(200)
+    const [maxChars] = useState(250)
     const [overview, setOverview] = useState('')
 
     const deleteArticle = async () => {
@@ -83,7 +84,7 @@ export const ArticleCard = ({data, deleteItem, className}) => {
                 <h6 className='title'>{data.title}</h6>
                 <span className='date'>Posted {(new Date(data.posted_date)).toLocaleString()} 
                 <span className='bold'> | </span>by <Link to={`/authors/${data.author.id}`} className='author'>{data.author.first_name} {data.author.last_name}</Link></span>
-                <p className='overview'>{overview} <Link className='read_btn' to={`/articles/${data.id}`}>Read More</Link></p>
+                <p className='overview'>{AllHtmlEntities.decode(overview)} <Link className='read_btn' to={`/articles/${data.id}`}>Read More</Link></p>
             </div>
 
             <div className='footer'>

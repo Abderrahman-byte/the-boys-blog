@@ -52,4 +52,3 @@ class User(AbstractUser) :
             self.staff_title = None 
 
         super().save(*args, **kwargs)
-

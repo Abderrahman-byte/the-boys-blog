@@ -127,6 +127,7 @@ class ArticleSerializer(serializers.Serializer) :
         try :
             categories_id = validated_data.pop('categories', [])
             article = Article(**validated_data)
+            article.save()
             article.categories.set(Category.objects.filter(id__in=categories_id))
             article.save()
             return article

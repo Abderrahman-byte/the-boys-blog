@@ -23,7 +23,7 @@ export const ArticlesList = ({data, isLoading, itemsPerPage, count, removeItem, 
         <div className={`ArticlesList ${table ? 'table' : ''}`}>
             {data.map((article, i) => <ArticleCard 
                 key={article.id} 
-                className={data.length - 1 === i && data.length % 2 === 0? 'last': ''} 
+                className={table && i === 0? 'full': ''} 
                 data={article} 
                 deleteItem={removeItem || null} 
             />)}

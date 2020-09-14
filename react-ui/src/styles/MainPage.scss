@@ -3,9 +3,28 @@
 $content-break: 900px;
 
 .MainPage {
+    .head {
+        padding-top: .5em;
+        .title {
+            display: inline-block;
+            color: #868787;
+            text-align: center;
+            font-style: italic;
+            font-size: 2.5rem;
+            letter-spacing: .1em;
+            font-weight: 700;
+            padding-left: .3em;
+            padding-right: .5em;
+            padding-bottom: .2em;
+            margin: 0 auto;
+            border-bottom: 5px solid #868787;
+        }
+    }
+
     .row {
+        // border: 1px solid maroon;
         width: 100%;
-        padding: 1em .75em;
+        padding: .5em .75em;
         display: flex;
         flex-direction: column;
         justify-content: space-between;

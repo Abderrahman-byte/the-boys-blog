@@ -21,11 +21,11 @@ export const MainPage = () => {
             <Wallpaper src={wallpaperImg} text={headerText} />
 
             <Switch>
-                <Route path=''>
-                    <HomePage />
+                <Route exact path='/'>
+                    <HomePage setDefault={setDefault} />
                 </Route>
                 
-                <Route path='/articles/:id'>
+                <Route exact path='/articles/:id'>
                     <ArticlePage setDefault={setDefault} setWallpaper={setWallpaperImg} setTitle={setHeaderText} />
                 </Route>
 
