@@ -43,6 +43,7 @@ export const Header = () => {
 
     useEffect(() => {
         setNavStatus(false)
+        window.scrollTo(0, 0)
     }, [pathname])
 
     // useEffect(() => {
