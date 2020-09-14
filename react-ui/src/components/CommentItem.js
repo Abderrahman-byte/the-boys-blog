@@ -13,7 +13,7 @@ export const CommentItem = ({data}) => {
     const { deleteComment, editComment } = useContext(CommentsContext)
     const history = useHistory()
 
-    const [articleAuthor] = useState(history.location.state.article_author)
+    const [articleAuthor] = useState(history.location ? (history.location.state ? history.location.state.article_author: null) : null)
     const [privileges, setPrivileges] = useState([])
 
     useEffect(() => {
