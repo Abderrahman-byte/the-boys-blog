@@ -46,10 +46,17 @@ export const HomePage = ({setDefault}) => {
         setData([...data.filter(article => article.id !== id)])
     }
 
+    const nextPage = () => {
+        setPage(currentPage + 1)
+    }
+
     useEffect(() => {
         setDefault()
-        getArticles()
     }, [])
+
+    useEffect(() => {
+        getArticles()
+    }, [currentPage])
 
     return (
         <div className='HomePage'>
@@ -65,6 +72,8 @@ export const HomePage = ({setDefault}) => {
                         removeItem={removeItem}
                         table={true}
                     />) : null}
+
+                    {isMore && !isLoading ? (<button className='btn btn-elt btn-primary more' onClick={nextPage}>More</button>) : null}
                 </div>
                 <div className='aside'>abderrahman is here</div>
             </div>
