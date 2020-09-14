@@ -92,7 +92,6 @@ export const PostPage = ({ create, article }) => {
         openModel(<LoadingModel />, false)
 
         const req = await fetch(`http://localhost:8000/api/articles/${id}`, )
-        console.log(req)
         if(!(req.status >= 200 && req.status < 300) ) {
             history.push('/NotFound')
             setTimeout(closeModel, 1000)
@@ -105,7 +104,6 @@ export const PostPage = ({ create, article }) => {
             history.push(`/articles/${data.id}`)
             return
         }
-        console.log(data)
         const title = data.title
         const overview = data.overview
         const content = JSON.parse(data.content)

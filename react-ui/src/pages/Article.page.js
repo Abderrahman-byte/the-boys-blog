@@ -45,6 +45,7 @@ export const ArticlePage = ({setWallpaper, setTitle, setDefault}) => {
         setWallpaper(null)
         setTitle(null)
         getArticle()
+        console.log('rendred')
     }, [])
 
 

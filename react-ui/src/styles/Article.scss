@@ -25,6 +25,13 @@
     .Paragraph {
         line-height: 1.6em;
         padding: .4em 0;
+        a {
+            color: #388ae5;
+            text-decoration: none;
+            &:hover {
+                color: #2E6EA6;
+            }
+        }
     }
 
     .Image {

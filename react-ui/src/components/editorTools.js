@@ -37,8 +37,14 @@ const uploadByFile = async (file) => {
 export const EDITOR_JS_TOOLS = {
     embed: Embed,
     table: Table,
-    paragraph: Paragraph,
-    list: List,
+    paragraph: {
+        class: Paragraph,
+        inlineToolbar: true,
+    },
+    list: {
+        class: List,
+        inlineToolbar: true,
+    },
     warning: Warning,
     code: Code,
     linkTool: LinkTool,
@@ -51,11 +57,21 @@ export const EDITOR_JS_TOOLS = {
             }
         }
     },
-    raw: Raw,
-    header: Header,
-    quote: Quote,
-    marker: Marker,
+    // raw: Raw,
+    header: {
+        class: Header,
+        inlineToolbar: true,
+    },
+    quote: {
+        class: Quote,
+        inlineToolbar: true,
+    },
+    // marker: Marker,
     checklist: CheckList,
     delimiter: Delimiter,
-    inlineCode: InlineCode
+    inlineCode: InlineCode,
+    Marker: {
+        class: Marker,
+        shortcut: 'CMD+SHIFT+M',
+    }
 }

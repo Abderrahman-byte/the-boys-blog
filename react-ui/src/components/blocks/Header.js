@@ -6,19 +6,21 @@ export const Header = ({data}) => {
         return null
     }
 
+    const text = AllHtmlEntities.decode(data.text)
+
     switch (data.level) {
         case 1 :
-            return (<h1 className='BlockHeader'>{AllHtmlEntities.decode(data.text)}</h1>)
+            return (<h1 className='BlockHeader' dangerouslySetInnerHTML={{ __html: text}} />)
         case 2 :
-            return (<h2 className='BlockHeader'>{AllHtmlEntities.decode(data.text)}</h2>)
+            return (<h2 className='BlockHeader' dangerouslySetInnerHTML={{ __html: text}} />)
         case 3 :
-            return (<h3 className='BlockHeader'>{AllHtmlEntities.decode(data.text)}</h3>)
+            return (<h3 className='BlockHeader' dangerouslySetInnerHTML={{ __html: text}} />)
         case 4 :
-            return (<h4 className='BlockHeader'>{AllHtmlEntities.decode(data.text)}</h4>)
+            return (<h4 className='BlockHeader' dangerouslySetInnerHTML={{ __html: text}} />)
         case 5 :
-            return (<h5 className='BlockHeader'>{AllHtmlEntities.decode(data.text)}</h5>)
+            return (<h5 className='BlockHeader' dangerouslySetInnerHTML={{ __html: text}} />)
         case 6 :
-            return (<h6 className='BlockHeader'>{AllHtmlEntities.decode(data.text)}</h6>)
+            return (<h6 className='BlockHeader' dangerouslySetInnerHTML={{ __html: text}} />)
     }
     
 }
