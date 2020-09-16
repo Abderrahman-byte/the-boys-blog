@@ -3,7 +3,7 @@ import { AllHtmlEntities } from 'html-entities'
 
 import '../styles/ArticleCard.scss'
 
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { ModelsContext } from '../context/ModelsContext'
 import { ConfirmModel } from './ConfirmModel'
@@ -45,6 +45,10 @@ export const ArticleCard = ({data, deleteItem, className}) => {
         return span.innerText
     }
 
+    const getSlug = (text) =>  {
+        return encodeURIComponent(text.replace(/\s/g,'-'))
+    }
+
     useEffect(() => {
         let content = null
         try { content = JSON.parse(data.content).blocks}
@@ -65,18 +69,19 @@ export const ArticleCard = ({data, deleteItem, className}) => {
 
         setOverview(res + '...') 
     }, [contentBlock])
+
     
     return (
         <div className={'ArticleCard ' + className}>
             <div className='header'>
-                <Link to={`/articles/${data.id}`}>
+                <NavLink to={`/articles/${getSlug(data.title)}`}>
                     <img 
                         className='overview-img' 
                         onError={(e) => e.target.src = 'http://localhost:8000/media/images/placeholder.jpg'} 
                         src={data.overview} 
                         alt={data.title} 
                     />
-                </Link>
+                </NavLink>
 
                 {user && data && data.author.id === user.id ? (
                     <div className='controls'>
@@ -87,10 +92,10 @@ export const ArticleCard = ({data, deleteItem, className}) => {
             </div>
 
             <div className='info'>
-                <Link to={`/articles/${data.id}`} className='title'>{data.title}</Link>
+                <Link to={`/articles/${getSlug(data.title)}`} className='title'>{data.title}</Link>
                 <span className='date'>Posted {(new Date(data.posted_date)).toLocaleString()} 
                 <span className='bold'> | </span>by <Link to={`/authors/${data.author.id}`} className='author'>{data.author.first_name} {data.author.last_name}</Link></span>
-                <p className='overview'>{extractText(AllHtmlEntities.decode(overview))} <Link className='read_btn' to={`/articles/${data.id}`}>Read More</Link></p>
+                <p className='overview'>{extractText(AllHtmlEntities.decode(overview))} <Link className='read_btn' to={`/articles/${getSlug(data.title)}`}>Read More</Link></p>
             </div>
 
             <div className='footer'>

@@ -37,6 +37,7 @@ export const ArticlePage = ({setWallpaper, setTitle, setDefault}) => {
                 history.location.state = {...history.location.state, article_author: data.author}
             }
         } else {
+            console.log(await req.json())
             history.push('/NotFound')
         }
     }
