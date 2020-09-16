@@ -46,11 +46,11 @@ export const ArticleHeader = ({author, pubdate, id, setDefault, categories}) => 
                         </>
                     ) : (null)}    
                 </div>
-                <p className='desc'>Published at {(new Date(pubdate)).toLocaleString()} <span>|</span> by <Link to="#" className='author'>{author.first_name} {author.last_name}</Link></p>
+                <p className='desc'>Published at {(new Date(pubdate)).toLocaleString()} <span>|</span> by <Link to={`/authors/${author.id}`} className='author'>{author.first_name} {author.last_name}</Link></p>
             </div>
 
             <div className='bottom'>
-                {categories.map(category => <Link key={category.id} to='#'>{category.title}</Link>)}
+                {categories.map(category => <Link key={category.id} to={`/category/${category.short_title}`}>{category.title}</Link>)}
             </div>
         </div>
     )

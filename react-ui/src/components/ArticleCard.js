@@ -70,7 +70,7 @@ export const ArticleCard = ({data, deleteItem, className}) => {
         setOverview(res + '...') 
     }, [contentBlock])
 
-    
+
     return (
         <div className={'ArticleCard ' + className}>
             <div className='header'>
@@ -101,7 +101,7 @@ export const ArticleCard = ({data, deleteItem, className}) => {
             <div className='footer'>
                 <span className='comments'><i className="fas fa-comment-dots"></i> {data.comments_count} comment{data.comments_count !== 1 ? 's' : ''}</span>
                 <span className='hashtags'>
-                    {data.categories.map((item, id) => <Link to='#' key={id}>#{item.title.replace(/\s+/g, '_')}</Link>)}
+                    {data.categories.map((item, id) => <Link to={`/category/${item.short_title}`} key={id}>#{item.title.replace(/\s+/g, '_')}</Link>)}
                 </span>
             </div>
         </div>

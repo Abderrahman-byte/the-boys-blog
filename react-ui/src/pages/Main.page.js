@@ -12,11 +12,11 @@ import { CategoryPage } from './Category.page'
 
 export const MainPage = () => {
     const [wallpaperImg, setWallpaperImg] = useState('http://localhost:8000/media/images/wp-1.jpg')
-    const [headerText, setHeaderText] = useState('Grow fast or die slow')
+    const [headerText, setHeaderText] = useState('the boys are here')
 
     const setDefault = () => {
         setWallpaperImg('http://localhost:8000/media/images/wp-1.jpg')
-        setHeaderText('Grow fast or die slow')
+        setHeaderText('the boys are here')
     }
 
     return (
