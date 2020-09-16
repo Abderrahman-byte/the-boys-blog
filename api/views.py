@@ -277,7 +277,6 @@ class CategoryApi(APIView) :
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAdminOrReadOnly]
 
-    # THAT DID WORK
     def get(self, request, pk) :
         params = request.query_params
 
@@ -298,7 +297,7 @@ class CategoryApi(APIView) :
             except Exception as ex:
                 return Response({'details': ex.__str__()}, status=400, content_type='application/json')
 
-        articles = category.article_set.all()[offset: offset + limit]
+        articles = category.article_set.all().order_by('-posted_date')[offset: offset + limit]
         category_data = CategorySerializer(category).data
         articles_data = ArticleSerializer(articles, many=True).data
         category_data['articles'] = articles_data
@@ -408,3 +407,22 @@ class UserInfoApi(APIView) :
 
         serializer = UserSerializer(author)
         return Response(serializer.data, content_type='application/json')
+
+class StaffInfo(APIView) :
+    def get(self, request) :
+        params = request.query_params
+
+        try :
+            limit = int(params.get('limit', 5))
+            offset = int(params.get('offset', 0))
+        except :
+            limit = 5
+            offset = 0
+
+        admins = User.objects.filter(is_superuser=True).order_by('date_joined')
+        staff_members = User.objects.filter(is_superuser=False, is_staff=True).order_by('date_joined')
+        staff = staff_members | admins
+        staff = staff[offset: limit + offset]
+        data = UserSerializer(staff, many=True).data
+
+        return Response(data, content_type='application/json')

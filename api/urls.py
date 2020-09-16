@@ -11,10 +11,13 @@ urlpatterns = [
     path('categories/', views.CategoriesApi.as_view(), name='categories-list'),
     path('categories/<pk>', views.CategoryApi.as_view(), name='category'),
 
-    # Authentication
+    # Users informations
     path('user/', views.UserAuthApi.as_view(), name='user-auth'),
     path('user-info/<str:pk>', views.UserInfoApi.as_view(), name='user-info'),
     path('user/avatar', views.UserAvatarUpload.as_view(), name='user-avatar'),
+    path('staff', views.StaffInfo.as_view(), name='staff-info'),
+
+    # Authentication
     path('login', views.UserLoginApi.as_view(), name='user-login'),
     path('register', views.UserRegisterApi.as_view(), name='user-register'),
 ]
