@@ -68,6 +68,7 @@ class CategorySerializer(serializers.Serializer) :
     id = serializers.UUIDField()
     title = serializers.CharField()
     short_title = serializers.CharField()
+    items = serializers.IntegerField(source='article_set.count', read_only=True)
 
     def create(self, validated_data) :
         try :

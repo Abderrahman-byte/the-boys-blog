@@ -1,0 +1,50 @@
+.CategoriesPage {
+    .categories-list {
+        max-width: 600px;
+        display: flex;
+        flex-wrap: wrap;
+
+        .category {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: .75em;
+            margin-bottom: 1em;
+            font-size: 1.1rem;
+            padding: .25em .75em;
+            text-decoration: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: .2s ease-in-out;
+            border: 1px solid #e4e7ed;
+            background-color: white;
+            color: black;
+
+            &:hover {
+                color: whitesmoke;
+                background-color: #2E6EA6;
+                border-color: #2E6EA6;
+            }
+
+            .title {
+                text-transform: capitalize;
+            }
+
+            .count {
+                font-size: .7rem;
+                margin-left: 10px;
+                background-color: #e4e7ed;
+                color: #121212;
+                padding: .2em .5em;
+                border-radius: 10px;
+                font-weight: 900;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-width: 20px;
+                // border: .01em solid #e4e7ed;
+            }
+        }
+    }
+}
