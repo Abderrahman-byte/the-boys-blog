@@ -10,7 +10,6 @@ export const Header = () => {
     const { pathname } = useLocation()
     const headerRef = useRef(null)
     const [navStatus, setNavStatus] = useState(false)
-    // const [isFixed, setFixedStatus] = useState(false)
 
     const toggleDropdown = e => {
         e.preventDefault()
@@ -31,27 +30,10 @@ export const Header = () => {
         setNavStatus(!navStatus)
     }
 
-    // const handleScroll = (e) => {
-    //     const top = window.pageYOffset
-    //     const headerHeight = headerRef.current ? headerRef.current.offsetHeight : 0
-    //     if(top > headerHeight) {
-    //         setFixedStatus(true)
-    //     } else if(top === 0) {
-    //         setFixedStatus(false)
-    //     }
-    // }
-
     useEffect(() => {
         setNavStatus(false)
         window.scrollTo(0, 0)
     }, [pathname])
-
-    // useEffect(() => {
-    //     window.addEventListener('scroll', handleScroll)
-    //     return () => {
-    //         window.removeEventListener('scroll', handleScroll)
-    //     }
-    // }, [])
 
     return (
         <header ref={headerRef} className='Header'>

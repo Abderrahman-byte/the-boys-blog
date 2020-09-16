@@ -6,6 +6,8 @@ import '../styles/MainPage.scss'
 import { Wallpaper } from '../components/Wallpaper'
 import { ArticlePage } from './Article.page'
 import { HomePage } from './Home.page'
+import { CategoriesPage } from './Categories.page'
+import { CategoriesProvider } from '../context/CategoriesContext'
 
 export const MainPage = () => {
     const [wallpaperImg, setWallpaperImg] = useState('http://localhost:8000/media/images/wp-1.jpg')
@@ -23,6 +25,16 @@ export const MainPage = () => {
             <Switch>
                 <Route exact path='/'>
                     <HomePage setDefault={setDefault} />
+                </Route>
+
+                <Route exact path='/categories'>
+                    <CategoriesProvider>
+                        <CategoriesPage 
+                            setDefault={setDefault} 
+                            setWallpaperImg={setWallpaperImg} 
+                            setHeaderText={setHeaderText} 
+                        />
+                    </CategoriesProvider>
                 </Route>
                 
                 <Route exact path='/articles/:id'>
