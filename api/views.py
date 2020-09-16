@@ -74,14 +74,27 @@ class ArticleApi(APIView) :
     def get(self, request, pk) :
         try :
             article = Article.objects.get(pk=pk)
+        except :
+            try :
+                title = pk.replace('-', ' ')
+                article = Article.objects.get(title=title)
+            except Article.DoesNotExist :
+                context = {'details': 'Article doesn\'t exists'}
+                status = 404
+                return Response(context, status=status, content_type='application/json')
+
+            except Exception as ex :
+                context = {'details': ex.__str__()}
+                status = 400
+                return Response(context, status=status, content_type='application/json')
+  
+        try :
             article.add_view()
             self.check_object_permissions(request, article)
             serializer = ArticleSerializer(article)
             context = serializer.data
             status = 200
-        except Article.DoesNotExist :
-            context = {'details': 'Article doesn\'t exists'}
-            status = 404
+    
         except Exception as ex :
             context = {'details': ex.__str__()}
             status = 400
