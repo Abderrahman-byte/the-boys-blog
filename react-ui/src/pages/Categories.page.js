@@ -4,15 +4,23 @@ import { Link } from 'react-router-dom'
 import '../styles/CategoriesPage.scss'
 
 import { CategoriesContext } from '../context/CategoriesContext'
+import { ModelsContext } from '../context/ModelsContext'
+import { WarningModel } from '../components/WarningModel'
 
 export const CategoriesPage = ({setDefault, setHeaderText, setWallpaperImg}) => {
     const { categoriesList } = useContext(CategoriesContext)
+    const { openModel, closeModel } = useContext(ModelsContext)
+
+    const emptyCategoryWarn = () => {
+        openModel(<WarningModel text="Category page doesn't exists because there is no article in it." />, true)
+        setTimeout(closeModel, 5000)
+    }
 
     const getItems = () => {
         return categoriesList.map(item => {
             if(item.items <= 0) {
                 return (
-                    <div key={item.id} className='category'>
+                    <div onClick={emptyCategoryWarn} key={item.id} className='category'>
                         <p className='title'>{item.title} </p>
                         <span className='count'>{item.items}</span>
                     </div>
