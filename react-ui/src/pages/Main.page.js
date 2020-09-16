@@ -8,6 +8,7 @@ import { ArticlePage } from './Article.page'
 import { HomePage } from './Home.page'
 import { CategoriesPage } from './Categories.page'
 import { CategoriesProvider } from '../context/CategoriesContext'
+import { CategoryPage } from './Category.page'
 
 export const MainPage = () => {
     const [wallpaperImg, setWallpaperImg] = useState('http://localhost:8000/media/images/wp-1.jpg')
@@ -35,6 +36,14 @@ export const MainPage = () => {
                             setHeaderText={setHeaderText} 
                         />
                     </CategoriesProvider>
+                </Route>
+
+                <Route exact path='/category/:title'>
+                    <CategoryPage 
+                        setDefault={setDefault}
+                        setWallpaperImg={setWallpaperImg}
+                        setHeaderText={setHeaderText}
+                    />
                 </Route>
                 
                 <Route exact path='/articles/:id'>
