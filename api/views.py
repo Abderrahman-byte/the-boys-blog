@@ -265,8 +265,32 @@ class CategoryApi(APIView) :
     permission_classes = [IsAdminOrReadOnly]
 
     # THAT DID WORK
-    # def get(self, request, pk) :
-    #     return Response({'details': f'Doesn\'t exists {pk} '}, status=404, content_type='application/json')
+    def get(self, request, pk) :
+        params = request.query_params
+
+        try :
+            limit = int(params.get('limit', 5))
+            offset = int(params.get('offset', 0))
+        except :
+            limit = 5
+            offset = 0
+
+        try :
+            category = Category.objects.get(pk=pk)
+        except :
+            try :
+                category = Category.objects.get(short_title=pk)
+            except Category.DoesNotExist :
+                return Response({'details': f'Doesn\'t exists {pk} '}, status=404, content_type='application/json')
+            except Exception as ex:
+                return Response({'details': ex.__str__()}, status=400, content_type='application/json')
+
+        articles = category.article_set.all()[offset: offset + limit]
+        category_data = CategorySerializer(category).data
+        articles_data = ArticleSerializer(articles, many=True).data
+        category_data['articles'] = articles_data
+
+        return Response(category_data, status=200, content_type='application/json')
 
     def put(self, request, pk) :
         data = request.data
