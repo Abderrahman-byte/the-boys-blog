@@ -37,7 +37,7 @@ export const ArticlePage = ({setWallpaper, setTitle, setDefault}) => {
                 history.location.state = {...history.location.state, article_author: data.author}
             }
         } else {
-            console.log('Must redirect to 404')
+            history.push('/NotFound')
         }
     }
 
