@@ -85,9 +85,12 @@
         // background-color: cornsilk;
 
         .title {
+            display: block;
             font-size: 1.75rem;
             letter-spacing: .1em;
             // margin-bottom: .5em;
+            font-weight: 700;
+            color: black;
         }
 
         .date {

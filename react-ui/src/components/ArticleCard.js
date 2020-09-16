@@ -87,7 +87,7 @@ export const ArticleCard = ({data, deleteItem, className}) => {
             </div>
 
             <div className='info'>
-                <h6 className='title'>{data.title}</h6>
+                <Link to={`/articles/${data.id}`} className='title'>{data.title}</Link>
                 <span className='date'>Posted {(new Date(data.posted_date)).toLocaleString()} 
                 <span className='bold'> | </span>by <Link to={`/authors/${data.author.id}`} className='author'>{data.author.first_name} {data.author.last_name}</Link></span>
                 <p className='overview'>{extractText(AllHtmlEntities.decode(overview))} <Link className='read_btn' to={`/articles/${data.id}`}>Read More</Link></p>
