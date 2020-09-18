@@ -1,0 +1,25 @@
+.StaffSkel {
+    .card-foot {
+        .name, .title, .about {
+            border-radius: 3px;
+            background-color: #C1C7D0;
+            display: block;
+        }
+
+        .name {
+            width: 150px;
+            height: 15px;
+        }
+
+        .title {
+            width: 100px;
+            height: 10px;
+        }
+
+        .about {
+            width: 90%;
+            height: 50px;
+            margin-top: 1.75em;
+        }
+    }
+}
