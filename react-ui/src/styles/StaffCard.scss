@@ -1,10 +1,12 @@
+@import './mixins.scss';
+
 .StaffCard {
     $img-width: 100px;
-    width: 48%;
-    min-width: 150px;
-    max-width: 250px;
-    margin-right: 1.5em;
-    margin-bottom: 3em;
+    width: 95%;
+    max-width: 310px;
+    margin: 0 auto;
+    // margin-right: 1.5em;
+    margin-bottom: 2em;
 
     display: flex;
     flex-direction: column;
@@ -13,6 +15,20 @@
     
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
     
+    @include mediaQuery(655px) {
+        max-width: 300px;
+        margin-left: 0;
+    }
+
+    @include mediaQuery(750px) {
+        max-width: 280px;
+        margin-right: 1.5em;
+    }
+
+    @include mediaQuery(900px) {
+        max-width: 250px;
+    }
+
     .card-head {
         display: flex;
         justify-content: center;
