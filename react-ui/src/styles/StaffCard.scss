@@ -1,5 +1,84 @@
 .StaffCard {
-    border: 1px solid red;
+    $img-width: 100px;
     width: 48%;
-    max-width: 150px;
+    min-width: 150px;
+    max-width: 250px;
+    margin-right: 1.5em;
+    margin-bottom: 3em;
+
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    
+    .card-head {
+        display: flex;
+        justify-content: center;
+        background-color: #425C70;
+
+        .avatar {
+            background-color: ghostwhite;
+            position: relative;
+            top: 50%;
+            width: $img-width;
+            height: $img-width;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+
+    .card-foot {
+        flex: 1;
+        background-color: ghostwhite;
+        padding: 0 .75em;
+        padding-bottom: .75em;
+        padding-top: calc(.25em + (100px / 2));
+        border-radius: 5px;
+
+        text-align: center;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        .name {
+            font-size: 1.2rem;
+            font-weight: 200;
+        }
+
+        .admin {
+            font-size: .75rem;
+            font-weight: 900;
+            color: gray;
+            margin: 0;
+            letter-spacing: .1em;
+        }
+
+        .title, .about {
+            color: rgb(61, 61, 61);
+            font-size: .9rem;
+            letter-spacing: .1em;
+        }
+
+        .title {
+            margin: .25em 0;
+            text-transform: capitalize;
+        }
+
+        .about {
+           margin-top: .75em;
+           margin-bottom: 1.25rem;
+           letter-spacing: 0;
+        }
+
+        .profil-btn {
+            justify-self: flex-end;
+            margin-top: auto;
+            text-decoration: none;
+
+        }
+    }
 }
+
+
