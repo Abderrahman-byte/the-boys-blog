@@ -424,5 +424,6 @@ class StaffInfo(APIView) :
         staff = staff_members | admins
         staff = staff[offset: limit + offset]
         data = UserSerializer(staff, many=True).data
-
-        return Response(data, content_type='application/json')
+        count = admins.count() + staff_members.count()
+        
+        return Response({'data': data, 'count': count}, content_type='application/json')
