@@ -37,7 +37,7 @@ export const CategoryPage = ({setDefault, setHeaderText, setWallpaperImg}) => {
             setData([...data, ...articles])
             setloadingState(false)
         } else {
-            history.push('/NotFound')
+            history.replace('/NotFound')
         }
         closeModel()
     }

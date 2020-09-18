@@ -38,7 +38,7 @@ export const ArticlePage = ({setWallpaper, setTitle, setDefault}) => {
             }
         } else {
             console.log(await req.json())
-            history.push('/NotFound')
+            history.replace('/NotFound')
         }
     }
 

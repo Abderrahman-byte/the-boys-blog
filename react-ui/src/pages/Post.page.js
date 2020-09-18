@@ -93,7 +93,7 @@ export const PostPage = ({ create, article }) => {
 
         const req = await fetch(`http://localhost:8000/api/articles/${id}`, )
         if(!(req.status >= 200 && req.status < 300) ) {
-            history.push('/NotFound')
+            history.replace('/NotFound')
             setTimeout(closeModel, 1000)
             return
         }
