@@ -6,6 +6,7 @@ from django.http import HttpResponseBadRequest, Http404, HttpResponseForbidden, 
 from django.contrib.auth import authenticate
 from django.db import utils
 from rest_framework.parsers import FileUploadParser
+from django.db.models import Q
 
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -427,3 +428,68 @@ class StaffInfo(APIView) :
         count = admins.count() + staff_members.count()
         
         return Response({'data': data, 'count': count}, content_type='application/json')
+
+# Search API 
+# # # # # # # #
+class SearchApi(APIView) :
+    def get(self, request) :
+        data = request.query_params
+        query = data.get('query')
+        types = data.getlist('type')
+
+        # SEND ERROR MESSAGE IF QUERY PARAMETER
+        if query is None :
+            return Response({'details': 'query not provided'}, status=400, content_type='application/json')
+        
+        # GET STAFF MEMBERS BASE ON QUERY
+        if 'staff' in types :
+            staff_members = User.objects.filter(
+                Q(is_staff=True) & Q(
+                Q(username__icontains=query) |
+                Q(first_name__icontains=query) |
+                Q(last_name__icontains=query) |
+                Q(staff_title__icontains=query))
+            )
+        else : 
+            staff_members = None
+
+        # GET ARTICLES THAT CONTAINS THE QUERY
+        if 'article' in types :
+            articles_first_class = Article.objects.filter(title__icontains=query, content__icontains=query)
+            fclass_ids_q = [Q(id__contains=str(article.id)) for article in articles_first_class]
+            articles_sec_class = Article.objects.filter(Q(title__icontains=query) | Q(title__icontains=query)).exclude(Q(*fclass_ids_q))
+            articles = articles_first_class | articles_sec_class
+        else :
+            articles = None
+
+        # GET CATEGORIES THAT TITLE CONTAINS QUERY
+        if 'category' in types :
+            categories = Category.objects.filter(title__icontains=query)
+        else :
+            categories = None
+
+        #  SERIALLIZE MODELS DATA WITH COUNT
+        if staff_members is not None :
+            staff_data = {
+                'count': staff_members.count(), 
+                'data': UserSerializer(staff_members, many=True).data
+            }
+        else : staff_data = {}
+
+        if articles is not None :
+            articles_data = {
+                'count': articles.count(), 
+                'data': ArticleSerializer(articles, many=True).data
+            }
+        else : articles_data = {}
+
+        if categories is not None :
+            categories_data = {
+                'count': categories.count(), 
+                'data': CategorySerializer(categories, many=True).data
+            }
+        else : categories_data = {}
+
+        # SEND DATA RESULTS
+        context = {'staff': staff_data, 'categories': categories_data, 'articles': articles_data}
+        return Response(context, content_type='application/json')
