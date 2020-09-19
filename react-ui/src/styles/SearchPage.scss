@@ -6,9 +6,18 @@
         margin-bottom: .5em;
     }
 
-    .CategoriesSearch {
+    .CategoriesSearch, .StaffSearch {
         padding-bottom: .5em;
         margin-bottom: .5em;
         border-bottom: 1px solid #d3d5da;
+    }
+
+    .StaffSearch {
+        padding-top: .75em;
+        .more-btn {
+            padding: .5em 1.5em;
+            margin: 0 auto;
+            display: block;
+        }
     }
 }

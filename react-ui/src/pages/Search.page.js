@@ -5,6 +5,7 @@ import '../styles/SearchPage.scss'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { CategoriesSearch } from '../components/CategoriesSearch'
 import { SearchBar } from '../components/SearchBar'
+import { StaffSearch } from '../components/StaffSearch'
 
 export const SearchPage = ({setDefault}) => {
     const history = useHistory()
@@ -23,7 +24,7 @@ export const SearchPage = ({setDefault}) => {
     const [categoriesCount, setCategoriesCount] = useState(0)
 
     const getSearch = async () => {
-        const params = `${query}&type=staff&type=article&type=category&limit=5&offset=0`
+        const params = `${query}&type=staff&type=article&type=category&limit=5&offset=0&staff_limit=3&staff_offset=0`
         const req = await fetch(`http://localhost:8000/api/search?query=${params}`)
 
         if(req.status >= 200 && req.status < 300) {
@@ -62,7 +63,10 @@ export const SearchPage = ({setDefault}) => {
                     {categoriesResults && categoriesResults.length > 0 ? (
                         <CategoriesSearch data={categoriesResults} />
                     ) : null}
-
+                    
+                    {staffResults && staffResults.length > 0 ? (
+                        <StaffSearch initData={staffResults} count={staffCount} query={query} />
+                    ) : null}
                 </div>
                 <div className='aside'>
                     <SearchBar initQuery={query} />
