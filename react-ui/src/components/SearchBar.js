@@ -5,7 +5,7 @@ import '../styles/SearchBar.scss'
 export const SearchBar = ({initQuery}) => {
     const [query, setQuery] = useState(initQuery || '')
 
-    const handleSubmit = e => query === '' ? e.preventDefault() : null
+    const handleSubmit = e => query === '' || query === initQuery ? e.preventDefault() : null
 
     return (
         <form onSubmit={handleSubmit} action='/search' className='SearchBar'>

@@ -6,20 +6,17 @@ $content-break-3: 1250px;
 
 .MainPage {
     .head {
-        padding-top: .5em;
+        padding-top: .75em;
         .title {
             display: inline-block;
             color: #868787;
             text-align: center;
-            font-style: italic;
-            font-size: 2.5rem;
+            font-size: 1.75rem;
             letter-spacing: .1em;
-            font-weight: 700;
-            padding-left: .3em;
             padding-right: .5em;
             padding-bottom: .2em;
-            margin: 0 auto;
-            border-bottom: 5px solid #868787;
+            margin-left: 1em;
+            border-bottom: 3px solid #868787;
         }
     }
 
