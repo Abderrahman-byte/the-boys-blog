@@ -436,6 +436,13 @@ class SearchApi(APIView) :
         data = request.query_params
         query = data.get('query')
         types = data.getlist('type')
+        
+        try :
+            limit = int(data.get('limit', 5))
+            offset = int(data.get('offset', 0))
+        except :
+            limit = 5
+            offset = 0
 
         # SEND ERROR MESSAGE IF QUERY PARAMETER
         if query is None :
@@ -449,7 +456,7 @@ class SearchApi(APIView) :
                 Q(first_name__icontains=query) |
                 Q(last_name__icontains=query) |
                 Q(staff_title__icontains=query))
-            )
+            )[offset: limit + offset]
         else : 
             staff_members = None
 
@@ -459,6 +466,7 @@ class SearchApi(APIView) :
             fclass_ids_q = [Q(id__contains=str(article.id)) for article in articles_first_class]
             articles_sec_class = Article.objects.filter(Q(title__icontains=query) | Q(title__icontains=query)).exclude(Q(*fclass_ids_q))
             articles = articles_first_class | articles_sec_class
+            articles = articles[offset: limit + offset]
         else :
             articles = None
 
