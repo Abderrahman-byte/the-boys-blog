@@ -473,8 +473,8 @@ class SearchApi(APIView) :
         # GET ARTICLES THAT CONTAINS THE QUERY
         if 'article' in types :
             articles_first_class = Article.objects.filter(title__icontains=query, content__icontains=query)
-            fclass_ids_q = [Q(id__contains=str(article.id)) for article in articles_first_class]
-            articles_sec_class = Article.objects.filter(Q(title__icontains=query) | Q(title__icontains=query)).exclude(Q(*fclass_ids_q))
+            fclass_ids_q = [Q(id=str(art.id)) for art in articles_first_class]
+            articles_sec_class = Article.objects.filter(Q(title__icontains=query) | Q(content__icontains=query) ).exclude(*fclass_ids_q)
             articles = articles_first_class | articles_sec_class
             articles_count = articles.count()
             articles = articles[offset: limit + offset]
@@ -498,14 +498,14 @@ class SearchApi(APIView) :
 
         if articles is not None :
             articles_data = {
-                'count': articles.count(), 
+                'count': articles_count, 
                 'data': ArticleSerializer(articles, many=True).data
             }
         else : articles_data = {}
 
         if categories is not None :
             categories_data = {
-                'count': articles_count, 
+                'count': categories.count(), 
                 'data': CategorySerializer(categories, many=True).data
             }
         else : categories_data = {}

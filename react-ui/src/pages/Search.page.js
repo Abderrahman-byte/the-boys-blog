@@ -1,11 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import '../styles/SearchPage.scss'
 
-import { useHistory, useRouteMatch } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { CategoriesSearch } from '../components/CategoriesSearch'
 import { SearchBar } from '../components/SearchBar'
 import { StaffSearch } from '../components/StaffSearch'
+import { ArticlesSearch } from '../components/ArticlesSearch'
 
 export const SearchPage = ({setDefault}) => {
     const history = useHistory()
@@ -13,6 +14,8 @@ export const SearchPage = ({setDefault}) => {
         const query = new URLSearchParams(history.location.search)
         return query.get('query')
     })
+
+    const [isLoading, setLoadingState] = useState(true)
 
     const [articlesResults, setArticles] = useState([])
     const [articlesCount, setArticlesCount] = useState(0)
@@ -24,11 +27,13 @@ export const SearchPage = ({setDefault}) => {
     const [categoriesCount, setCategoriesCount] = useState(0)
 
     const getSearch = async () => {
-        const params = `${query}&type=staff&type=article&type=category&limit=5&offset=0&staff_limit=3&staff_offset=0`
+        setLoadingState(true)
+        const params = `${query}&type=staff&type=article&type=category&limit=4&offset=0&staff_limit=3&staff_offset=0`
         const req = await fetch(`http://localhost:8000/api/search?query=${params}`)
 
         if(req.status >= 200 && req.status < 300) {
             const data = await req.json()
+            console.log(data)
             if(data.articles && data.articles.count > 0 && data.articles.data) {
                 setArticles(data.articles.data)
                 setArticlesCount(data.articles.count)
@@ -46,6 +51,7 @@ export const SearchPage = ({setDefault}) => {
         } else {
             console.log(await req.json())
         }
+        setLoadingState(false)
     }
 
     useEffect(() => {
@@ -66,6 +72,16 @@ export const SearchPage = ({setDefault}) => {
                     
                     {staffResults && staffResults.length > 0 ? (
                         <StaffSearch initData={staffResults} count={staffCount} query={query} />
+                    ) : null}
+
+                    {articlesResults && articlesResults.length > 0 ? (
+                        <ArticlesSearch initData={articlesResults} count={articlesCount} query={query} />
+                    ) : null}
+
+                    {!isLoading && articlesCount <= 0 && staffCount <= 0 && categoriesCount <= 0 ? (
+                        <div className='Empty'>
+                            <p>There is no results for "{query}"</p>
+                        </div>
                     ) : null}
                 </div>
                 <div className='aside'>

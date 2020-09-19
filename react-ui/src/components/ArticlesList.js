@@ -21,12 +21,12 @@ export const ArticlesList = ({data, isLoading, itemsPerPage, count, removeItem, 
 
     return (
         <div className={`ArticlesList ${table ? 'table' : ''}`}>
-            {data.map((article, i) => <ArticleCard 
+            {data && data.length > 0 ? data.map((article, i) => <ArticleCard 
                 key={article.id} 
                 className={table && i === 0? 'full': ''} 
                 data={article} 
                 deleteItem={removeItem || null} 
-            />)}
+            />): null}
             {isLoading ? getSkeletons() : null}
         </div>
     )
