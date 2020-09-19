@@ -10,6 +10,7 @@ import { CategoriesPage } from './Categories.page'
 import { CategoriesProvider } from '../context/CategoriesContext'
 import { CategoryPage } from './Category.page'
 import { TeamPage } from './Team.page'
+import { SearchPage } from './Search.page'
 
 export const MainPage = () => {
     const [wallpaperImg, setWallpaperImg] = useState('http://localhost:8000/media/images/wp-1.jpg')
@@ -53,6 +54,10 @@ export const MainPage = () => {
                         setWallpaperImg={setWallpaperImg}
                         setHeaderText={setHeaderText}
                     />
+                </Route>
+
+                <Route exact path='/search'>
+                    <SearchPage setDefault={setDefault} />
                 </Route>
                 
                 <Route exact path='/articles/:id'>

@@ -2,16 +2,19 @@ import React, { useState } from 'react'
 
 import '../styles/SearchBar.scss'
 
-export const SearchBar = () => {
-    const [query, setQuery] = useState('')
+export const SearchBar = ({initQuery}) => {
+    const [query, setQuery] = useState(initQuery || '')
+
+    const handleSubmit = e => query === '' ? e.preventDefault() : null
 
     return (
-        <form className='SearchBar'>
+        <form onSubmit={handleSubmit} action='/search' className='SearchBar'>
             <input 
                 type='text'
                 value={query}
                 onChange={e => setQuery(e.target.value)}
                 placeholder='Type your search pattern'
+                name='query'
             />
             <button className='submit-btn'>
                 <i className="fas fa-search"></i>
