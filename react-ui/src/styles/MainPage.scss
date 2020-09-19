@@ -9,14 +9,14 @@ $content-break-3: 1250px;
         padding-top: .75em;
         .title {
             display: inline-block;
-            color: #868787;
+            color: #363636;
             text-align: center;
             font-size: 1.75rem;
             letter-spacing: .1em;
             padding-right: .5em;
             padding-bottom: .2em;
             margin-left: 1em;
-            border-bottom: 3px solid #868787;
+            border-bottom: 2px solid #363636;
         }
     }
 
@@ -37,7 +37,7 @@ $content-break-3: 1250px;
             // padding: 1em;
             margin-top: .5em;
             // border: 1px solid magenta;
-            border-top: 1px solid #e4e7ed;
+            border-top: 1px solid #d3d5da;
             padding-top: 1em;
             @include mediaQuery($content-break) {
                 width: 38%;
