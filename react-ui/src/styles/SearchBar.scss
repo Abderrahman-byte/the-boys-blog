@@ -1,0 +1,35 @@
+.SearchBar {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1em;
+
+    &>input {
+        flex: 1;
+        padding: .5em .75em;
+        border: 1px solid #e4e7ed;
+        font-size: 1.1rem;
+        border-right: 0;
+        letter-spacing: .1em;
+    }
+
+    .submit-btn {
+        padding: .5em 1.25em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: whitesmoke;
+        color: gray;
+        border: 1px solid #e4e7ed;
+        cursor: pointer;
+        transition: .2s ease-in-out;
+
+        &:hover {
+            background-color: darken(#e4e7ed, .5);
+        }
+    }
+}

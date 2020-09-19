@@ -1,6 +1,8 @@
 @import './mixins.scss';
 
 $content-break: 900px;
+$content-break-2: 1100px;
+$content-break-3: 1250px;
 
 .MainPage {
     .head {
@@ -35,12 +37,24 @@ $content-break: 900px;
 
         .aside {
             width: 100%;
-            padding: 1em;
+            // padding: 1em;
             margin-top: .5em;
-            border: 1px solid magenta;
+            // border: 1px solid magenta;
+            border-top: 1px solid #e4e7ed;
+            padding-top: 1em;
             @include mediaQuery($content-break) {
-                width: 29%;
+                width: 38%;
                 margin: 0;
+                border: 0;
+                padding: 0;
+            }
+
+            @include mediaQuery($content-break-2) {
+                width: 33%;
+            }
+
+            @include mediaQuery($content-break-3) {
+                width: 29%;
             }
         }
 
@@ -48,8 +62,16 @@ $content-break: 900px;
             width: 100%;
             margin-bottom: .5em;
             @include mediaQuery($content-break) {
-                width: 69%;
+                width: 60%;
                 margin: 0;
+            }
+
+            @include mediaQuery($content-break-2) {
+                width: 65%;
+            }
+
+            @include mediaQuery($content-break-3) {
+                width: 69%;
             }
         }
     }

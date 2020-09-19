@@ -3,6 +3,7 @@ import { ModelsContext } from '../context/ModelsContext'
 import { LoadingModel } from '../components/LoadingModel'
 import { Article } from '../components/Article'
 import { ArticlesList } from '../components/ArticlesList'
+import { SearchBar } from '../components/SearchBar'
 
 export const HomePage = ({setDefault}) => {
     const { openModel, closeModel } = useContext(ModelsContext)
@@ -75,7 +76,9 @@ export const HomePage = ({setDefault}) => {
 
                     {isMore && !isLoading ? (<button className='btn btn-elt btn-primary more' onClick={nextPage}>More</button>) : null}
                 </div>
-                <div className='aside'>abderrahman is here</div>
+                <div className='aside'>
+                    <SearchBar />
+                </div>
             </div>
         </div>
     )
