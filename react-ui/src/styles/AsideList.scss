@@ -1,4 +1,13 @@
 .AsideList {
+    &.loading {
+        background-color: #e4e7ed;
+        border-radius: 3px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+    }
+
     &>.title {
         font-size: 1.1rem;
         letter-spacing: .1em;
