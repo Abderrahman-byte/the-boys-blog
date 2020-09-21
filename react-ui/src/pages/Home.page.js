@@ -4,6 +4,7 @@ import { LoadingModel } from '../components/LoadingModel'
 import { Article } from '../components/Article'
 import { ArticlesList } from '../components/ArticlesList'
 import { SearchBar } from '../components/SearchBar'
+import { BestArticles } from '../components/BestArticles'
 
 export const HomePage = ({setDefault}) => {
     const { openModel, closeModel } = useContext(ModelsContext)
@@ -58,7 +59,7 @@ export const HomePage = ({setDefault}) => {
     useEffect(() => {
         getArticles()
     }, [currentPage])
-
+    
     return (
         <div className='HomePage'>
             <div className='head'>
@@ -78,6 +79,10 @@ export const HomePage = ({setDefault}) => {
                 </div>
                 <div className='aside'>
                     <SearchBar />
+                    
+                    {data && data.length > 0 ? (
+                        <BestArticles />
+                    ) : null }
                 </div>
             </div>
         </div>
