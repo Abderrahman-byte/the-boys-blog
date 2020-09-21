@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
+
 import { ArticlesList } from '../components/ArticlesList'
 import { LoadingModel } from '../components/LoadingModel'
 import { ModelsContext } from '../context/ModelsContext'
+import { SearchBar } from '../components/SearchBar'
+import { TopArticles } from '../components/TopArticles'
 
 export const CategoryPage = ({setDefault, setHeaderText, setWallpaperImg}) => {
     const history = useHistory()
@@ -83,7 +86,14 @@ export const CategoryPage = ({setDefault, setHeaderText, setWallpaperImg}) => {
                         <button onClick={nextPage} className='btn btn-elt btn-primary'>More</button>
                     ) : null}
                 </div>
-                <div className='aside'></div>
+
+                <div className='aside'>
+                    <SearchBar />
+                    
+                    {data ? (
+                        <TopArticles title='popular posts' sortby='views' />
+                    ) : null }
+                </div>
             </div>
         </div>
     )

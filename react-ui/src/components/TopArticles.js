@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { AsideList } from './AsideList'
 
-export const TopArticles = ({sortby}) => {
+export const TopArticles = ({sortby, title}) => {
     const [data, setData] = useState([])
     const [serializedData, serializeData] = useState([])
     const [isLoading, setLoadingState] = useState(true)
@@ -98,5 +98,5 @@ export const TopArticles = ({sortby}) => {
         getArticles()
     }, [])
 
-    return <AsideList data={serializedData} isLoading={isLoading} title='popular posts' />
+    return <AsideList data={serializedData} isLoading={isLoading} title={title || 'title is not provided'} />
 }

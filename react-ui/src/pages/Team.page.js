@@ -3,6 +3,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { TeamList } from '../components/TeamList'
 import { ModelsContext } from '../context/ModelsContext'
 import { LoadingModel } from '../components/LoadingModel'
+import { SearchBar } from '../components/SearchBar'
+import { TopArticles } from '../components/TopArticles'
 
 export const TeamPage = ({setDefault, setWallpaperImg, setHeaderText}) => {
     const { openModel, closeModel } = useContext(ModelsContext)
@@ -68,7 +70,14 @@ export const TeamPage = ({setDefault, setWallpaperImg, setHeaderText}) => {
                         className='btn btn-elt btn-primary'>More</button>
                     ): null}
                     </div>
-                <div className='aside'></div>
+                
+                <div className='aside'>
+                    <SearchBar />
+                    
+                    {data && data.length > 0 ? (
+                        <TopArticles title='latest posts' sortby='posted_date' />
+                    ) : null }
+                </div>
             </div>
         </div>
     )

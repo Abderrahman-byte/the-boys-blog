@@ -6,6 +6,8 @@ import '../styles/CategoriesPage.scss'
 import { CategoriesContext } from '../context/CategoriesContext'
 import { ModelsContext } from '../context/ModelsContext'
 import { WarningModel } from '../components/WarningModel'
+import { SearchBar } from '../components/SearchBar'
+import { TopArticles } from '../components/TopArticles'
 
 export const CategoriesPage = ({setDefault, setHeaderText, setWallpaperImg}) => {
     const { categoriesList } = useContext(CategoriesContext)
@@ -49,7 +51,13 @@ export const CategoriesPage = ({setDefault, setHeaderText, setWallpaperImg}) => 
                         {getItems()}
                     </div>
                 </div>
-                <div className='aside'></div>
+                <div className='aside'>
+                    <SearchBar />
+                    
+                    {categoriesList ? (
+                        <TopArticles title='latest posts' sortby='posted_date' />
+                    ) : null }
+                </div>
             </div>
         </div>
     )

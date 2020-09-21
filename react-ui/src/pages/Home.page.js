@@ -81,7 +81,7 @@ export const HomePage = ({setDefault}) => {
                     <SearchBar />
                     
                     {data && data.length > 0 ? (
-                        <TopArticles sortby='views' />
+                        <TopArticles title='popular posts' sortby='views' />
                     ) : null }
                 </div>
             </div>
