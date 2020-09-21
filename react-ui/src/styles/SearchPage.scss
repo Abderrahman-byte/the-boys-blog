@@ -19,4 +19,18 @@
             display: block;
         }
     }
+
+    .Empty {
+        width: 100%;
+        padding: .75em .5em;
+        border-radius: 8px;
+        background-color: rgb(255, 204, 0);
+        border: 1px solid #d3d5da;
+
+        &>p {
+            font-size: 1.3rem;
+            letter-spacing: .1em;
+            text-align: center;
+        }
+    }
 }
