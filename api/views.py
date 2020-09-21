@@ -29,6 +29,8 @@ class ArticlesApi(APIView) :
     def get(self, request) :
         params = request.query_params
         author_id = params.get('author')
+        sort = params.get('sort', 'posted_date')
+        order_by = f'-{sort}'
         try :
             limit = int(params.get('limit', 5))
             offset = int(params.get('offset', 0))
@@ -39,7 +41,7 @@ class ArticlesApi(APIView) :
         if author_id is not None :
             try :
                 author = User.objects.get(pk=author_id)
-                articles = author.article_set.all().order_by('-posted_date')[offset: limit + offset]
+                articles = author.article_set.all().order_by(order_by)[offset: limit + offset]
             except User.DoesNotExist :
                 context = {'details': 'Author id doesn\'t exists'}
                 return Response(context, status=404, content_type='application/json')
@@ -47,8 +49,12 @@ class ArticlesApi(APIView) :
                 context = {'details': ex.__str__()}
                 return Response(context, status=400, content_type='application/json')
         else :
-            articles = Article.objects.all().order_by('-posted_date')[offset: limit + offset]
-        
+            try :
+                articles = Article.objects.all().order_by(order_by)[offset: limit + offset]
+            except Exception as ex :
+                context = {'details': ex.__str__()}
+                return Response(context, status=400, content_type='application/json')
+
         serializer = ArticleSerializer(articles, many=True)
         return Response(serializer.data, content_type='application/json')
 

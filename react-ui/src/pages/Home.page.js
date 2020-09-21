@@ -4,7 +4,7 @@ import { LoadingModel } from '../components/LoadingModel'
 import { Article } from '../components/Article'
 import { ArticlesList } from '../components/ArticlesList'
 import { SearchBar } from '../components/SearchBar'
-import { BestArticles } from '../components/BestArticles'
+import { TopArticles } from '../components/TopArticles'
 
 export const HomePage = ({setDefault}) => {
     const { openModel, closeModel } = useContext(ModelsContext)
@@ -81,7 +81,7 @@ export const HomePage = ({setDefault}) => {
                     <SearchBar />
                     
                     {data && data.length > 0 ? (
-                        <BestArticles />
+                        <TopArticles sortby='views' />
                     ) : null }
                 </div>
             </div>
