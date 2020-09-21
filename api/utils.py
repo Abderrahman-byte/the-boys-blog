@@ -1,7 +1,11 @@
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
-import string, random, os
+# import nltk
+from textblob import TextBlob
+import string, random, os, json, re, time
+from collections import Counter
+# nltk.download()
 
 def getRandomId(length=11) :
     allowed = string.ascii_letters + string.digits
@@ -26,3 +30,39 @@ def delete_file(file_path) :
     
     os.remove(full_path)
     return True
+
+def get_content(article) :
+    content = json.loads(article.content)
+    content = [
+        block.get('data').get('text')
+        for block in content.get('blocks', [])
+        if block.get('data') is not None and block.get('data').get('text') is not None
+    ]
+
+    return ' '.join(content)
+
+def sortbyrepitition(item) :
+    return item[1]
+
+def extract_phrases(text) :
+    blob = TextBlob(text)
+    return blob.noun_phrases
+
+def get_keywords(text) :
+    start = time.time()
+    count = Counter(extract_phrases(text)).most_common()
+    sorted_count = list(filter(lambda word: word[1] > 1, count))
+    sorted_count.sort(reverse=True, key=sortbyrepitition)
+    avg = sum([word[1] for word in sorted_count if word[1] > 1]) / len(sorted_count)
+
+    print(sorted_count)
+    open('log.json', 'w').write(json.dumps(count, indent=4))
+    return ''
+
+def get_related_article(article, Article) :
+    categories = article.categories.all()
+    author = article.author
+    content = get_content(article)
+    keywords = get_keywords(content)
+    
+    return []

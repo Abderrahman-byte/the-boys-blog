@@ -11,6 +11,7 @@ urlpatterns = [
     path('categories/', views.CategoriesApi.as_view(), name='categories-list'),
     path('categories/<pk>', views.CategoryApi.as_view(), name='category'),
     path('search', views.SearchApi, name='search'),
+    path('getrelated', views.RelatedArticles, name='related-articles'),
 
     # Users informations
     path('user/', views.UserAuthApi.as_view(), name='user-auth'),

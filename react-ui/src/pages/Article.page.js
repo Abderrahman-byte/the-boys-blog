@@ -8,6 +8,7 @@ import { ArticleHeader } from '../components/ArticleHeader'
 import { AuthorCard } from '../components/AuthorCard'
 import { CommentsSection } from '../components/Comments'
 import { CommentsProvider } from '../context/CommentContext'
+import { SearchBar } from '../components/SearchBar'
 
 export const ArticlePage = ({setWallpaper, setTitle, setDefault}) => {
     const { id } = useParams()
@@ -73,7 +74,11 @@ export const ArticlePage = ({setWallpaper, setTitle, setDefault}) => {
                     )}
                 </div>
 
-                <div className='aside'>abderrahman</div>
+                <div className='aside'>
+                    <SearchBar />
+                    
+                    
+                </div>
             </div>
         </div>
     )

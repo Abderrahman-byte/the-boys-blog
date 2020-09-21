@@ -1,10 +1,582 @@
-{
-    "title": "Flutter vs React Native vs Native: Deep Performance Comparison",
-    "content": "{\"time\":1600071441722,\"blocks\":[{\"type\":\"header\",\"data\":{\"text\":\"Flutter vs React Native vs Native: Deep Performance Comparison\",\"level\":1}},{\"type\":\"header\",\"data\":{\"text\":\"Let\u2019s compare FPS, CPU, Memory, and GPU performance of popular mobile development tools on everyday life tasks.\",\"level\":4}},{\"type\":\"header\",\"data\":{\"text\":\"The story behind the research\",\"level\":1}},{\"type\":\"paragraph\",\"data\":{\"text\":\"inVerita&nbsp;and its mobile development team continuously dig into the performance of cross-platform mobile solutions available on the market to answer the question which technology is best Flutter or React Native(or Native) for your product, maybe even career, that\u2019s how&nbsp;Flutter vs React Native vs Native Part I&nbsp;emerged. Yes, it was quite controversial as one can state we weren\u2019t using React Native to perform multiple calculations daily \u2014 that might be the case \u2014 but in this case, CPU heavy tasks are better performed by Flutter or Native apps.\"}},{\"type\":\"paragraph\",\"data\":{\"text\":\"That\u2019s why in this article we decided to research the performance of UI which has a much bigger impact on a daily user of mobile apps.\"}},{\"type\":\"paragraph\",\"data\":{\"text\":\"Measuring UI performance is complex and it requires an engineer to implement the same functionality in the same way across every platform. We went with a&nbsp;GameBench&nbsp;as a global testing tool to leave no doubts and make sure we stay objective (it doesn\u2019t change the fact that we truly love Flutter in most aspects:) and still run lots of React Native and Native projects ). GameBench has a lot of space for improvements, but we managed to put every app into a single testing environment with its help which was our goal.\"}},{\"type\":\"paragraph\",\"data\":{\"text\":\"Source code is open so please experiment and share your thoughts with us if you wish. UI animations mostly use different tools across different platforms so we narrowed everything to libraries supported by every platform (but one case) or at least we did everything we could to accomplish that. Test results can be different and depend on your approaches to the implementation, we believe that you, as a potentially true expert of specific technology can push your specific set of tools to the limits where it outperforms our numbers and we are happy if you do. Now, let\u2019s have a look at the cases.\"}},{\"type\":\"header\",\"data\":{\"text\":\"Hardware info:\",\"level\":2}},{\"type\":\"paragraph\",\"data\":{\"text\":\"For our testing purposes, we were using an affordable Xiaomi Redmi Note 5 and iPhone 6s.\"}},{\"type\":\"paragraph\",\"data\":{\"text\":\"Repo link:\"}},{\"type\":\"header\",\"data\":{\"text\":\"Use case 1 \u2014&nbsp;List view benchmarking\",\"level\":1}},{\"type\":\"paragraph\",\"data\":{\"text\":\"We implemented the same UI on Android and iOS with the use of Native, React Native, and Flutter. We also automated scroll velocity with the use of RecyclerView.SmoothScroller on Android. On iOS and React Native we used an approach with timer and programmatically scrolling to position. On Flutter, we used ScrollController to smoothly scroll over the list. In each case, we had 1000 items in the list view and the same scrolling time to reach the last list element. In each of these cases, we used image caching with different libs per platform. More details could be revealed&nbsp;in the source code.\"}},{\"type\":\"header\",\"data\":{\"text\":\"Third-party libraries used in this case:\",\"level\":2}},{\"type\":\"paragraph\",\"data\":{\"text\":\"iOS\"}},{\"type\":\"list\",\"data\":{\"style\":\"unordered\",\"items\":[\"Loading and caching images \u2014&nbsp;Nuke\"]}},{\"type\":\"paragraph\",\"data\":{\"text\":\"Android\"}},{\"type\":\"list\",\"data\":{\"style\":\"unordered\",\"items\":[\"Loading and caching images \u2014&nbsp;Glide\"]}},{\"type\":\"paragraph\",\"data\":{\"text\":\"React Native\"}},{\"type\":\"list\",\"data\":{\"style\":\"unordered\",\"items\":[\"Loading and caching images \u2014 React-native-fast-image\"]}},{\"type\":\"simpleImage\",\"data\":{\"url\":\"https://miro.medium.com/max/446/1*AvzN9TEZbNo2jjM-OP0GMg.gif\",\"caption\":\"Android GPU test results are not supported by benchmak&nbsp;\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"type\":\"simpleImage\",\"data\":{\"url\":\"https://miro.medium.com/max/700/1*tCqV2lrsWL-NVY8G9BLo5Q.jpeg\",\"caption\":\"Test Results\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"type\":\"list\",\"data\":{\"style\":\"ordered\",\"items\":[\"All tests have shown approximately the same FPS.\",\"Android Native uses half as much memory compared to Flutter and React Native.\",\"React Native requires the most significant CPU exploitation. The reason is the use of JSBridge between JS and Native code that incites the waste of resources on serialization and deserialization.\",\"Regarding battery exploitation, Android Native has the best outcome. React-native is lagging behind both Android and Flutter. Running continuous animations consume more battery power on React Native.\"]}},{\"type\":\"header\",\"data\":{\"text\":\"iPhone 6s test\",\"level\":2}},{\"type\":\"simpleImage\",\"data\":{\"url\":\"https://miro.medium.com/max/700/1*ExXQl4dOmUENkXsmwEVitw.jpeg\",\"caption\":\"Test results\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"type\":\"list\",\"data\":{\"style\":\"ordered\",\"items\":[\"FPS. React Native results are worse than those of Flutter and Swift. The reason is the inability to use IoT compilation on iOS.\",\"Memory. Flutter almost matches native in Memory consumption but is still heavier on CPU. React Native falls far behind Flutter and native in this test.\",\"Difference between Flutter and Swift. Flutter is actively using CPU when iOS Native is actively using GPU. Reconciliation in Flutter increases the load on the CPU.\"]}},{\"type\":\"header\",\"data\":{\"text\":\"Use case 2 \u2014 Heavy animations test\",\"level\":1}},{\"type\":\"paragraph\",\"data\":{\"text\":\"Nowadays most phones running on Android and iOS have powerful hardware. In most cases using usual business apps, no fps drops could be noticed. That\u2019s why we decided to do some tests with heavy animations. Heavy enough to get fps drops. We used vector animations animated with Lottie on Android, iOS, React Native and adopted the same animations to use with Flare on Flutter.\"}},{\"type\":\"paragraph\",\"data\":{\"text\":\"Testing animation with&nbsp;Lottie for Android, iOS, React Native, and&nbsp;Flare for Flutter.\"}},{\"type\":\"simpleImage\",\"data\":{\"url\":\"https://miro.medium.com/max/450/1*KKKk8Vdpg_7Xxt11H2fKrg.gif\",\"caption\":\"Lottie for Android\",\"withBorder\":false,\"withBackground\":true,\"stretched\":false}},{\"type\":\"simpleImage\",\"data\":{\"url\":\"https://miro.medium.com/max/700/1*7l8647bFnXSNh2eSWEAz7Q.jpeg\",\"caption\":\"Test results\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"type\":\"simpleImage\",\"data\":{\"url\":\"https://miro.medium.com/max/700/1*8l4G3IZExSdN_P4E3GIvlg.jpeg\",\"caption\":\"Test results\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"type\":\"paragraph\",\"data\":{\"text\":\"Android\"}},{\"type\":\"list\",\"data\":{\"style\":\"ordered\",\"items\":[\"Android and React Native have similarities in their performance. It\u2019s obvious because&nbsp;Lottie for React Native&nbsp;uses Native means (16\u201319% CPU, 30\u201329 FPS).\",\"Flutter\u2019s outcome is such a surprise, though it screwed up a bit during a performance. (12% CPU and 9 FPS).\"]}},{\"type\":\"paragraph\",\"data\":{\"text\":\"We discovered that removing one specific animation from the grid increases FPS up to 40% on Flutter. We suppose Flare is heavier and not optimized for this kind of task that\u2019s why Flutter got such an FPS drop.\"}},{\"type\":\"paragraph\",\"data\":{\"text\":\"Blame this one:\"}},{\"type\":\"simpleImage\",\"data\":{\"url\":\"https://miro.medium.com/max/75/1*ayP4JATCcaXWxBo-M6GBUw.png\",\"caption\":\"Lottie for Android\",\"withBorder\":false,\"withBackground\":true,\"stretched\":false}},{\"type\":\"paragraph\",\"data\":{\"text\":\"3. Android requires the least amount of memory (205 Mb); React Native needs 280 Mb and Flutter requires 266 Mb.\"}},{\"type\":\"paragraph\",\"data\":{\"text\":\"4. Cold app start. According to this indicator, Flutter is the leader (2 seconds). For Android Native and React Native, it takes around 4 seconds.\"}},{\"type\":\"paragraph\",\"data\":{\"text\":\"iOS\"}},{\"type\":\"list\",\"data\":{\"style\":\"ordered\",\"items\":[\"iOS and React Native outcomes on this test are almost the same as&nbsp;Lottie for React Native&nbsp;uses native means.\",\"Flare and Flutter are not going to stop surprising. Flare definitely has a way to go :D\",\"iOS Native requires the least amount of memory (48 Mb). React Native needs 135 Mb and Flutter requires 117 Mb;\",\"Cold app start. According to this indicator, Flutter is the leader (2 seconds). For iOS and React Native it takes around 10 seconds;\"]}},{\"type\":\"paragraph\",\"data\":{\"text\":\"Take note:&nbsp;we used a different library for this case with Flutter which is much heavier compared to those we used for other platforms and it might be the reason for fps drops.\"}},{\"type\":\"header\",\"data\":{\"text\":\"Use case 3 \u2014 Even heavier animations test with rotations, scaling and fade.\",\"level\":1}},{\"type\":\"paragraph\",\"data\":{\"text\":\"In this test, we compared performance while animating 200 images. Scale rotating and fade animations are executed at the same time.\"}},{\"type\":\"simpleImage\",\"data\":{\"url\":\"https://miro.medium.com/max/366/1*3vpMnh24ZfPKUDLs3BYUfQ.gif\",\"caption\":\"200 images\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"type\":\"simpleImage\",\"data\":{\"url\":\"https://miro.medium.com/max/700/1*lJlO00FKlMq9nUZUIYKAJw.jpeg\",\"caption\":\"Test results\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"type\":\"paragraph\",\"data\":{\"text\":\"Android\"}},{\"type\":\"list\",\"data\":{\"style\":\"ordered\",\"items\":[\"Native showed top performance and most efficient memory consumption.\",\"Flutter showed just enough performance to work comfortably but twice more memory expenses comparing to Native.\",\"React Native \u2014showed a low performance on this case.\"]}},{\"type\":\"simpleImage\",\"data\":{\"url\":\"https://miro.medium.com/max/700/1*StFh7VatiPrkY5KnvRo2ZA.jpeg\",\"caption\":\"Test results\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"type\":\"paragraph\",\"data\":{\"text\":\"iOS\"}},{\"type\":\"list\",\"data\":{\"style\":\"ordered\",\"items\":[\"iPhone 6s is powerful enough to not drop fps in all 3 cases.\",\"Native used fewer resources and GPU was used mostly.\",\"React Native used mostly CPU for rendering while Flutter used GPU.\",\"React Native used a bit more memory.\"]}},{\"type\":\"header\",\"data\":{\"text\":\"Summary\",\"level\":1}},{\"type\":\"paragraph\",\"data\":{\"text\":\"For usual business apps with minor animations and shiny looks, technology does not matter at all. But if you\u2019ll do some heavy animations keep in mind that Native has the most performance power to do it. Next, come Flutter and React Native. We would definitely not recommend using React Native in a very CPU heavy operation, while Flutter is a great fit for such tasks from both CPU and Memory standpoint.\"}},{\"type\":\"paragraph\",\"data\":{\"text\":\"The tool you pick depends on your specific product and business case. In case you are looking to develop a single-platform MVP \u2014 use native means, but keep in mind that Flutter apps can be built both for mobile, web and desktop environments and it feels like Flutter might become a King of cross-platform development in not too distant future, as even today Flutter created a very decent competition for native development tools, especially if your development budget is not too stretched but you are still looking for the decent performance of yours app across different platforms.\"}},{\"type\":\"paragraph\",\"data\":{\"text\":\"We face the fact that there might be many factors impacting implementation and benchmarks of each technology, and many of you who might be true experts of a specific platform can squeeze much more out of the beloved set of tools. We tried to bring as much transparency into the process as we could by creating a single environment for each app to get tested and a single set of tools to measure the performance, and I hope you liked the result. Yet again our mobile and&nbsp;Flutter teams&nbsp;are happy to receive and carry all the burden of your feedback and suggestions.\"}}],\"version\":\"2.18.0\"}",
-    "overview": "http://localhost:8000/media/images/iLNx8SX0ePnzvK9aDfPtsn5o5ZAylqomRI7.jpeg",
-    "categories": [
-        "3b99e821-f914-44b6-97b8-72412ec2d3cc",
-        "86f046e8-1dfe-4457-a2c8-d863b39291d2",
-        "51223b2a-4d09-4d38-b285-1fe54e450d91"
+[
+    [
+        "linux",
+        19
+    ],
+    [
+        "os",
+        8
+    ],
+    [
+        "windows",
+        7
+    ],
+    [
+        "ubuntu",
+        7
+    ],
+    [
+        "\u2019 s",
+        5
+    ],
+    [
+        "linux mint",
+        5
+    ],
+    [
+        "red hat",
+        4
+    ],
+    [
+        "centos",
+        4
+    ],
+    [
+        "leap",
+        3
+    ],
+    [
+        "tumbleweed",
+        3
+    ],
+    [
+        "different forms",
+        2
+    ],
+    [
+        "mac",
+        2
+    ],
+    [
+        "new versions",
+        2
+    ],
+    [
+        "lts",
+        2
+    ],
+    [
+        "gnome",
+        2
+    ],
+    [
+        "good distro",
+        2
+    ],
+    [
+        "timeshift",
+        2
+    ],
+    [
+        "suse linux",
+        2
+    ],
+    [
+        "enterprise",
+        2
+    ],
+    [
+        "real attempts",
+        1
+    ],
+    [
+        "general consumers",
+        1
+    ],
+    [
+        "general consumer dissatisfaction",
+        1
+    ],
+    [
+        "security issues",
+        1
+    ],
+    [
+        "apple",
+        1
+    ],
+    [
+        "different userbase needs",
+        1
+    ],
+    [
+        "specific environments",
+        1
+    ],
+    [
+        "scientific applications",
+        1
+    ],
+    [
+        "resource use",
+        1
+    ],
+    [
+        "different linux",
+        1
+    ],
+    [
+        "basic applications",
+        1
+    ],
+    [
+        "barest minimum",
+        1
+    ],
+    [
+        "users",
+        1
+    ],
+    [
+        "altogether",
+        1
+    ],
+    [
+        "good idea",
+        1
+    ],
+    [
+        "gui",
+        1
+    ],
+    [
+        "specific types",
+        1
+    ],
+    [
+        "arch linux",
+        1
+    ],
+    [
+        "hand appeals",
+        1
+    ],
+    [
+        "terminal",
+        1
+    ],
+    [
+        "type commands",
+        1
+    ],
+    [
+        "distros overall",
+        1
+    ],
+    [
+        "popular distros",
+        1
+    ],
+    [
+        "good reasons",
+        1
+    ],
+    [
+        "popular flavors",
+        1
+    ],
+    [
+        "canonical",
+        1
+    ],
+    [
+        "long term support",
+        1
+    ],
+    [
+        "general maintenance updates",
+        1
+    ],
+    [
+        "full upgrade",
+        1
+    ],
+    [
+        "standard releases",
+        1
+    ],
+    [
+        "year only.",
+        1
+    ],
+    [
+        "desktop environment",
+        1
+    ],
+    [
+        "macos users",
+        1
+    ],
+    [
+        "long-term business",
+        1
+    ],
+    [
+        "it",
+        1
+    ],
+    [
+        "\u2019 re",
+        1
+    ],
+    [
+        "nerdy hacker type",
+        1
+    ],
+    [
+        "terminal interface",
+        1
+    ],
+    [
+        "attractive distro",
+        1
+    ],
+    [
+        "system \u2019 s superb desktop environment",
+        1
+    ],
+    [
+        "pantheon",
+        1
+    ],
+    [
+        "hera",
+        1
+    ],
+    [
+        "new ways",
+        1
+    ],
+    [
+        "install apps",
+        1
+    ],
+    [
+        "major update",
+        1
+    ],
+    [
+        "core apps",
+        1
+    ],
+    [
+        "desktop tweaks",
+        1
+    ],
+    [
+        "essential apps",
+        1
+    ],
+    [
+        "epiphany",
+        1
+    ],
+    [
+        "email client",
+        1
+    ],
+    [
+        "basic \u2018 tool \u2019 apps",
+        1
+    ],
+    [
+        "appcenter",
+        1
+    ],
+    [
+        "quilter",
+        1
+    ],
+    [
+        "spice-up",
+        1
+    ],
+    [
+        "additional apps",
+        1
+    ],
+    [
+        "strong option",
+        1
+    ],
+    [
+        "linux linux mint",
+        1
+    ],
+    [
+        "great \u2018 default \u2019 distro",
+        1
+    ],
+    [
+        "\u2019 ll need",
+        1
+    ],
+    [
+        "libreoffice",
+        1
+    ],
+    [
+        "productivity suite",
+        1
+    ],
+    [
+        "proprietary media formats",
+        1
+    ],
+    [
+        "dvds",
+        1
+    ],
+    [
+        "mp3",
+        1
+    ],
+    [
+        "music files",
+        1
+    ],
+    [
+        "main starter flavors",
+        1
+    ],
+    [
+        "mint",
+        1
+    ],
+    [
+        "different desktop environment",
+        1
+    ],
+    [
+        "top-most layer",
+        1
+    ],
+    [
+        "cinnamon",
+        1
+    ],
+    [
+        "mate",
+        1
+    ],
+    [
+        "xfce",
+        1
+    ],
+    [
+        "kde",
+        1
+    ],
+    [
+        "functional snapshot",
+        1
+    ],
+    [
+        "windows restore",
+        1
+    ],
+    [
+        "desktop environments",
+        1
+    ],
+    [
+        "customization options",
+        1
+    ],
+    [
+        "live",
+        1
+    ],
+    [
+        "4. opensuse",
+        1
+    ],
+    [
+        "primarily",
+        1
+    ],
+    [
+        "previously",
+        1
+    ],
+    [
+        "system administrators",
+        1
+    ],
+    [
+        "security protocols.",
+        1
+    ],
+    [
+        "main distributions",
+        1
+    ],
+    [
+        "source code",
+        1
+    ],
+    [
+        "suse linux enterprise",
+        1
+    ],
+    [
+        "business applications",
+        1
+    ],
+    [
+        "opensuse 's",
+        1
+    ],
+    [
+        "main development codebase",
+        1
+    ],
+    [
+        "release model \u2013",
+        1
+    ],
+    [
+        "stable applications",
+        1
+    ],
+    [
+        "day-to-day use.",
+        1
+    ],
+    [
+        "suse",
+        1
+    ],
+    [
+        "express",
+        1
+    ],
+    [
+        "own version",
+        1
+    ],
+    [
+        "software packages",
+        1
+    ],
+    [
+        "system settings",
+        1
+    ],
+    [
+        "centos offshoot",
+        1
+    ],
+    [
+        "linux centos",
+        1
+    ],
+    [
+        "community offshoot",
+        1
+    ],
+    [
+        "constant updates",
+        1
+    ],
+    [
+        "maintenance updates",
+        1
+    ],
+    [
+        "initial release",
+        1
+    ],
+    [
+        "great choice",
+        1
+    ],
+    [
+        "daily use",
+        1
+    ],
+    [
+        "pc",
+        1
+    ],
+    [
+        "\u2013 packages",
+        1
+    ],
+    [
+        "commercial version",
+        1
+    ],
+    [
+        "additionally",
+        1
+    ],
+    [
+        "server sysadmin",
+        1
+    ],
+    [
+        "kali",
+        1
+    ],
+    [
+        "penetration test",
+        1
+    ],
+    [
+        "kali linux",
+        1
+    ],
+    [
+        "backtrack",
+        1
+    ],
+    [
+        "debian-based",
+        1
+    ],
+    [
+        "forensics tools",
+        1
+    ],
+    [
+        "timely security updates",
+        1
+    ],
+    [
+        "arm",
+        1
+    ],
+    [
+        "popular desktop environments",
+        1
+    ],
+    [
+        "seamless upgrades",
+        1
+    ],
+    [
+        "great library",
+        1
+    ],
+    [
+        "tool versions",
+        1
+    ],
+    [
+        "necessary tools",
+        1
+    ],
+    [
+        "graphical interface",
+        1
+    ],
+    [
+        "non graphical interface",
+        1
+    ],
+    [
+        "casual users",
+        1
     ]
-}
+]

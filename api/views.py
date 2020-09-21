@@ -521,3 +521,18 @@ def SearchApi(request) :
     context = {'staff': staff_data, 'categories': categories_data, 'articles': articles_data}
     return Response(context, content_type='application/json')
 
+@api_view(['GET'])
+def RelatedArticles(request) :
+    id = request.query_params.get('id')
+
+    try :
+        article = Article.objects.get(pk=id)
+    except Article.DoesNotExist :
+        return Response({'details': 'Article doesnt exists with that id'}, status=404, content_type='application/json')
+    except Exception as ex :
+        context = {'details': ex.__str__()}
+        return Response(context, status=400, content_type='application/json')
+    
+    related = get_related_article(article, Article)
+    print(related)
+    return Response({}, content_type='application/json')
