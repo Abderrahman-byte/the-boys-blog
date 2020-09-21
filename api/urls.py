@@ -10,7 +10,7 @@ urlpatterns = [
     path('comments/<pk>/', views.CommentApi.as_view(), name='comment-details'),
     path('categories/', views.CategoriesApi.as_view(), name='categories-list'),
     path('categories/<pk>', views.CategoryApi.as_view(), name='category'),
-    path('search', views.SearchApi.as_view(), name='search'),
+    path('search', views.SearchApi, name='search'),
 
     # Users informations
     path('user/', views.UserAuthApi.as_view(), name='user-auth'),

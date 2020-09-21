@@ -1,20 +1,21 @@
+from django.http import HttpResponseBadRequest, Http404, HttpResponseForbidden, HttpResponseNotFound
+from django.contrib.auth import authenticate
+from django.db import utils
+from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from django.http import HttpResponseBadRequest, Http404, HttpResponseForbidden, HttpResponseNotFound
-from django.contrib.auth import authenticate
-from django.db import utils
 from rest_framework.parsers import FileUploadParser
-from django.db.models import Q
-
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
+from rest_framework.decorators import api_view
 
 from .serializers import *
 from .permissions import *
 from blog.models import Article
-from .utils import upload_file, delete_file
+from .utils import *
 
 from urllib.parse import urlparse
 import json
@@ -437,85 +438,86 @@ class StaffInfo(APIView) :
 
 # Search API 
 # # # # # # # #
-class SearchApi(APIView) :
-    def get(self, request) :
-        data = request.query_params
-        query = data.get('query')
-        types = data.getlist('type')
-        
-        try :
-            limit = int(data.get('limit', 5))
-            offset = int(data.get('offset', 0))
-        except :
-            limit = 5
-            offset = 0
+@api_view(['GET'])
+def SearchApi(request) :
+    data = request.query_params
+    query = data.get('query')
+    types = data.getlist('type')
+    
+    try :
+        limit = int(data.get('limit', 5))
+        offset = int(data.get('offset', 0))
+    except :
+        limit = 5
+        offset = 0
 
-        try :
-            staff_limit = int(data.get('staff_limit', limit))
-            staff_offset = int(data.get('staff_offest', offset))
-        except :
-            staff_limit = limit
-            staff_offset = offset
+    try :
+        staff_limit = int(data.get('staff_limit', limit))
+        staff_offset = int(data.get('staff_offest', offset))
+    except :
+        staff_limit = limit
+        staff_offset = offset
 
-        # SEND ERROR MESSAGE IF QUERY PARAMETER
-        if query is None :
-            return Response({'details': 'query not provided'}, status=400, content_type='application/json')
-        
-        # GET STAFF MEMBERS BASE ON QUERY
-        if 'staff' in types :
-            staff_members = User.objects.filter(
-                Q(is_staff=True) & Q(
-                Q(username__icontains=query) |
-                Q(first_name__icontains=query) |
-                Q(last_name__icontains=query) |
-                Q(staff_title__icontains=query))
-            )
-            staff_count = staff_members.count()
-            staff_members = staff_members[staff_offset: staff_limit + staff_offset]
-        else : 
-            staff_members = None
-            staff_count = 0
+    # SEND ERROR MESSAGE IF QUERY PARAMETER
+    if query is None :
+        return Response({'details': 'query not provided'}, status=400, content_type='application/json')
+    
+    # GET STAFF MEMBERS BASE ON QUERY
+    if 'staff' in types :
+        staff_members = User.objects.filter(
+            Q(is_staff=True) & Q(
+            Q(username__icontains=query) |
+            Q(first_name__icontains=query) |
+            Q(last_name__icontains=query) |
+            Q(staff_title__icontains=query))
+        )
+        staff_count = staff_members.count()
+        staff_members = staff_members[staff_offset: staff_limit + staff_offset]
+    else : 
+        staff_members = None
+        staff_count = 0
 
-        # GET ARTICLES THAT CONTAINS THE QUERY
-        if 'article' in types :
-            articles_first_class = Article.objects.filter(title__icontains=query, content__icontains=query)
-            fclass_ids_q = [Q(id=str(art.id)) for art in articles_first_class]
-            articles_sec_class = Article.objects.filter(Q(title__icontains=query) | Q(content__icontains=query) ).exclude(*fclass_ids_q)
-            articles = articles_first_class | articles_sec_class
-            articles_count = articles.count()
-            articles = articles[offset: limit + offset]
-        else :
-            articles_count = 0
-            articles = None
+    # GET ARTICLES THAT CONTAINS THE QUERY
+    if 'article' in types :
+        articles_first_class = Article.objects.filter(title__icontains=query, content__icontains=query)
+        fclass_ids_q = [Q(id=str(art.id)) for art in articles_first_class]
+        articles_sec_class = Article.objects.filter(Q(title__icontains=query) | Q(content__icontains=query) ).exclude(*fclass_ids_q)
+        articles = articles_first_class | articles_sec_class
+        articles_count = articles.count()
+        articles = articles[offset: limit + offset]
+    else :
+        articles_count = 0
+        articles = None
 
-        # GET CATEGORIES THAT TITLE CONTAINS QUERY
-        if 'category' in types :
-            categories = Category.objects.filter(title__icontains=query)
-        else :
-            categories = None
+    # GET CATEGORIES THAT TITLE CONTAINS QUERY
+    if 'category' in types :
+        categories = Category.objects.filter(title__icontains=query)
+    else :
+        categories = None
 
-        #  SERIALLIZE MODELS DATA WITH COUNT
-        if staff_members is not None :
-            staff_data = {
-                'count': staff_count, 
-                'data': UserSerializer(staff_members, many=True).data
-            }
-        else : staff_data = {}
+    #  SERIALLIZE MODELS DATA WITH COUNT
+    if staff_members is not None :
+        staff_data = {
+            'count': staff_count, 
+            'data': UserSerializer(staff_members, many=True).data
+        }
+    else : staff_data = {}
 
-        if articles is not None :
-            articles_data = {
-                'count': articles_count, 
-                'data': ArticleSerializer(articles, many=True).data
-            }
-        else : articles_data = {}
+    if articles is not None :
+        articles_data = {
+            'count': articles_count, 
+            'data': ArticleSerializer(articles, many=True).data
+        }
+    else : articles_data = {}
 
-        if categories is not None :
-            categories_data = {
-                'count': categories.count(), 
-                'data': CategorySerializer(categories, many=True).data
-            }
-        else : categories_data = {}
+    if categories is not None :
+        categories_data = {
+            'count': categories.count(), 
+            'data': CategorySerializer(categories, many=True).data
+        }
+    else : categories_data = {}
 
-        # SEND DATA RESULTS
-        context = {'staff': staff_data, 'categories': categories_data, 'articles': articles_data}
-        return Response(context, content_type='application/json')
+    # SEND DATA RESULTS
+    context = {'staff': staff_data, 'categories': categories_data, 'articles': articles_data}
+    return Response(context, content_type='application/json')
+
