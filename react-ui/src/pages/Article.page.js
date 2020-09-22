@@ -9,6 +9,7 @@ import { AuthorCard } from '../components/AuthorCard'
 import { CommentsSection } from '../components/Comments'
 import { CommentsProvider } from '../context/CommentContext'
 import { SearchBar } from '../components/SearchBar'
+import { RelatedArticles } from '../components/RelatedArticles'
 
 export const ArticlePage = ({setWallpaper, setTitle, setDefault}) => {
     const { id } = useParams()
@@ -44,12 +45,12 @@ export const ArticlePage = ({setWallpaper, setTitle, setDefault}) => {
     }
 
     useEffect(() => {
+        setData(null)
+        setBlocks(null)
         setWallpaper(null)
         setTitle(null)
         getArticle()
-        console.log('rendred')
-    }, [])
-
+    }, [id])
 
     return (
         <div className='ArticlePage'>
@@ -77,7 +78,9 @@ export const ArticlePage = ({setWallpaper, setTitle, setDefault}) => {
                 <div className='aside'>
                     <SearchBar />
                     
-                    
+                    {data ? (
+                        <RelatedArticles id={data.id} />
+                    ): null }
                 </div>
             </div>
         </div>
