@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 
-import '../styles/ArticlePage.scss'
-
 import { Article } from '../components/Article'
 import { ArticleHeader } from '../components/ArticleHeader'
 import { AuthorCard } from '../components/AuthorCard'

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import '../styles/StaffSearch.scss'
 import { TeamList } from './TeamList'
 
 export const StaffSearch = ({ initData, count, query }) => {

@@ -1,17 +1,7 @@
 @import './mixins.scss';
 
 .ArticlesList {
-    // border: 1px solid green;
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
-
-    // &.table {
-    //     .ArticlesCard:first-child {
-    //         @include mediaQuery(1200px) {
-    //             width: 95% !important;
-    //             margin: 0 auto !important;
-    //         }
-    //     }
-    // }
 }

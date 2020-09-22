@@ -1,8 +1,17 @@
 import React from 'react'
+import { StaffProvider } from '../context/StaffContext'
+
+import '../styles/ManageStaff.scss'
+
+import { Stafflist } from '../components/StaffList'
 
 export const ManageStaff = () => {
-
+    
     return (
-        <div>...you can manage STAFF - Coming soon</div>
+        <div className='ManageStaff'>
+            <StaffProvider>
+                <Stafflist />
+            </StaffProvider>
+        </div>
     )
 }
