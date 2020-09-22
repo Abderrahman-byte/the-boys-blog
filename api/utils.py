@@ -2,11 +2,9 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
 
-# import nltk
 from textblob import TextBlob
 import string, random, os, json, re, time
 from collections import Counter
-# nltk.download()
 
 def getRandomId(length=11) :
     allowed = string.ascii_letters + string.digits
@@ -106,6 +104,4 @@ def get_related_article(article, Article, count=3) :
     results |= fourth_class
     results = results.distinct()[0:count]
 
-    print('title', article.title)
-    print(results)
     return results

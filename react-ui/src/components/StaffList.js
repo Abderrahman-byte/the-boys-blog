@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { StaffContext } from '../context/StaffContext'
 
 import '../styles/StaffList.scss'
+import { StaffTableItem } from './StaffTableItem'
 
 export const Stafflist = () => {
     const { staff } = useContext(StaffContext)
@@ -16,23 +17,13 @@ export const Stafflist = () => {
                     <th>Full name</th>
                     <th>Email</th>
                     <th>Title</th>
+                    <th>Admin</th>
                     <th>Join Date</th>
-                    <th>Is Admin</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                {staff.map(item => {
-                    return (
-                        <tr>
-                            <td>{item.username}</td>
-                            <td>{item.first_name} {item.last_name}</td>
-                            <td>{item.email}</td>
-                            <td>{item.staff_title}</td>
-                            <td>{new Date(item.date_joined).toLocaleString()} </td>
-                            <td>{item.is_superuser ? 'yes': 'no'}</td>
-                        </tr>
-                    )
-                })}
+                {staff.map(item => <StaffTableItem data={item} key={item.id} />)}
             </tbody>
         </table>
     )
