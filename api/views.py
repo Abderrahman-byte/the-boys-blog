@@ -533,6 +533,6 @@ def RelatedArticles(request) :
         context = {'details': ex.__str__()}
         return Response(context, status=400, content_type='application/json')
     
-    related = get_related_article(article, Article)
-    print(related)
-    return Response({}, content_type='application/json')
+    related = get_related_article(article, Article, 4)
+    data = ArticleSerializer(related, many=True).data
+    return Response(data, content_type='application/json')
