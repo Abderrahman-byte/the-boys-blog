@@ -106,4 +106,6 @@ def get_related_article(article, Article, count=3) :
     results |= fourth_class
     results = results.distinct()[0:count]
 
+    print('title', article.title)
+    print(results)
     return results
