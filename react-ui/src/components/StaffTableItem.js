@@ -6,6 +6,7 @@ import { ModelsContext } from '../context/ModelsContext'
 import { StaffContext } from '../context/StaffContext'
 import { ConfirmModel } from './ConfirmModel'
 import { LoadingModel } from './LoadingModel'
+import { StaffFormModel } from './StaffFormModel'
 
 export const StaffTableItem = ({data}) => {
     const { user } = useContext(AuthContext)
@@ -26,6 +27,10 @@ export const StaffTableItem = ({data}) => {
         }
 
         openModel(<ConfirmModel callback={callback} text={warnText} />, true)
+    }
+
+    const editStaffModel = () => {
+        openModel(<StaffFormModel data={data} />, true)
     }
 
     const documentClicked = useCallback((e) => {
@@ -57,7 +62,7 @@ export const StaffTableItem = ({data}) => {
             <td>{data.email}</td>
             <td className='upper'>{data.staff_title}</td>
             <td className='upper'>{data.is_superuser ? 'yes': 'no'}</td>
-            <td>{new Date(data.date_joined).toLocaleString()} </td>
+            <td>{new Date(data.date_joined).toLocaleDateString()} </td>
             <td className='dropdown'>
                 <button onClick={() => setDropdownState(!dropdownOpen)} className='options-btn'>
                     <i className="fas fa-ellipsis-v"></i>                
@@ -68,10 +73,12 @@ export const StaffTableItem = ({data}) => {
                         <i className="far fa-eye"></i>
                         <p>Preview</p>
                     </Link>
-                    <button className='item'>
+
+                    <button onClick={editStaffModel} className='item'>
                         <i className="fas fa-pen"></i>
                         <p>Modifie</p>
                     </button> 
+
                     {user.id !== data.id ? (
                         <button onClick={confirmRemoveStaff} className='item' to='#'>
                             <i className="fas fa-door-open"></i>

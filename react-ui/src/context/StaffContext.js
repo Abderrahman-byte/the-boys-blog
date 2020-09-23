@@ -45,12 +45,35 @@ export const StaffProvider = ({children}) => {
         }
     }
 
+    const editStaff = async (id, data) => {
+        const req = await fetch(`http://localhost:8000/api/user-info/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers : {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`
+            }
+        })
+
+        if(req.status >= 200 && req.status < 300) {
+            const res = await req.json()
+            const dataClone = data.map(item => {
+                if(item.id === id) return res
+                return res
+            })
+            setData([...dataClone])
+        }
+        else {
+            console.error(await req.json())
+        }
+    }
+
     useEffect(() => {
         getStaff()
     }, [])
 
     return (
-        <StaffContext.Provider value={{ removeFromStaff,staff: data }}>
+        <StaffContext.Provider value={{ removeFromStaff, editStaff, staff: data }}>
             {children}
         </StaffContext.Provider>
     )

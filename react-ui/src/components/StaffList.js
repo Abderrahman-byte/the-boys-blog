@@ -2,12 +2,11 @@ import React, { useContext } from 'react'
 import { StaffContext } from '../context/StaffContext'
 
 import '../styles/StaffList.scss'
+
 import { StaffTableItem } from './StaffTableItem'
 
 export const Stafflist = () => {
     const { staff } = useContext(StaffContext)
-
-    console.log(staff)
 
     return (
         <table className='StaffList'>
