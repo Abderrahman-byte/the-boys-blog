@@ -404,6 +404,9 @@ class UserRegisterApi(APIView) :
         return Response(context, status=status, content_type='application/json') 
 
 class UserInfoApi(APIView) :
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsSelfOrReadOnly]
+
     def get(self, request, pk) :
         try : 
             author = User.objects.get(pk=pk)
@@ -415,7 +418,25 @@ class UserInfoApi(APIView) :
 
         serializer = UserSerializer(author)
         return Response(serializer.data, content_type='application/json')
+    
+    def put(self, request, pk) :
+        user = request.user
+        try : 
+            author = User.objects.get(pk=pk)
+        except User.DoesNotExist :
+            return Response({'details': 'User Doesn\'t exist'}, status=404, content_type='application/json')
+        except Exception as ex :
+            context = {'details': ex.__str__()}
+            return Response(context, status=400, content_type='application/json')
 
+        self.check_object_permissions(request, author)
+        try :
+            data = request.data
+            context = UserSerializer(UserSerializer().update(user, author, data)).data
+            return Response(context, content_type='application/json')
+        except Exception as ex :
+            return Response({'details': ex.__str__()}, status=404, content_type='application/json')
+            
 class StaffInfo(APIView) :
     def get(self, request) :
         params = request.query_params

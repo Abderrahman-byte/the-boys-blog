@@ -2,7 +2,6 @@
     border: 1px solid #d3d5da;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
     border-radius: 3px;
-    // overflow: hidden;
     
     td, th {
         padding: 1.5em .75em;
@@ -42,10 +41,11 @@
             position: relative;
             
             .menu {
+                z-index: 1;
                 position: absolute;
                 display: none;
                 top: 70%;
-                right: 50%;
+                right: 20%;
                 border: 1px solid #e4e7ed;
                 border-radius: 5px;
                 background-color: white;
@@ -57,6 +57,8 @@
                 }
 
                 .item {
+                    font-size: 1rem;
+                    letter-spacing: .1em;
                     display: flex;
                     padding: .5em 1em;
                     align-items: center;
@@ -65,6 +67,7 @@
                     border: 0;
                     background-color: transparent;
                     cursor: pointer;
+                    width: 100%;
 
                     i {
                         margin-right: .3em;
@@ -72,6 +75,7 @@
 
                     p {
                         margin-left: .3em;
+                        white-space: nowrap;
                     }
 
                     &:hover {

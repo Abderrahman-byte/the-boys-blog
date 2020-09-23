@@ -26,12 +26,31 @@ export const StaffProvider = ({children}) => {
         closeModel()
     }
 
+    const removeFromStaff = async (id) => {
+        const payload = {staff_title: null, is_superuser: false, is_staff: false, about: null}
+        const req = await fetch(`http://localhost:8000/api/user-info/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(payload),
+            headers : {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`
+            }
+        })
+
+        if(req.status >= 200 && req.status < 300) {
+            setData([...data.filter(item => item.id !== id)])
+        }
+        else {
+            console.error(await req.json())
+        }
+    }
+
     useEffect(() => {
         getStaff()
     }, [])
 
     return (
-        <StaffContext.Provider value={{ staff: data }}>
+        <StaffContext.Provider value={{ removeFromStaff,staff: data }}>
             {children}
         </StaffContext.Provider>
     )

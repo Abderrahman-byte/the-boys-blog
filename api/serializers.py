@@ -48,7 +48,7 @@ class UserSerializer(serializers.ModelSerializer) :
             error_msg = user.unique_error_message(User, (field_name,)).message
             raise Exception(error_msg)
 
-    def update(self, instance, validated_data) :
+    def update(self, user, instance, validated_data) :
         try :
             instance.username = validated_data.get('username', instance.username)
             instance.first_name = validated_data.get('first_name', instance.first_name)
@@ -56,6 +56,10 @@ class UserSerializer(serializers.ModelSerializer) :
             instance.email = validated_data.get('email', instance.email)
             instance.about = validated_data.get('about', instance.email)
             instance.avatar = validated_data.get('avatar', instance.avatar)
+            if user.is_superuser :
+                instance.is_staff = validated_data.get('is_staff', instance.is_staff)
+                instance.staff_title = validated_data.get('staff_title', instance.staff_title)
+                instance.is_superuser = validated_data.get('is_superuser', instance.is_superuser)
             instance.save()
             return instance
         except utils.IntegrityError as ex :
