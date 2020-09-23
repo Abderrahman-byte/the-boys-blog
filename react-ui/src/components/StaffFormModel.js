@@ -5,7 +5,7 @@ import '../styles/StaffFormModel.scss'
 
 import { ModelsContext } from '../context/ModelsContext'
 
-export const StaffFormModel = ({data}) => {
+export const StaffFormModel = ({data, callback, initError}) => {
     const { closeModel } = useContext(ModelsContext)
 
     const [staffTitle, setTitle] = useState(() => data && data.staff_title ? data.staff_title : '')
@@ -95,9 +95,11 @@ export const StaffFormModel = ({data}) => {
 
         if(titleIsVerified && firstNameIsVerified && lastNameIsVerified) {
             const payload = {is_superuser: isSuperuser, first_name: firstName, last_name: lastName, staff_title: staffTitle}
-            console.log(payload)
+            callback(payload)
         }
     }
+
+    useEffect(() => console.log(initError), [initError])
 
     return (
         <form onSubmit={handelSubmit} className='StaffFormModel'>
@@ -148,12 +150,9 @@ export const StaffFormModel = ({data}) => {
             </div>
 
             <div className='form-group'>
-                <label>Admin :</label>
-                <select className='form-select' value={isSuperuser ? 2 : 1 } 
-                onChange={e => Number(e.target.value) === 2 ? setIsSuperUser(true) : setIsSuperUser(false)}>
-                    <option value={1}>No</option>
-                    <option value={2}>Yes</option>
-                </select>
+                <label className='inline'>Admin :</label>
+                <input type='checkbox' checked={isSuperuser} 
+                onChange={e => setIsSuperUser(e.currentTarget.checked)} />
             </div>
 
             <button className='submit'>Save</button>

@@ -10,5 +10,10 @@
 
     .form-group label {
         font-style: italic;
+
+        &.inline {
+            display: inline-block;
+            margin-right: .5em;
+        }
     }
 }

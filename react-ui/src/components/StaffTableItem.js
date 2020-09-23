@@ -11,7 +11,7 @@ import { StaffFormModel } from './StaffFormModel'
 export const StaffTableItem = ({data}) => {
     const { user } = useContext(AuthContext)
     const { openModel, closeModel } = useContext(ModelsContext)
-    const { removeFromStaff } = useContext(StaffContext)
+    const { removeFromStaff, editStaff } = useContext(StaffContext)
 
     const [dropdownOpen, setDropdownState] = useState(false)
     const dropMenuRef = createRef()
@@ -30,7 +30,17 @@ export const StaffTableItem = ({data}) => {
     }
 
     const editStaffModel = () => {
-        openModel(<StaffFormModel data={data} />, true)
+        const callback = async (modified) => {
+            openModel(<LoadingModel />, false)
+            const [isSuccess, errorText] = await editStaff(data.id, modified)
+            if(isSuccess) {
+                closeModel()
+            } else {
+                openModel(<StaffFormModel data={data} callback={callback} initError={errorText} />, true)
+            }
+        }
+
+        openModel(<StaffFormModel data={data} callback={callback} />, true)
     }
 
     const documentClicked = useCallback((e) => {

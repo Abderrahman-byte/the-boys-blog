@@ -45,10 +45,10 @@ export const StaffProvider = ({children}) => {
         }
     }
 
-    const editStaff = async (id, data) => {
+    const editStaff = async (id, payload) => {
         const req = await fetch(`http://localhost:8000/api/user-info/${id}`, {
             method: 'PUT',
-            body: JSON.stringify(data),
+            body: JSON.stringify(payload),
             headers : {
                 'Content-Type': 'application/json',
                 'Authorization': `Token ${token}`
@@ -59,12 +59,15 @@ export const StaffProvider = ({children}) => {
             const res = await req.json()
             const dataClone = data.map(item => {
                 if(item.id === id) return res
-                return res
+                return item
             })
             setData([...dataClone])
+            return [true, null]
         }
         else {
-            console.error(await req.json())
+            const data = await req.json()
+            console.error(data)
+            return [false, data.details ? data.details: 'Something went wrong']
         }
     }
 
