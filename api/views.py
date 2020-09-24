@@ -353,7 +353,7 @@ class UserAuthApi(APIView) :
     def put(self, request) :
         user = request.user
         data = request.data
-        updated_user = UserSerializer().update(user, data)
+        updated_user = UserSerializer().update(user, user, data)
         serializer = UserSerializer(updated_user)
         return Response(serializer.data, content_type='application/json')
 
@@ -366,7 +366,7 @@ class UserAvatarUpload(APIView) :
         avatar = request.FILES['avatar']
         avatar_url = upload_file(avatar, 'users')
         data = {'avatar': avatar_url}
-        UserSerializer().update(user, data)
+        UserSerializer().update(user, user, data)
         return Response(status=204)
 
 class UserLoginApi(APIView) :
@@ -557,3 +557,34 @@ def RelatedArticles(request) :
     related = get_related_article(article, Article, 4)
     data = ArticleSerializer(related, many=True).data
     return Response(data, content_type='application/json')
+
+@api_view(['POST'])
+def AddStaffView(request) :
+    data = request.data
+    username = data.get('username')
+    staff_title = data.get('staff_title')
+    
+    try :
+        user_ = User.objects.get(username=username)
+    except User.DoesNotExist :
+        context = {'details': f'User with username {username} Doent exist'}
+        return Response(context, status=404, content_type='application/json')
+ 
+    if user_.is_staff :
+        context = {'details': f'User {username} is already a staff member'}
+        return Response(context, status=404, content_type='application/json')
+    else :
+        print(data)
+        try :
+            user_.staff_title = staff_title
+            user_.about = user_.email
+            user_.first_name = user_.username
+            user_.last_name = user_.username
+            user_.is_staff = True
+            user_.save()
+
+            context = UserSerializer(user_).data
+            return Response(context, status=200, content_type='application/json')
+        except Exception as ex :
+            context = {'details': ex.__str__()}
+            return Response(context, status=400, content_type='application/json')

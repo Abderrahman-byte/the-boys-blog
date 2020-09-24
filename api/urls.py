@@ -18,6 +18,7 @@ urlpatterns = [
     path('user-info/<str:pk>', views.UserInfoApi.as_view(), name='user-info'),
     path('user/avatar', views.UserAvatarUpload.as_view(), name='user-avatar'),
     path('staff', views.StaffInfo.as_view(), name='staff-info'),
+    path('staff/add', views.AddStaffView, name='add-staff'),
 
     # Authentication
     path('login', views.UserLoginApi.as_view(), name='user-login'),
