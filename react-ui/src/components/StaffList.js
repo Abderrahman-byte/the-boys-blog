@@ -23,6 +23,11 @@ export const Stafflist = () => {
             </thead>
             <tbody>
                 {staff.map(item => <StaffTableItem data={item} key={item.id} />)}
+                {staff && staff.length <= 0 ? (
+                    <tr>
+                        <td colSpan='7' className='message'><p>There is no staff members</p></td>
+                    </tr>
+                ) : null}
             </tbody>
         </table>
     )

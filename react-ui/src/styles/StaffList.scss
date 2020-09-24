@@ -24,6 +24,15 @@
         border-collapse: collapse;
     }
 
+    td.message {
+        p {
+            text-align: center;
+            letter-spacing: .15em;
+            font-size: 1.2rem;
+            text-transform: capitalize;
+        }
+    }
+
     .StaffTableItem {
         .upper {
             text-transform: capitalize;
