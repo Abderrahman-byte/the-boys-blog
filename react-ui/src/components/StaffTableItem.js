@@ -36,7 +36,7 @@ export const StaffTableItem = ({data}) => {
             if(isSuccess) {
                 closeModel()
             } else {
-                openModel(<StaffFormModel data={data} callback={callback} initError={errorText} />, true)
+                openModel(<StaffFormModel data={{...data, ...modified}} callback={callback} initError={errorText} />, true)
             }
         }
 

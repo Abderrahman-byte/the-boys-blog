@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import '../styles/StaffFormModel.scss'
@@ -99,8 +99,6 @@ export const StaffFormModel = ({data, callback, initError}) => {
         }
     }
 
-    useEffect(() => console.log(initError), [initError])
-
     return (
         <form onSubmit={handelSubmit} className='StaffFormModel'>
             <div className='form-header'>
@@ -154,6 +152,12 @@ export const StaffFormModel = ({data, callback, initError}) => {
                 <input type='checkbox' checked={isSuperuser} 
                 onChange={e => setIsSuperUser(e.currentTarget.checked)} />
             </div>
+            
+            {initError ? (
+                <div className='error-div'>
+                    <p>{initError}</p>
+                </div>
+            ) : null}
 
             <button className='submit'>Save</button>
         </form>
@@ -161,5 +165,7 @@ export const StaffFormModel = ({data, callback, initError}) => {
 }
 
 StaffFormModel.propTypes = {
-    data: PropTypes.object
+    data: PropTypes.object,
+    callback: PropTypes.func.isRequired,
+    initError: PropTypes.string
 }
