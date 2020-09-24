@@ -13,8 +13,9 @@ export const StaffProvider = ({children}) => {
     const [data, setData] = useState([])
     
     const getStaff = async () => {
-        openModel(<LoadingModel />, false)
+        if(!user || !user.id || !token) return
 
+        openModel(<LoadingModel />, false)
         const req = await fetch(`http://localhost:8000/api/staff?limit=1000`)
 
         if(req.status >= 200 && req.status < 300) {
@@ -27,6 +28,8 @@ export const StaffProvider = ({children}) => {
     }
 
     const removeFromStaff = async (id) => {
+        if(!user || !user.id || !token) return
+
         const payload = {staff_title: null, is_superuser: false, is_staff: false, about: null}
         const req = await fetch(`http://localhost:8000/api/user-info/${id}`, {
             method: 'PUT',
@@ -46,6 +49,8 @@ export const StaffProvider = ({children}) => {
     }
 
     const editStaff = async (id, payload) => {
+        if(!user || !user.id || !token) return
+
         const req = await fetch(`http://localhost:8000/api/user-info/${id}`, {
             method: 'PUT',
             body: JSON.stringify(payload),
@@ -72,6 +77,8 @@ export const StaffProvider = ({children}) => {
     }
 
     const addStaff = async (payload) => {
+        if(!user || !user.id || !token) return
+
         const req = await fetch(`http://localhost:8000/api/staff/add`, {
             method: 'POST',
             body: JSON.stringify(payload),

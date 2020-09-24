@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 import '../styles/MainPage.scss'
 
@@ -64,6 +64,7 @@ export const MainPage = () => {
                     <ArticlePage setDefault={setDefault} setWallpaper={setWallpaperImg} setTitle={setHeaderText} />
                 </Route>
 
+                <Route render={() => <Redirect to='/NotFound' />} />
                 
             </Switch>
         </div>

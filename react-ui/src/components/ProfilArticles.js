@@ -7,7 +7,7 @@ import { ArticlesList } from './ArticlesList'
 export const ProfilArticles = ({profil}) => {
     const [data, setData] = useState([])
     const [currentPage, setPage] = useState(1)
-    const [itemsPerPage] = useState(5)
+    const [itemsPerPage] = useState(4)
 
     const [isMore, setMoreState] = useState(true)
     const [isLoading, setLoadingState] = useState(true)
@@ -15,6 +15,7 @@ export const ProfilArticles = ({profil}) => {
     const getArticles = async () => {
         if(!profil || !profil.id || !profil.articles_count) {
             setMoreState(false)
+            setLoadingState(false)
             return
         }
 
@@ -65,7 +66,13 @@ export const ProfilArticles = ({profil}) => {
                 count={profil.articles_count} 
                 removeItem={removeArticle}
             /> : null}
-            
+
+            {(!isLoading && !data) || (!isLoading && data.length <= 0) || (!isMore && data.length <= 0) ? (
+                <div className='text-message center'>
+                    <p>There is no articles in this profil page.</p>
+                </div>
+            ) : null }
+        
             {isMore && !isLoading ? (<button className='btn btn-elt btn-primary more' onClick={nextPage}>More</button>) : null}
         </div>
     )

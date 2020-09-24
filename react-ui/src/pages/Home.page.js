@@ -75,6 +75,12 @@ export const HomePage = ({setDefault}) => {
                         table={true}
                     />) : null}
 
+                    {(!isLoading && !data) || (!isLoading && data.length <= 0) || (!isMore && data.length <= 0) ? (
+                        <div className='text-message center'>
+                            <p>There is no articles in this profil page.</p>
+                        </div>
+                    ) : null }
+
                     {isMore && !isLoading ? (<button className='btn btn-elt btn-primary more' onClick={nextPage}>More</button>) : null}
                 </div>
                 <div className='aside'>
