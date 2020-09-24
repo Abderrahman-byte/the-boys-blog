@@ -6,7 +6,7 @@ import { AuthContext } from '../context/AuthContext'
 import { ModelsContext } from '../context/ModelsContext'
 
 export const EditCommentModel = ({initContent, id, callback}) => {
-    const { user, token } = useContext(AuthContext)
+    const { token } = useContext(AuthContext)
     const { closeModel } = useContext(ModelsContext)
     const [content, setContent] = useState(initContent)
     const [error, setError] = useState(null)

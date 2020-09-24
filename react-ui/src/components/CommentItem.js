@@ -93,7 +93,7 @@ export const CommentItem = ({data}) => {
     return (
         <div className={`CommentItem ${privileges.includes('author') ? 'author' : ''}`}>
             <div className='profil'>
-                <img className='avatar' src={`http://localhost:8000${data.author.avatar}`} />
+                <img className='avatar' src={`http://localhost:8000${data.author.avatar}`} alt={data.author.username} />
                 <span>{getTitle()} </span>
             </div>
 
@@ -101,7 +101,7 @@ export const CommentItem = ({data}) => {
                 <p className='name'>
                     {data.author.first_name && data.author.last_name ? 
                     `${data.author.first_name} ${data.author.last_name}`: 
-                    '@' + data.author.username} {privileges.includes('author') ? (<span className='title'>⚫The Author</span>) : null}
+                    '@' + data.author.username} {privileges.includes('author') ? (<span role="img" aria-label='author-title' className='title'>⚫The Author</span>) : null}
                 </p>
                 <p className='posted_date'>{formatDate(data.posted_date)}</p>
                 <div className='content'>{data.content.split('\n').map((line, i) => <p key={i}>{line}</p>)}</div>

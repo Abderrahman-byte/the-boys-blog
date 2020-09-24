@@ -8,7 +8,7 @@ import { AuthContext } from '../context/AuthContext'
 export const Header = () => {
     const { user, isAuthenticated } = useContext(AuthContext)
     const { pathname } = useLocation()
-    const headerRef = useRef(null)
+    const headerRef = useRef()
     const [navStatus, setNavStatus] = useState(false)
 
     const toggleDropdown = e => {

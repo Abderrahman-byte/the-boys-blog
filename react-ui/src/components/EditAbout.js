@@ -39,7 +39,7 @@ export const EditAbout = ({ profil }) => {
 
         if(req.status >= 200 && req.status < 300) {
             const data = await req.json()
-            setAbout(inputAboutValue.split('\n').map((t, i) => (<p key={i}>{t}</p>)))
+            setAbout(inputAboutValue.split('\n').map((t, i) => (<span key={i}>{t}</span>)))
             setUser(data)
             setInputError(false)
             toggleEditable()
@@ -56,7 +56,7 @@ export const EditAbout = ({ profil }) => {
     }, [editable])
 
     return (
-        <div className='EditAbout'>
+        <div className={`EditAbout${inputError ? ' error': ''}`}>
             <p className={editable? 'about hidden': 'about'}>{ about }</p>
             <button onClick={toggleEditable} className={editable? 'edit-btn hidden': 'edit-btn'}><i className="fas fa-pen"></i></button>
             <textarea onBlur={save} onChange={e => setInputAboutValue(e.target.value)} ref={aboutInput} className={editable? 'input-about': 'input-about hidden'} defaultValue={ inputAboutValue }></textarea>

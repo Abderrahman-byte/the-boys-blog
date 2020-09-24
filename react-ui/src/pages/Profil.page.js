@@ -6,7 +6,6 @@ import '../styles/ProfilPage.scss'
 import { ProfilHeader } from '../components/ProfilHeader'
 import { ProfilAbout } from '../components/ProfilAbout'
 import { ProfilArticles } from '../components/ProfilArticles'
-import { NotFound } from './NotFound'
 
 export const ProfilPage = ({ profil }) => {
     const match = useRouteMatch()

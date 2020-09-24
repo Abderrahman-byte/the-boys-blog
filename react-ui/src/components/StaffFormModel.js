@@ -77,7 +77,7 @@ export const StaffFormModel = ({data, callback, initError}) => {
     const isChanged = () => {
         return !(data.is_superuser === isSuperuser 
         && data.first_name === firstName 
-        && data.last_name == lastName 
+        && data.last_name === lastName 
         && data.staff_title === staffTitle)
     }
 

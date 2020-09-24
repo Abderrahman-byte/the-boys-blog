@@ -93,8 +93,8 @@ export const AddCategoryForm = () => {
                     placeholder='Short name' 
                     value={shortTitle}
                     onChange={e => {
-                        let str = e.target.value.replace(/\s+/g, '-').replace(/\-+/, '-')
-                        setShortTitle(str)
+                        let str = e.target.value.replace(/\s+/g, '-').replace(/-+/g, '-')
+                        setShortTitle(str.toLowerCase())
                         setErrors([])
                     }}
                     maxLength={17}

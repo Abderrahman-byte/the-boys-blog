@@ -52,5 +52,13 @@
                 opacity: 1;
             }
         }
+
+        &.error {
+            .input-about {
+                border-color: rgb(255, 35, 35);
+                border-width: 3px;
+                border-radius: 8px;
+            }
+        }
     }
 }

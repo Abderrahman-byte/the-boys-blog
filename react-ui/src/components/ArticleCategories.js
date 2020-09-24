@@ -11,7 +11,7 @@ export const ArticleCategories = ({init, setGlobal}) =>  {
     const compare = (arr1, arr2) => {
         if(!(arr1 instanceof Array)) return false
         if(!(arr2 instanceof Array)) return false
-        return arr1.length  === arr1.length && arr1.every(v => arr2.includes(v)) && arr2.every(v => arr1.includes(v))
+        return arr1.length  === arr2.length && arr1.every(v => arr2.includes(v)) && arr2.every(v => arr1.includes(v))
     }
 
     const toggleCategory = (id) => {

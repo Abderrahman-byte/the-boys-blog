@@ -6,7 +6,7 @@ export const CommentSkelton = () => {
     return (
         <div className='CommentItem CommentSkelton'>
             <div className='profil'>
-                <img className='avatar' src={`http://localhost:8000/media/users/skeleton.png`} />
+                <img className='avatar' src={`http://localhost:8000/media/users/skeleton.png`} alt='skeleton-avatar' />
                 <span></span>
             </div>
 
