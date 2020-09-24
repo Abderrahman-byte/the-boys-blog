@@ -9,7 +9,7 @@ import { WarningModel } from '../components/WarningModel'
 import { SearchBar } from '../components/SearchBar'
 import { TopArticles } from '../components/TopArticles'
 
-export const CategoriesPage = ({setDefault, setHeaderText, setWallpaperImg}) => {
+export const CategoriesPage = ({setDefault, setHeaderText}) => {
     const { categoriesList } = useContext(CategoriesContext)
     const { openModel, closeModel } = useContext(ModelsContext)
 
