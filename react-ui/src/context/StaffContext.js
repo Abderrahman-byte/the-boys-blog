@@ -71,10 +71,27 @@ export const StaffProvider = ({children}) => {
         }
     }
 
-    const addStaff = async ({username, staff_title}) => {
-        console.log('add staff', username, staff_title)
+    const addStaff = async (payload) => {
+        const req = await fetch(`http://localhost:8000/api/staff/add`, {
+            method: 'POST',
+            body: JSON.stringify(payload),
+            headers : {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`
+            }
+        })
 
-        return [false, 'User with this username doesn\'t exist.']
+        if(req.status >= 200 && req.status < 300) {
+            const res = await req.json()
+            console.log(res)
+            setData([...data, res])
+            return [true, null]
+        }
+        else {
+            const data = await req.json()
+            console.error(data)
+            return [false, data.details ? data.details: 'Something went wrong']
+        }
     }
 
     useEffect(() => {
