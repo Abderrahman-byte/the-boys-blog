@@ -94,4 +94,30 @@
             }
         }
     }
+
+    .last-row {
+        td {
+            padding-bottom: .75em;
+            padding-top: .75em;
+
+            .add-btn {
+                padding: .25em .75em;
+                background-color: white;
+                border: 1px solid #d3d5da;
+                border-radius: 3px;
+                font-size: 1.1rem;
+                color: #d3d5da;
+                font-weight: 100;
+                transition: .4s ease-in-out;
+                cursor: pointer;
+                text-transform: capitalize;
+                letter-spacing: .1em;
+
+                &:hover {
+                    color: #2E6EA6;
+                    border-color: #2E6EA6;
+                }
+            }
+        }
+    }
 }
