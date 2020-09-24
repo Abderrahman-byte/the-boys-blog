@@ -31,7 +31,6 @@ export const CategoriesProvider = ({children}) => {
         })
 
         if(req.status >= 200 && req.status < 300) {
-            console.log('deleted', id)
             setCategoriesData([...categoriesList.filter(item => item.id !== id)]) 
         }
     }

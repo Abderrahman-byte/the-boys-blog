@@ -16,7 +16,7 @@ export const RelatedArticles = ({id}) => {
             const results = await req.json()
             setData(results)
         } else {
-            console.error(await req.json())
+            // console.error(await req.json())
         }
 
         setLoadingState(false)

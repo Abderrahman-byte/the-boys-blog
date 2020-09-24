@@ -23,7 +23,7 @@ export const OverviewDiv = ({init, setGlobal}) => {
                 setGlobal(null)
             } else {
                 const data = await req.text()
-                console.log(data)
+                // console.error(data)
             }
         }
     }
@@ -44,7 +44,7 @@ export const OverviewDiv = ({init, setGlobal}) => {
                 if(setGlobal) setGlobal(data.file.url)
             } else {
                 const data = await req.text()
-                console.error(data)
+                // console.error(data)
             }
             setTimeout(closeModel, 1000)
         }

@@ -18,7 +18,6 @@ export const ArticlesSearch = ({ initData, count, query }) => {
 
         if(req.status >= 200 && req.status < 300) {
             const response = await req.json()
-            console.log(response)
             if(response.articles && response.articles.data) {
                 setData([...data, ...response.articles.data])
                 if(response.articles.data.length < itemsPerPage || response.articles.data.length + data.length >= count) setMoreState(false)
@@ -27,7 +26,7 @@ export const ArticlesSearch = ({ initData, count, query }) => {
             }
         } else {
             setMoreState(false)
-            console.log(await req.json())
+            // console.log(await req.json())
         }
 
         setLoadingState(false)
@@ -47,8 +46,6 @@ export const ArticlesSearch = ({ initData, count, query }) => {
         }
 
     }, [currentPage])
-
-    useEffect(() => console.log(data), [])
 
     return (
         <div className='ArticlesSearch'>

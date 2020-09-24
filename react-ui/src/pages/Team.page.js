@@ -33,7 +33,7 @@ export const TeamPage = ({setDefault, setWallpaperImg, setHeaderText}) => {
             setDataCount(resCount)
             setData([...data, ...resData])
         } else {
-            console.log(await req.json())
+            // console.error(await req.json())
         }
         setLoadingState(false)
         closeModel()

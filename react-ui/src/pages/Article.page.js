@@ -24,7 +24,7 @@ export const ArticlePage = ({setWallpaper, setTitle, setDefault}) => {
 
             try { content = JSON.parse(data.content) }
             catch(err) {
-                console.error(err)
+                // console.error(err)
                 content = {}
             }
 

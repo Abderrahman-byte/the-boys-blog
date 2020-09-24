@@ -33,7 +33,6 @@ export const SearchPage = ({setDefault}) => {
 
         if(req.status >= 200 && req.status < 300) {
             const data = await req.json()
-            console.log(data)
             if(data.articles && data.articles.count > 0 && data.articles.data) {
                 setArticles(data.articles.data)
                 setArticlesCount(data.articles.count)
@@ -49,7 +48,7 @@ export const SearchPage = ({setDefault}) => {
                 setCategoriesCount(data.categories.count)
             }
         } else {
-            console.log(await req.json())
+            // console.error(await req.json())
         }
         setLoadingState(false)
     }

@@ -26,7 +26,7 @@ export const StaffSearch = ({ initData, count, query }) => {
             }
         } else {
             setMoreState(false)
-            console.log(await req.json())
+            // console.error(await req.json())
         }
 
         setLoadingState(false)

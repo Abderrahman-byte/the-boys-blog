@@ -105,7 +105,6 @@ export const RegisterForm = () => {
         }
         const req = await fetch('http://localhost:8000/api/register', reqOptions)
         const data = await req.json()
-        console.log(data)
 
         if(req.status >= 200 && req.status < 300) {
             if(data.token) {

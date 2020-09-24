@@ -22,7 +22,7 @@ export const StaffProvider = ({children}) => {
             const result = await req.json()
             if(result && result.data && result.count > 0) setData([...result.data])
         } else {
-            console.log(await req.json())
+            // console.error(await req.json())
         }
         closeModel()
     }
@@ -44,7 +44,7 @@ export const StaffProvider = ({children}) => {
             setData([...data.filter(item => item.id !== id)])
         }
         else {
-            console.error(await req.json())
+            // console.error(await req.json())
         }
     }
 
@@ -71,7 +71,7 @@ export const StaffProvider = ({children}) => {
         }
         else {
             const data = await req.json()
-            console.error(data)
+            // console.error(data)
             return [false, data.details ? data.details: 'Something went wrong']
         }
     }
@@ -90,13 +90,12 @@ export const StaffProvider = ({children}) => {
 
         if(req.status >= 200 && req.status < 300) {
             const res = await req.json()
-            console.log(res)
             setData([...data, res])
             return [true, null]
         }
         else {
             const data = await req.json()
-            console.error(data)
+            // console.error(data)
             return [false, data.details ? data.details: 'Something went wrong']
         }
     }
