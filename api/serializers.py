@@ -54,7 +54,7 @@ class UserSerializer(serializers.ModelSerializer) :
             instance.first_name = validated_data.get('first_name', instance.first_name)
             instance.last_name = validated_data.get('last_name', instance.last_name)
             instance.email = validated_data.get('email', instance.email)
-            instance.about = validated_data.get('about', instance.email)
+            instance.about = validated_data.get('about', instance.about)
             instance.avatar = validated_data.get('avatar', instance.avatar)
             if user.is_superuser :
                 instance.is_staff = validated_data.get('is_staff', instance.is_staff)

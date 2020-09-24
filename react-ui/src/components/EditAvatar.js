@@ -1,12 +1,18 @@
 import React, { useState, useRef, useEffect, useContext } from 'react'
+
 import { AuthContext } from '../context/AuthContext'
+import { ModelsContext } from '../context/ModelsContext'
+import { LoadingModel } from './LoadingModel'
 
 export const EditAvatar = ({profil}) => {
-    const { token } = useContext(AuthContext)
+    const { token, editAvatar } = useContext(AuthContext)
+    const { openModel, closeModel } = useContext(ModelsContext)
+
     const [avatarSrc, setAvatarSrc] = useState(`http://localhost:8000${profil.avatar}`)
     const avatarFileInput = useRef(null)
 
     const updateImage = async () => {
+        openModel(<LoadingModel />, false)
         const file = avatarFileInput.current.files[0]
         const formData = new FormData()
         formData.append('avatar', file)
@@ -18,8 +24,18 @@ export const EditAvatar = ({profil}) => {
             }
         })
 
-        console.log(req.status)
+        try {
+            const data = await req.json()
+            if(data && data.avatar && data.avatar !== profil.avatar) {
+                editAvatar(data.avatar)
+            }
+        } catch (err) {
+            console.error(err)
+        }
+        
+        setTimeout(closeModel, 1000)
     }
+
     useEffect(() => {
         if(avatarFileInput.current !== null && avatarFileInput.current.files.length > 0) {
             updateImage()

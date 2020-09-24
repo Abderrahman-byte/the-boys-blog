@@ -39,6 +39,10 @@ export const AuthProvider = ({children}) => {
         setUser(null)
     }
 
+    const editAvatar = (url) => {
+        setUser({...user, avatar: url})
+    }
+
     useEffect(() => {
         initUser()
     }, [])
@@ -51,7 +55,8 @@ export const AuthProvider = ({children}) => {
             setUser,
             setAuth,
             setToken,
-            logout
+            logout,
+            editAvatar
         }}>
             {children}
         </AuthContext.Provider>

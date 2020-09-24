@@ -366,8 +366,8 @@ class UserAvatarUpload(APIView) :
         avatar = request.FILES['avatar']
         avatar_url = upload_file(avatar, 'users')
         data = {'avatar': avatar_url}
-        UserSerializer().update(user, user, data)
-        return Response(status=204)
+        context = UserSerializer(UserSerializer().update(user, user, data)).data
+        return Response(context, status=201, content_type='application/json')
 
 class UserLoginApi(APIView) :
 
