@@ -5,14 +5,25 @@ import { StaffContext } from '../context/StaffContext'
 import '../styles/StaffList.scss'
 
 import { AddStaffModel } from './AddStaffModel'
+import { LoadingModel } from './LoadingModel'
 import { StaffTableItem } from './StaffTableItem'
 
 export const Stafflist = () => {
-    const { staff } = useContext(StaffContext)
-    const { openModel} = useContext(ModelsContext)
+    const { staff, addStaff } = useContext(StaffContext)
+    const { openModel, closeModel } = useContext(ModelsContext)
     
     const AddStaff = () => {
-        openModel(<AddStaffModel />, true)
+        const callback = async (payload) => {
+            openModel(<LoadingModel />, false)
+            const [success, errorText] = await addStaff(payload)
+            if(success) {
+                closeModel()
+            } else {
+                openModel(<AddStaffModel initData={payload} callback={callback} initError={errorText} />, true)
+            }
+        }
+
+        openModel(<AddStaffModel callback={callback} />, true)
     }
 
     return (

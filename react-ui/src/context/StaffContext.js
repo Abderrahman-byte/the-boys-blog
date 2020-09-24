@@ -71,12 +71,18 @@ export const StaffProvider = ({children}) => {
         }
     }
 
+    const addStaff = async ({username, staff_title}) => {
+        console.log('add staff', username, staff_title)
+
+        return [false, 'User with this username doesn\'t exist.']
+    }
+
     useEffect(() => {
         getStaff()
     }, [])
 
     return (
-        <StaffContext.Provider value={{ removeFromStaff, editStaff, staff: data }}>
+        <StaffContext.Provider value={{ removeFromStaff, editStaff, addStaff, staff: data }}>
             {children}
         </StaffContext.Provider>
     )

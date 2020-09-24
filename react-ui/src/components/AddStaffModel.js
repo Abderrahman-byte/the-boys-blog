@@ -46,7 +46,7 @@ export const AddStaffModel = ({initData, callback, initError}) => {
 
         if(titleVericated && nameVericated) {
             const payload = {username, staff_title: staffTitle}
-            console.log(payload)
+            callback(payload)
         }
     }
 
@@ -64,7 +64,7 @@ export const AddStaffModel = ({initData, callback, initError}) => {
                     placeholder='Username of an existing user'
                     onChange={e => {
                         setUsernameError(null)
-                        setStaffTitle(e.target.value)
+                        setUsername(e.target.value)
                     }}
                 />
                 {usernameError ? (
