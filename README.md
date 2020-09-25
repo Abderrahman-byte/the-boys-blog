@@ -33,7 +33,8 @@ pipenv sync
 ```shell
 ./manage.py makemigrations
 ./manage.py migrate
-./manage.py collectstatic
+cd react-ui && npm install && npm run build
+cd .. && ./manage.py collectstatic
 ```
 
 * **Start production server**
