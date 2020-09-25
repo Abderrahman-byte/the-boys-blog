@@ -8,7 +8,7 @@ DEMO : ```none```
 ## To Be Done Later :
 
 - [ ] Add ```Helmet``` for front-end headers.
-- [ ] Change favicon.
+- [*] Change favicon.
 - [ ] Add Footer.
 - [ ] ```contact``` and ```about``` pages.
 - [ ] ```settings.py``` must be changed to adapte with production envirement.
