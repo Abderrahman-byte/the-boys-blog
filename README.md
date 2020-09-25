@@ -8,6 +8,7 @@ DEMO : ```none```
 ## To Be Done Later :
 
 - [ ] ```contact``` and ```about``` pages.
+- [ ] ```settings.py``` must be changed to adapte with production envirement.
 
 ## Deployement steps :
 
