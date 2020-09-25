@@ -9,8 +9,6 @@ verify_ssl = true
 django = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
-validate-email = "*"
-py3dns = "*"
 nltk = "*"
 textblob = "*"
 

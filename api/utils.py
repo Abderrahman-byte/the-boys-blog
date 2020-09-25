@@ -2,6 +2,7 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
 
+from urllib import parse
 from textblob import TextBlob
 import string, random, os, json, re, time
 from collections import Counter
@@ -105,3 +106,34 @@ def get_related_article(article, Article, count=3) :
     results = results.distinct()[0:count]
 
     return results
+
+def media_path(path) :
+    return path.lstrip('/').lstrip('media').lstrip('/')
+
+def get_media_list (article) :
+    media = list()
+    server_url = parse.urlparse(settings.NETLOC)
+    host = server_url.netloc
+
+    if article.overview is not None and article.overview != '/media/images/placeholder.jpg':
+        overview_parsed = parse.urlparse(article.overview)
+        if host == overview_parsed.netloc : media.append(media_path(overview_parsed.path))
+
+    try :
+        content = json.loads(article.content).get('blocks')
+        content = list(filter(lambda block : block.get('type') == 'image', content))
+        
+        for block in content :
+            if block.get('type') == 'image' and block.get('data') is not None :
+                data = block.get('data') or {}
+                file_ = data.get('file') or {}
+                url = file_.get('url')
+                
+            url_parsed = parse.urlparse(url)
+            if host != url_parsed.netloc : break
+            media.append(media_path(url_parsed.path))
+
+    except Exception as ex :
+        print(ex)
+
+    return media

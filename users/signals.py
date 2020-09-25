@@ -23,10 +23,16 @@ def removeUselessFiles(sender, instance, *args, **kwargs) :
     if user.avatar != '/media/users/default-user.png' and user.avatar != instance.avatar :
         path = user.avatar.lstrip('/').lstrip('media').lstrip('/')
         full_path = os.path.join(settings.MEDIA_ROOT, path)
-        os.remove(full_path)
-
+        try :
+            os.remove(full_path)
+        except :
+            pass
+        
 @receiver(post_delete, sender=User)
 def removeUserFiles(sender, instance, *args, **kwargs) :
     path = instance.avatar.lstrip('/').lstrip('media').lstrip('/')
     full_path = os.path.join(settings.MEDIA_ROOT, path)
-    os.remove(full_path)
+    try :
+        os.remove(full_path)
+    except :
+        pass
