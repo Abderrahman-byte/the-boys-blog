@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-config = json.loads(open(os.path.join(BASE_DIR, 'conf.json')).read())
+# config = json.loads(open(os.path.join(BASE_DIR, 'conf.json')).read())
 
 # Application definition
 
@@ -157,16 +157,16 @@ if DEBUG :
     ]
 
 # Email server settings
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST = 'smtp.gmail.com'
 
-EMAIL_HOST_USER = config.get('mail').get('EMAIL_HOST_USER')
+# EMAIL_HOST_USER = config.get('mail').get('EMAIL_HOST_USER')
 
-EMAIL_HOST_PASSWORD = config.get('mail').get('EMAIL_HOST_PASSWORD')
+# EMAIL_HOST_PASSWORD = config.get('mail').get('EMAIL_HOST_PASSWORD')
 
-EMAIL_PORT = 587
+# EMAIL_PORT = 587
 
-EMAIL_USE_TLS = True
+# EMAIL_USE_TLS = True
 
-DEFAULT_FROM_EMAIL = 'the_boys_blog@info.com'
+# DEFAULT_FROM_EMAIL = 'the_boys_blog@info.com'
